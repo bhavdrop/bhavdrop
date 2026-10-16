@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online Shopping for Men, Women & Sunday Vault Drops | BHAVDROP</title>
+  <title>BhavDrop | Neo-Streetwear & Sunday Vault Drops</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Inter & Space Grotesk -->
+  <!-- Google Fonts: Syne (Editorial Headings) + Plus Jakarta Sans (Modern Body) + JetBrains Mono (Prices/Timers) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
   
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -21,20 +21,38 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            heading: ['Inter', 'sans-serif'],
-            mono: ['Space Grotesk', 'monospace'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Syne"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            brand: {
-              red: '#e11b22',
-              darkRed: '#b91319',
-              teal: '#00838f',
-              darkTeal: '#006064',
-              bgLight: '#f8f9fa',
-              borderLight: '#e9ecef',
-              emerald: '#10b981'
+            bhav: {
+              bg: '#0a0c10',
+              card: '#11141b',
+              cardLight: '#181c25',
+              border: '#232834',
+              borderLight: '#303746',
+              emerald: '#00e599',
+              emeraldGlow: '#00e59933',
+              coral: '#ff4655',
+              coralGlow: '#ff465533',
+              muted: '#7a8499',
+              light: '#f1f4f9'
             }
+          },
+          keyframes: {
+            ticker: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' }
+            },
+            pulseSubtle: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0.6' }
+            }
+          },
+          animation: {
+            ticker: 'ticker 24s linear infinite',
+            'pulse-subtle': 'pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
           }
         }
       }
@@ -42,675 +60,393 @@
   </script>
 
   <style>
-    body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+    body {
+      background-color: #0a0c10;
+      color: #f1f4f9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .font-syne { font-family: 'Syne', sans-serif; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .nav-tab.active {
-      color: #e11b22;
-      border-bottom: 3px solid #e11b22;
+    
+    /* Subtle Cyber Grid Background Overlay */
+    .cyber-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+    
+    /* Glowing button borders */
+    .glow-emerald {
+      box-shadow: 0 0 25px -4px rgba(0, 229, 153, 0.35);
+    }
+    .glow-coral {
+      box-shadow: 0 0 25px -4px rgba(255, 70, 85, 0.4);
     }
   </style>
 </head>
-<body class="bg-white text-zinc-900 min-h-screen flex flex-col selection:bg-red-500 selection:text-white">
+<body class="cyber-grid selection:bg-bhav-emerald selection:text-black">
 
-  <!-- ==================== TOP ANNOUNCEMENT BAR ==================== -->
-  <div class="bg-zinc-900 text-white text-[11px] font-semibold py-1.5 px-4 text-center tracking-wide flex items-center justify-center gap-2">
-    <span>🔥 LIVE SUNDAY VAULT DROP UNLOCKS @ 8:00 PM IST</span>
-    <span class="text-zinc-500">•</span>
-    <span>FLAT ₹70 EXPRESS ALL-INDIA DELIVERY</span>
-    <span class="hidden md:inline text-zinc-500">•</span>
-    <span class="hidden md:inline">USE CODE <strong class="text-emerald-400 font-mono">VIPFREE</strong> FOR FREE SHIPPING</span>
+  <!-- ==================== LIVE PROMO TICKER STRIP ==================== -->
+  <div class="bg-gradient-to-r from-bhav-card via-black to-bhav-card border-b border-bhav-border/80 text-[11px] font-semibold tracking-wider uppercase overflow-hidden py-2 select-none">
+    <div class="flex whitespace-nowrap animate-ticker">
+      <div class="flex items-center gap-8 shrink-0">
+        <span class="flex items-center gap-2 text-bhav-coral">
+          <span class="w-2 h-2 rounded-full bg-bhav-coral animate-ping"></span>
+          NEXT LIVE VAULT DROP: THIS SUNDAY @ 8:00 PM IST
+        </span>
+        <span class="text-zinc-600">✦</span>
+        <span class="text-bhav-emerald">STREETWEAR AT THE BHAV YOU DECIDE</span>
+        <span class="text-zinc-600">✦</span>
+        <span class="text-zinc-300">USE PASS <strong class="text-bhav-emerald font-mono">VIPDROP</strong> FOR 10% OFF</span>
+        <span class="text-zinc-600">✦</span>
+        <span class="text-zinc-400">FLAT ₹70 TRACKED ALL-INDIA EXPRESS DISPATCH</span>
+        <span class="text-zinc-600">✦</span>
+      </div>
+      <!-- Duplicate for infinite seamless scroll -->
+      <div class="flex items-center gap-8 shrink-0 ml-8">
+        <span class="flex items-center gap-2 text-bhav-coral">
+          <span class="w-2 h-2 rounded-full bg-bhav-coral animate-ping"></span>
+          NEXT LIVE VAULT DROP: THIS SUNDAY @ 8:00 PM IST
+        </span>
+        <span class="text-zinc-600">✦</span>
+        <span class="text-bhav-emerald">STREETWEAR AT THE BHAV YOU DECIDE</span>
+        <span class="text-zinc-600">✦</span>
+        <span class="text-zinc-300">USE PASS <strong class="text-bhav-emerald font-mono">VIPDROP</strong> FOR 10% OFF</span>
+        <span class="text-zinc-600">✦</span>
+        <span class="text-zinc-400">FLAT ₹70 TRACKED ALL-INDIA EXPRESS DISPATCH</span>
+        <span class="text-zinc-600">✦</span>
+      </div>
+    </div>
   </div>
 
-  <!-- ==================== HEADER (SOULED STORE STYLE) ==================== -->
-  <header class="sticky top-0 z-40 bg-white border-b border-zinc-200">
-    
-    <!-- Main Top Header Bar -->
+  <!-- ==================== SLEEK HEADER & NAV ==================== -->
+  <header class="sticky top-0 z-40 bg-bhav-bg/85 backdrop-blur-xl border-b border-bhav-border/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       
-      <!-- Left: Hamburger & Category Gender Tabs -->
-      <div class="flex items-center gap-6">
-        <button onclick="toggleSideDrawer(true)" class="p-1 hover:text-brand-red transition focus:outline-none" aria-label="Open menu">
-          <i data-lucide="menu" class="w-6 h-6 stroke-[2.2]"></i>
-        </button>
-
-        <!-- Gender Tabs (Men / Women / Sneakers / Vault) -->
-        <nav class="hidden lg:flex items-center gap-6 text-sm font-extrabold tracking-wider uppercase h-20">
-          <button onclick="selectNavTab(this, 'men')" class="nav-tab active h-full px-2 flex items-center font-bold">
-            MEN
-          </button>
-          <button onclick="selectNavTab(this, 'women')" class="nav-tab text-zinc-600 hover:text-brand-red h-full px-2 flex items-center font-bold transition">
-            WOMEN
-          </button>
-          <button onclick="selectNavTab(this, 'sneakers')" class="nav-tab text-zinc-600 hover:text-brand-red h-full px-2 flex items-center font-bold transition">
-            SNEAKERS
-          </button>
-          <a href="#vault-section" class="nav-tab text-red-600 hover:text-red-700 h-full px-2 flex items-center gap-1.5 font-black tracking-tight transition">
-            <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
-            🔥 SUNDAY VAULT
-          </a>
-        </nav>
-      </div>
-
-      <!-- Center: Mascot & Brand Logo -->
-      <a href="#" class="flex flex-col items-center group">
-        <div class="flex items-center gap-1.5">
-          <!-- Stylized Souled Store Ghost-Style Mascot -->
-          <svg class="w-7 h-7 text-brand-red transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C7.58 2 4 5.58 4 10v9.5c0 .48.58.74.94.42l1.72-1.55c.2-.18.49-.22.73-.1l1.7 1.02c.26.15.58.11.8-.1l1.7-1.7c.23-.23.6-.23.83 0l1.7 1.7c.22.22.54.26.8.1l1.7-1.02c.24-.12.53-.08.73.1l1.72 1.55c.36.32.94.06.94-.42V10c0-4.42-3.58-8-8-8zm-2.5 8c-.83 0-1.5-.67-1.5-1.5S8.67 7 9.5 7s1.5.67 1.5 1.5S10.33 10 9.5 10zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 7 14.5 7s1.5.67 1.5 1.5S15.33 10 14.5 10z"/>
-          </svg>
-          <div class="leading-none text-left">
-            <span class="block text-[9px] font-black tracking-widest text-brand-red uppercase font-heading">THE</span>
-            <span class="block text-xl sm:text-2xl font-black tracking-tighter text-brand-red font-heading">BHAVDROP</span>
+      <!-- Brand Logo with Custom Geometric Glyph -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-bhav-emerald via-teal-500 to-bhav-coral p-0.5 group-hover:rotate-6 transition duration-300">
+          <div class="w-full h-full bg-bhav-bg rounded-[10px] flex items-center justify-center">
+            <!-- Neo-geometric Indian drop glyph -->
+            <svg class="w-6 h-6 text-bhav-emerald" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L4.5 15.5C3 18.2 4.9 21.5 8 21.5h8c3.1 0 5-3.3 3.5-6L12 2z"/>
+              <path d="M12 9v6" stroke="#ff4655" stroke-width="2.5"/>
+              <circle cx="12" cy="18" r="1" fill="#00e599"/>
+            </svg>
           </div>
         </div>
-        <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider -mt-0.5">STORE</span>
+        <div class="leading-none">
+          <span class="block text-2xl font-black tracking-tighter text-white font-syne group-hover:text-bhav-emerald transition">
+            BHAV<span class="text-bhav-coral">DROP</span>
+          </span>
+          <span class="text-[9px] font-mono tracking-widest text-bhav-muted uppercase">DECIDE YOUR BHAV</span>
+        </div>
       </a>
 
-      <!-- Right: Search Bar, Account, Wishlist, Cart -->
-      <div class="flex items-center gap-4 sm:gap-6">
+      <!-- Center Category Navigation -->
+      <nav class="hidden lg:flex items-center gap-1.5 p-1 bg-bhav-card/80 border border-bhav-border rounded-full text-xs font-bold tracking-wider uppercase">
+        <button onclick="filterCategory('all', this)" class="nav-cat-btn px-4 py-2 rounded-full bg-bhav-border text-white transition">All Drops</button>
+        <button onclick="filterCategory('tees', this)" class="nav-cat-btn px-4 py-2 rounded-full text-bhav-muted hover:text-white transition">Oversized</button>
+        <button onclick="filterCategory('jackets', this)" class="nav-cat-btn px-4 py-2 rounded-full text-bhav-muted hover:text-white transition">Jackets</button>
+        <button onclick="filterCategory('cargos', this)" class="nav-cat-btn px-4 py-2 rounded-full text-bhav-muted hover:text-white transition">Tactical</button>
+        <button onclick="filterCategory('kicks', this)" class="nav-cat-btn px-4 py-2 rounded-full text-bhav-muted hover:text-white transition">Kicks</button>
         
-        <!-- Souled Store Rounded Pill Search Bar -->
-        <div class="hidden md:flex items-center bg-zinc-100 rounded-full px-4 py-2 text-xs text-zinc-600 border border-zinc-200 w-64 lg:w-72 focus-within:border-zinc-400 focus-within:bg-white transition">
-          <input type="text" id="store-search-input" oninput="handleLiveSearch(this.value)" placeholder="What are you looking for?" class="bg-transparent border-none outline-none w-full text-xs text-zinc-800 placeholder-zinc-400">
-          <i data-lucide="mic" class="w-4 h-4 text-zinc-400 ml-2 hover:text-zinc-600 cursor-pointer"></i>
-          <i data-lucide="search" class="w-4 h-4 text-zinc-500 ml-2"></i>
+        <!-- Burning Vault Trigger Tab -->
+        <a href="#vault-section" class="px-4 py-2 rounded-full bg-bhav-coral/15 text-bhav-coral border border-bhav-coral/30 hover:bg-bhav-coral hover:text-white transition flex items-center gap-1.5 font-extrabold">
+          <span class="w-1.5 h-1.5 rounded-full bg-bhav-coral animate-ping"></span>
+          ⚡ SUNDAY VAULT
+        </a>
+      </nav>
+
+      <!-- Right Utility Controls -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        
+        <!-- Live Search Input -->
+        <div class="hidden md:flex items-center bg-bhav-card border border-bhav-border rounded-full px-3.5 py-1.5 text-xs text-zinc-300 w-52 lg:w-64 focus-within:border-bhav-emerald transition">
+          <i data-lucide="search" class="w-4 h-4 text-bhav-muted mr-2"></i>
+          <input type="text" id="live-search" oninput="handleSearch(this.value)" placeholder="Search 240+ GSM, Cargo, Racing..." class="bg-transparent border-none outline-none w-full text-xs placeholder:text-zinc-500">
+          <span class="text-[10px] font-mono text-zinc-600 bg-zinc-800/80 px-1.5 py-0.5 rounded">⌘K</span>
         </div>
 
-        <!-- Account Icon -->
-        <button onclick="toggleSideDrawer(true)" class="p-1 hover:text-brand-red transition hidden sm:block" title="User Account">
-          <i data-lucide="user" class="w-6 h-6 stroke-[1.8]"></i>
+        <!-- Wishlist Toggle -->
+        <button onclick="toggleWishlistModal()" class="relative p-2.5 rounded-xl bg-bhav-card border border-bhav-border hover:border-bhav-coral text-zinc-300 hover:text-bhav-coral transition" title="Wishlist">
+          <i data-lucide="heart" class="w-4 h-4"></i>
+          <span id="wish-badge" class="absolute -top-1 -right-1 bg-bhav-coral text-white font-mono text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
         </button>
 
-        <!-- Wishlist Icon -->
-        <button onclick="toggleWishlistModal()" class="relative p-1 hover:text-brand-red transition" title="Wishlist">
-          <i data-lucide="heart" class="w-6 h-6 stroke-[1.8]"></i>
-          <span id="wishlist-badge" class="absolute -top-1 -right-1 bg-brand-red text-white font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        <!-- Slide Bag Drawer Trigger -->
+        <button onclick="toggleCart(true)" class="relative p-2.5 rounded-xl bg-bhav-card border border-bhav-border hover:border-bhav-emerald text-zinc-100 hover:text-bhav-emerald transition" title="Shopping Bag">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span id="bag-badge" class="absolute -top-1 -right-1 bg-bhav-emerald text-black font-mono text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">0</span>
         </button>
 
-        <!-- Shopping Cart Icon -->
-        <button onclick="toggleCartDrawer(true)" class="relative p-1 hover:text-brand-red transition" title="Shopping Cart">
-          <i data-lucide="shopping-bag" class="w-6 h-6 stroke-[1.8]"></i>
-          <span id="header-cart-badge" class="absolute -top-1 -right-1 bg-brand-red text-white font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        <!-- Mobile Menu Hamburger -->
+        <button onclick="toggleMobileNav(true)" class="p-2 lg:hidden rounded-xl bg-bhav-card border border-bhav-border text-zinc-300 hover:text-white">
+          <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
 
-    </div>
-
-    <!-- Mobile Search Bar Strip (Visible only on small screens) -->
-    <div class="md:hidden px-4 pb-2.5">
-      <div class="flex items-center bg-zinc-100 rounded-full px-3.5 py-1.5 text-xs text-zinc-600 border border-zinc-200">
-        <input type="text" oninput="handleLiveSearch(this.value)" placeholder="What are you looking for?" class="bg-transparent border-none outline-none w-full text-xs text-zinc-800">
-        <i data-lucide="mic" class="w-4 h-4 text-zinc-400 ml-2"></i>
-        <i data-lucide="search" class="w-4 h-4 text-zinc-500 ml-2"></i>
-      </div>
     </div>
   </header>
 
-  <!-- ==================== SLIDE-OUT LEFT NAVIGATION DRAWER (REPLICATING SCREENSHOT 2 & 3) ==================== -->
-  <div id="side-drawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-start">
-    <div class="w-full max-w-sm bg-white h-full flex flex-col justify-between overflow-y-auto no-scrollbar shadow-2xl relative">
-      
-      <div>
-        <!-- Drawer Header with Souled Store Style Logo & Close -->
-        <div class="p-4 border-b border-zinc-200 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <svg class="w-7 h-7 text-brand-red" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C7.58 2 4 5.58 4 10v9.5c0 .48.58.74.94.42l1.72-1.55c.2-.18.49-.22.73-.1l1.7 1.02c.26.15.58.11.8-.1l1.7-1.7c.23-.23.6-.23.83 0l1.7 1.7c.22.22.54.26.8.1l1.7-1.02c.24-.12.53-.08.73.1l1.72 1.55c.36.32.94.06.94-.42V10c0-4.42-3.58-8-8-8zm-2.5 8c-.83 0-1.5-.67-1.5-1.5S8.67 7 9.5 7s1.5.67 1.5 1.5S10.33 10 9.5 10zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 7 14.5 7s1.5.67 1.5 1.5S15.33 10 14.5 10z"/>
-            </svg>
-            <span class="text-xl font-black text-brand-red font-heading">BHAVDROP</span>
-          </div>
-          <button onclick="toggleSideDrawer(false)" class="p-1 hover:text-brand-red text-zinc-500">
-            <i data-lucide="x" class="w-6 h-6"></i>
-          </button>
-        </div>
-
-        <!-- Log In / Register CTA Box -->
-        <div class="p-4">
-          <button onclick="openAuthModal()" class="w-full py-2.5 border-2 border-zinc-800 text-zinc-900 font-extrabold text-sm rounded-lg hover:border-brand-red hover:text-brand-red transition">
-            Log In/Register
-          </button>
-        </div>
-
-        <!-- App Cashback Promo Bar (Matches Screenshot 2) -->
-        <div class="bg-brand-teal text-white px-4 py-2.5 flex items-center justify-between text-xs font-bold">
-          <span>Earn 10% Cashback on Every Order</span>
-          <div class="flex items-center gap-1">
-            <span class="bg-black/30 p-1 rounded text-[10px]">Play Store</span>
-            <span class="bg-black/30 p-1 rounded text-[10px]">App Store</span>
-          </div>
-        </div>
-
-        <!-- Tab Switcher (Men / Women / Sneakers) -->
-        <div class="flex border-b border-zinc-200 font-black text-xs uppercase tracking-wider">
-          <button class="w-1/3 py-3 text-brand-red border-b-2 border-brand-red">MEN</button>
-          <button class="w-1/3 py-3 text-zinc-500 hover:text-zinc-800">WOMEN</button>
-          <button class="w-1/3 py-3 text-zinc-500 hover:text-zinc-800">SNEAKERS</button>
-        </div>
-
-        <!-- Horizontal Scrollable Circular Category Cards (From Screenshot 2) -->
-        <div class="p-4 border-b border-zinc-200">
-          <div class="flex items-center gap-3 overflow-x-auto no-scrollbar pb-1 text-center">
-            
-            <a href="#shirts-section" onclick="toggleSideDrawer(false)" class="shrink-0 flex flex-col items-center w-16">
-              <div class="w-14 h-14 rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-100 mb-1">
-                <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=150&q=80" alt="Shirts" class="w-full h-full object-cover">
-              </div>
-              <span class="text-[11px] font-bold text-zinc-800">Shirts</span>
-            </a>
-
-            <a href="#topwear-section" onclick="toggleSideDrawer(false)" class="shrink-0 flex flex-col items-center w-16">
-              <div class="w-14 h-14 rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-100 mb-1">
-                <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=150&q=80" alt="T-Shirts" class="w-full h-full object-cover">
-              </div>
-              <span class="text-[11px] font-bold text-zinc-800">T-Shirts</span>
-            </a>
-
-            <a href="#shirts-section" onclick="toggleSideDrawer(false)" class="shrink-0 flex flex-col items-center w-16">
-              <div class="w-14 h-14 rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-100 mb-1">
-                <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=150&q=80" alt="Cotton Linen" class="w-full h-full object-cover">
-              </div>
-              <span class="text-[11px] font-bold text-zinc-800">Linen</span>
-            </a>
-
-            <a href="#bottoms-section" onclick="toggleSideDrawer(false)" class="shrink-0 flex flex-col items-center w-16">
-              <div class="w-14 h-14 rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-100 mb-1">
-                <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=150&q=80" alt="Bottoms" class="w-full h-full object-cover">
-              </div>
-              <span class="text-[11px] font-bold text-zinc-800">Bottoms</span>
-            </a>
-
-            <a href="#accessories-section" onclick="toggleSideDrawer(false)" class="shrink-0 flex flex-col items-center w-16">
-              <div class="w-14 h-14 rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-100 mb-1">
-                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=150&q=80" alt="Backpacks" class="w-full h-full object-cover">
-              </div>
-              <span class="text-[11px] font-bold text-zinc-800">Backpacks</span>
-            </a>
-
-            <a href="#accessories-section" onclick="toggleSideDrawer(false)" class="shrink-0 flex flex-col items-center w-16">
-              <div class="w-14 h-14 rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-100 mb-1">
-                <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=150&q=80" alt="Perfumes" class="w-full h-full object-cover">
-              </div>
-              <span class="text-[11px] font-bold text-zinc-800">Perfumes</span>
-            </a>
-
-          </div>
-        </div>
-
-        <!-- Navigation Accordions (From Screenshot 3) -->
-        <div class="text-sm font-bold text-zinc-800 divide-y divide-zinc-100">
-          <a href="#topwear-section" onclick="toggleSideDrawer(false)" class="flex items-center justify-between p-4 hover:bg-zinc-50">
-            <span>Shop All Topwear</span>
-            <i data-lucide="chevron-right" class="w-4 h-4 text-zinc-400"></i>
-          </a>
-          <a href="#bottoms-section" onclick="toggleSideDrawer(false)" class="flex items-center justify-between p-4 hover:bg-zinc-50">
-            <span>Bottoms & Jeans</span>
-            <i data-lucide="chevron-right" class="w-4 h-4 text-zinc-400"></i>
-          </a>
-          <a href="#accessories-section" onclick="toggleSideDrawer(false)" class="flex items-center justify-between p-4 hover:bg-zinc-50">
-            <span>Accessories & Bags</span>
-            <i data-lucide="chevron-right" class="w-4 h-4 text-zinc-400"></i>
-          </a>
-          <a href="#new-arrivals-section" onclick="toggleSideDrawer(false)" class="flex items-center justify-between p-4 hover:bg-zinc-50">
-            <span>New Arrivals</span>
-            <span class="text-[10px] bg-red-100 text-red-600 px-2 py-0.5 rounded font-black">HOT</span>
-          </a>
-          <a href="#vault-section" onclick="toggleSideDrawer(false)" class="flex items-center justify-between p-4 text-brand-red bg-red-50/50 hover:bg-red-50">
-            <span class="flex items-center gap-1.5">🔥 Live Sunday Vault Auction</span>
-            <span class="text-[10px] bg-brand-red text-white px-2 py-0.5 rounded font-black animate-pulse">LIVE</span>
-          </a>
-          <a href="#track-section" onclick="toggleSideDrawer(false)" class="flex items-center justify-between p-4 hover:bg-zinc-50">
-            <span>Track My Order</span>
-            <i data-lucide="truck" class="w-4 h-4 text-zinc-400"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Drawer Footer with Owner Admin Access -->
-      <div class="p-4 border-t border-zinc-200 bg-zinc-50 flex items-center justify-between">
-        <span class="text-xs text-zinc-500 font-medium">BhavDrop Store v2.6</span>
-        <button onclick="openAdminModal(); toggleSideDrawer(false);" class="text-xs font-bold text-zinc-700 hover:text-brand-red flex items-center gap-1">
-          <i data-lucide="shield-lock" class="w-3.5 h-3.5"></i> Owner Admin
-        </button>
-      </div>
-
-    </div>
+  <!-- Mobile Category Strip (Below Header) -->
+  <div class="lg:hidden flex items-center gap-2 overflow-x-auto no-scrollbar px-4 py-2.5 bg-bhav-card/40 border-b border-bhav-border">
+    <button onclick="filterCategory('all', this)" class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold bg-bhav-border text-white">All</button>
+    <button onclick="filterCategory('tees', this)" class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold text-zinc-400">Tees</button>
+    <button onclick="filterCategory('jackets', this)" class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold text-zinc-400">Jackets</button>
+    <button onclick="filterCategory('cargos', this)" class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold text-zinc-400">Cargos</button>
+    <button onclick="filterCategory('kicks', this)" class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold text-zinc-400">Kicks</button>
+    <a href="#vault-section" class="shrink-0 px-3 py-1 rounded-full text-xs font-extrabold bg-bhav-coral/20 text-bhav-coral border border-bhav-coral/40">⚡ Sunday Vault</a>
   </div>
 
-  <!-- ==================== MAIN CONTENT ==================== -->
   <main class="flex-grow">
 
-    <!-- ==================== SECTION 1: EXPLORE SHIRTS (EXACT REPLICA OF SCREENSHOT 1) ==================== -->
-    <section id="shirts-section" class="py-10 border-b border-zinc-200">
+    <!-- ==================== EDITORIAL HERO LOOKBOOK ==================== -->
+    <section class="relative pt-6 pb-14 overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <!-- Section Header -->
-        <div class="text-center mb-6">
-          <h2 class="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight uppercase font-heading">
-            EXPLORE SHIRTS
-          </h2>
-        </div>
-
-        <!-- 4-Column Model Layout (From Screenshot 1) -->
-        <div class="relative grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 items-stretch">
+        <div class="relative rounded-3xl bg-gradient-to-b from-bhav-card to-bhav-bg border border-bhav-border p-6 sm:p-10 lg:p-12 overflow-hidden shadow-2xl">
           
-          <!-- Large Feature Image Left -->
-          <div class="md:col-span-1 relative rounded-lg overflow-hidden group cursor-pointer bg-zinc-100 aspect-[3/4] md:aspect-auto">
-            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80" 
-                 alt="Blue Checked Shirt" 
-                 class="w-full h-full object-cover group-hover:scale-102 transition duration-300">
-            <!-- Left Arrow Simulation -->
-            <button class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow text-zinc-800">
-              <i data-lucide="chevron-left" class="w-5 h-5"></i>
-            </button>
+          <!-- Background Glow Orbs -->
+          <div class="absolute -top-32 -left-32 w-80 h-80 bg-bhav-emerald/15 rounded-full blur-[90px] pointer-events-none"></div>
+          <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-bhav-coral/15 rounded-full blur-[90px] pointer-events-none"></div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+            
+            <!-- Left Editorial Text -->
+            <div class="lg:col-span-7 space-y-6">
+              
+              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-bhav-cardLight border border-bhav-border text-xs font-mono font-medium text-bhav-emerald">
+                <span class="w-2 h-2 rounded-full bg-bhav-emerald animate-ping"></span>
+                <span>SEASON 04 // AHMEDABAD & SURAT SURPLUS LABS</span>
+              </div>
+
+              <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black font-syne tracking-tight leading-[1.05] text-white">
+                STREETWEAR AT THE <span class="text-transparent bg-clip-text bg-gradient-to-r from-bhav-emerald via-teal-300 to-bhav-coral">BHAV YOU DECIDE.</span>
+              </h1>
+
+              <p class="text-sm sm:text-base text-bhav-muted max-w-xl font-normal leading-relaxed">
+                We hunt heavy 240–380 GSM factory deadstocks, vintage Japanese motorsport windbreakers, and modular cargos. Buy everyday staples at fixed fair prices, or gamble in our Sunday live falling clock.
+              </p>
+
+              <!-- Lookbook Badge Pill Stack -->
+              <div class="flex flex-wrap gap-2 pt-1 font-mono text-[11px]">
+                <span class="px-3 py-1 rounded-lg bg-bhav-card border border-bhav-border text-zinc-300">✦ 280 GSM French Terry</span>
+                <span class="px-3 py-1 rounded-lg bg-bhav-card border border-bhav-border text-zinc-300">✦ Pre-Shrunk Bio Wash</span>
+                <span class="px-3 py-1 rounded-lg bg-bhav-card border border-bhav-border text-bhav-emerald">✦ Limited 1-of-1 Lots</span>
+                <span class="px-3 py-1 rounded-lg bg-bhav-card border border-bhav-border text-bhav-coral">✦ No Fast-Fashion Jitters</span>
+              </div>
+
+              <!-- Hero Call-To-Action Row -->
+              <div class="flex flex-wrap items-center gap-4 pt-3">
+                <a href="#vault-section" class="px-7 py-4 rounded-2xl bg-bhav-emerald hover:bg-emerald-300 text-black font-black text-sm uppercase tracking-wider transition glow-emerald flex items-center gap-2">
+                  <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
+                  ENTER SUNDAY VAULT
+                </a>
+                <a href="#drops-section" class="px-6 py-4 rounded-2xl bg-bhav-card border border-bhav-border hover:border-zinc-500 text-white font-bold text-sm transition flex items-center gap-2">
+                  Explore Everyday Catalog
+                  <i data-lucide="arrow-down" class="w-4 h-4 text-bhav-muted"></i>
+                </a>
+              </div>
+
+            </div>
+
+            <!-- Right Interactive Lookbook Card Frame -->
+            <div class="lg:col-span-5 relative">
+              <div class="relative rounded-2xl overflow-hidden bg-bhav-card border border-bhav-border group">
+                
+                <!-- Main Lookbook Image -->
+                <div class="aspect-[4/5] overflow-hidden bg-zinc-950 relative">
+                  <img id="hero-lookbook-img" 
+                       src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=900&q=80" 
+                       alt="BhavDrop Heavy Moto Bomber" 
+                       class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                  <div class="absolute inset-0 bg-gradient-to-t from-bhav-bg via-transparent to-black/30"></div>
+                </div>
+
+                <!-- Floating Editorial Meta Tag -->
+                <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono font-bold tracking-wider text-bhav-emerald border border-bhav-emerald/30">
+                    FEATURED SPECIMEN
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono text-zinc-300">
+                    EDITION: 1/1
+                  </span>
+                </div>
+
+                <!-- Card Bottom Overlay -->
+                <div class="absolute bottom-4 left-4 right-4 bg-bhav-bg/90 backdrop-blur-md border border-bhav-border rounded-xl p-4">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h4 class="text-sm font-bold text-white font-syne">Tokyo Cyber Moto Jacket</h4>
+                      <p class="text-[11px] text-bhav-muted font-mono mt-0.5">320g Waterproof Double Nylon</p>
+                    </div>
+                    <div class="text-right">
+                      <span class="text-[10px] font-mono text-zinc-500 uppercase block">Starting Bhav</span>
+                      <span class="text-lg font-black font-mono text-bhav-emerald">₹1,299</span>
+                    </div>
+                  </div>
+                  <div class="mt-3 pt-2.5 border-t border-bhav-border/60 flex items-center justify-between text-[11px]">
+                    <span class="text-bhav-coral font-bold flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-bhav-coral animate-ping"></span>
+                      Sunday 8 PM Vault
+                    </span>
+                    <button onclick="scrollToVault()" class="text-white hover:text-bhav-emerald font-bold transition flex items-center gap-1">
+                      Inspect Clock <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
 
-          <!-- Product 1: Dark Printed Resort Shirt -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Dark Tribal Graphic Camp Shirt', 899, 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=700&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=700&q=80" 
-                   alt="Dark Printed Camp Shirt" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-2 text-center">
-              <h4 class="text-xs font-bold text-zinc-800">Dark Tribal Graphic Shirt</h4>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹899</p>
-            </div>
-          </div>
-
-          <!-- Product 2: Flannel Checkered Overshirt -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Vintage Brown Flannel Overshirt', 999, 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=700&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=700&q=80" 
-                   alt="Vintage Flannel" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-2 text-center">
-              <h4 class="text-xs font-bold text-zinc-800">Vintage Flannel Overshirt</h4>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹999</p>
-            </div>
-          </div>
-
-          <!-- Product 3: Light Blue Embroidered Resort Shirt -->
-          <div class="group cursor-pointer flex flex-col justify-between relative" onclick="quickAddToCart('Pastel Blue Embroidered Shirt', 1099, 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=700&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=700&q=80" 
-                   alt="Pastel Blue Shirt" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-2 text-center">
-              <h4 class="text-xs font-bold text-zinc-800">Pastel Blue Embroidered Linen</h4>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹1,099</p>
-            </div>
-            <!-- Right Arrow Simulation -->
-            <button class="absolute -right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow text-zinc-800 hidden md:block">
-              <i data-lucide="chevron-right" class="w-5 h-5"></i>
-            </button>
-          </div>
-
-        </div>
-
-        <!-- Subtitle & Dots Pagination (From Screenshot 1) -->
-        <div class="mt-6 text-center">
-          <div class="text-sm font-extrabold uppercase tracking-widest text-zinc-800 font-heading">
-            LINEN | PRINTED | EMBROIDERED
-          </div>
-          <div class="flex items-center justify-center gap-2 mt-4">
-            <span class="w-2.5 h-2.5 rounded-full bg-brand-teal"></span>
-            <span class="w-2 h-2 rounded-full bg-zinc-300"></span>
-            <span class="w-2 h-2 rounded-full bg-zinc-300"></span>
-            <span class="w-2 h-2 rounded-full bg-zinc-300"></span>
-            <span class="w-2 h-2 rounded-full bg-zinc-300"></span>
-          </div>
         </div>
 
       </div>
     </section>
 
-    <!-- ==================== SECTION 2: THE SUNDAY VAULT (FALLING BHAV DROP ENGINE) ==================== -->
-    <section id="vault-section" class="py-12 bg-zinc-950 text-white relative overflow-hidden border-y-4 border-brand-red">
+    <!-- ==================== SECTION: THE SUNDAY VAULT (DUTCH AUCTION ENGINE) ==================== -->
+    <section id="vault-section" class="py-16 bg-gradient-to-b from-bhav-bg via-[#07090c] to-bhav-bg border-y border-bhav-border/70 relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <!-- Header Banner -->
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+        <!-- Vault Header & Live Stats Bar -->
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10">
           <div>
-            <div class="flex items-center gap-2 text-emerald-400 font-mono font-bold text-xs uppercase tracking-widest mb-1">
-              <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
-              SUNDAY LIVE VAULT • ADRENALINE COMMERCE
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-bhav-coral/15 border border-bhav-coral/30 text-bhav-coral text-xs font-mono font-bold tracking-widest uppercase mb-2">
+              <span class="w-2 h-2 rounded-full bg-bhav-coral animate-ping"></span>
+              THE SUNDAY VAULT • REVERSE BHAV CLOCK
             </div>
-            <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white font-heading">
+            <h2 class="text-3xl sm:text-5xl font-black font-syne tracking-tight text-white">
               BEAT THE FALLING BHAV.
             </h2>
-            <p class="text-xs sm:text-sm text-zinc-400 mt-1 max-w-xl">
-              The price drops by <strong>₹10 every 4 seconds</strong>. First person to tap CLAIM locks it. If you wait for the reserve floor, someone else steals it.
+            <p class="text-xs sm:text-sm text-bhav-muted mt-2 max-w-xl">
+              The price drops by <strong>₹15 every 3 seconds</strong>. First thrifter to tap <strong>CLAIM</strong> locks the parcel. If you wait for the reserve floor, someone else steals it.
             </p>
           </div>
 
-          <div class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 px-4 py-2.5 rounded-xl font-mono text-xs">
-            <span class="text-zinc-500">Live Drop Status:</span>
-            <span class="text-emerald-400 font-bold flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> TICKING LIVE
-            </span>
-          </div>
-        </div>
-
-        <!-- The Falling Clock Terminal Card -->
-        <div class="max-w-4xl mx-auto bg-zinc-900 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <!-- Watcher Stack & Sound Effect Toggle -->
+          <div class="flex flex-wrap items-center gap-3">
             
-            <!-- Vault Item Picture -->
-            <div class="relative rounded-xl overflow-hidden aspect-[3/4] bg-zinc-950 border border-zinc-800">
-              <img id="vault-img" 
-                   src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" 
-                   alt="Vault Streetwear Piece" 
-                   class="w-full h-full object-cover">
-              <div class="absolute top-3 left-3 bg-black/80 px-2.5 py-1 rounded text-[11px] font-mono text-emerald-400 border border-emerald-500/30">
-                1-OF-1 VAULT DROP
+            <!-- Live Watcher Counter Pill -->
+            <div class="flex items-center gap-3 bg-bhav-card border border-bhav-border px-4 py-2 rounded-2xl">
+              <div class="flex -space-x-2">
+                <img class="w-7 h-7 rounded-full border-2 border-bhav-card object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Bidder">
+                <img class="w-7 h-7 rounded-full border-2 border-bhav-card object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Bidder">
+                <img class="w-7 h-7 rounded-full border-2 border-bhav-card object-cover" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" alt="Bidder">
               </div>
-              <div class="absolute bottom-3 left-3 right-3 bg-black/85 backdrop-blur-sm p-3 rounded-lg text-center text-xs font-mono text-zinc-400">
-                Size L • Tokyo Racing Double-Nylon Windbreaker
+              <div class="font-mono text-xs">
+                <span id="live-watchers" class="text-bhav-emerald font-bold">42</span>
+                <span class="text-zinc-500">thrifters in room</span>
               </div>
             </div>
 
-            <!-- Vault Clock & Action -->
-            <div class="flex flex-col justify-between h-full py-2">
+            <!-- Audio Synthesizer Toggle Button -->
+            <button id="sound-btn" onclick="toggleAudio()" class="px-3.5 py-2.5 rounded-2xl bg-bhav-card border border-bhav-border text-zinc-300 hover:text-white text-xs font-mono flex items-center gap-2 transition" title="Toggle Sound">
+              <i data-lucide="volume-2" id="sound-icon" class="w-4 h-4 text-bhav-emerald"></i>
+              <span id="sound-label">Audio ON</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- The Falling Clock Terminal Console -->
+        <div class="max-w-4xl mx-auto bg-bhav-card border border-bhav-border rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
+            
+            <!-- Vault Lot Visual -->
+            <div class="relative rounded-2xl overflow-hidden aspect-[4/5] bg-zinc-950 border border-bhav-border">
+              <img id="vault-display-img" 
+                   src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" 
+                   alt="Vault Piece" 
+                   class="w-full h-full object-cover">
+              
+              <div class="absolute top-3 left-3 bg-black/85 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-bhav-emerald border border-bhav-emerald/30">
+                LOT #01 // SUNDAY DROP
+              </div>
+
+              <div class="absolute bottom-3 inset-x-3 bg-black/85 backdrop-blur-md p-3 rounded-xl text-center text-xs font-mono text-zinc-300">
+                100% Rigid Heavyweight • Boxy Sizing (Chest 44")
+              </div>
+            </div>
+
+            <!-- Vault Mechanics & Claim Trigger -->
+            <div class="flex flex-col justify-between h-full space-y-6">
+              
               <div>
-                <span class="text-[11px] font-mono text-zinc-500 uppercase tracking-widest">Featured Lot #01</span>
-                <h3 id="vault-title" class="text-2xl font-black text-white mt-1">Vintage Tokyo Racing Windbreaker</h3>
-                <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
-                  Heavy 320g double-layer waterproof nylon with vintage motorsport embroidery. Sourced directly in Gujarat.
+                <span class="text-xs font-mono text-bhav-muted uppercase tracking-widest">Sourced in Gujarat // 1-of-1 Specimen</span>
+                <h3 id="vault-display-title" class="text-2xl sm:text-3xl font-black font-syne text-white mt-1">
+                  Vintage Tokyo Racing Windbreaker
+                </h3>
+                <p class="text-xs text-bhav-muted mt-2 leading-relaxed">
+                  Heavy 320g double-layer waterproof nylon with authentic motorsport embroidery and reflective piping.
                 </p>
               </div>
 
-              <!-- Price Box -->
-              <div class="my-6 bg-black border border-zinc-800 rounded-xl p-5 text-center relative overflow-hidden">
-                <div id="vault-progress-bar" class="absolute bottom-0 left-0 h-1 bg-emerald-500 transition-all duration-1000 w-full"></div>
-                <span class="text-xs font-mono uppercase tracking-widest text-zinc-500">Current Bhav</span>
-                <div id="vault-price-text" class="text-6xl font-black font-mono text-emerald-400 mt-1 tracking-tight">
-                  ₹1,199
+              <!-- Price Terminal Screen -->
+              <div class="bg-black/80 border border-bhav-border rounded-2xl p-5 text-center relative overflow-hidden">
+                <!-- Visual depletion progress bar -->
+                <div id="vault-progress-bar" class="absolute bottom-0 left-0 h-1 bg-bhav-emerald transition-all duration-1000 w-full"></div>
+                
+                <span class="text-[11px] font-mono uppercase tracking-widest text-zinc-500">Live Dropping Bhav</span>
+                <div id="vault-price-text" class="text-6xl sm:text-7xl font-black font-mono text-bhav-emerald mt-1 tracking-tight">
+                  ₹1,299
                 </div>
-                <div class="flex justify-between items-center text-xs text-zinc-400 mt-3 px-2 font-mono">
-                  <span>Start: ₹1,199</span>
-                  <span class="text-red-400 font-bold">Drops ₹10 / 4s</span>
-                  <span>Floor: ₹350</span>
+
+                <div class="flex justify-between items-center text-xs text-zinc-400 mt-4 px-2 font-mono">
+                  <span>Start: <strong class="text-white">₹1,299</strong></span>
+                  <span class="text-bhav-coral font-bold flex items-center gap-1">
+                    <i data-lucide="trending-down" class="w-3.5 h-3.5"></i> -₹15 / 3s
+                  </span>
+                  <span>Reserve Floor: <strong class="text-white">₹399</strong></span>
                 </div>
               </div>
 
-              <!-- Claim Button -->
+              <!-- Action Controls -->
               <div id="vault-action-container">
-                <button onclick="claimVaultItem()" class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-black text-lg rounded-xl transition active:scale-95 shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
+                <button onclick="claimVaultItem()" class="w-full py-4.5 bg-bhav-emerald hover:bg-emerald-300 text-black font-black text-lg sm:text-xl font-syne rounded-2xl transition active:scale-95 glow-emerald flex items-center justify-center gap-2">
                   <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
-                  CLAIM BHAV AT <span id="vault-btn-price">₹1,199</span>
+                  CLAIM BHAV AT <span id="vault-btn-price" class="font-mono">₹1,299</span>
                 </button>
                 <p class="text-center text-[11px] text-zinc-500 mt-2 font-mono">
-                  Tapping claim stops the clock for everyone for 180 seconds to complete UPI payment.
+                  Tapping claim halts the clock for everyone for 180s to finish UPI authorization.
                 </p>
               </div>
 
-              <!-- Locked Drawer (Hidden until claim) -->
-              <div id="vault-lock-box" class="hidden bg-black/95 border border-emerald-500/40 rounded-xl p-4 space-y-3">
-                <div class="flex items-center justify-between text-xs font-bold text-emerald-400">
-                  <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> BHAV LOCKED FOR YOU!</span>
-                  <span class="font-mono text-red-400">Expires in: <strong id="lock-countdown">180s</strong></span>
+              <!-- Post-Claim Locked Screen -->
+              <div id="vault-locked-box" class="hidden bg-bhav-cardLight border border-bhav-emerald/50 rounded-2xl p-5 space-y-3">
+                <div class="flex items-center justify-between text-xs font-bold text-bhav-emerald font-mono">
+                  <span class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-bhav-emerald animate-ping"></span> BHAV SECURED FOR YOU!
+                  </span>
+                  <span class="text-bhav-coral">Locks out in: <strong id="vault-lock-countdown">180s</strong></span>
                 </div>
-                <div class="text-xs text-zinc-400 flex justify-between">
-                  <span>Locked Price: <strong id="locked-bhav-val" class="text-white">₹0</strong></span>
-                  <span>Express Courier: <strong class="text-white">₹70</strong></span>
+                <div class="text-xs text-zinc-400 flex justify-between font-mono">
+                  <span>Claimed Price: <strong id="locked-price-val" class="text-white">₹0</strong></span>
+                  <span>Express Dispatch: <strong class="text-white">₹70</strong></span>
                 </div>
-                <button onclick="proceedToVaultCheckout()" class="w-full py-3 bg-emerald-400 hover:bg-emerald-300 text-black font-black text-xs uppercase tracking-wider rounded-lg transition">
-                  COMPLETE SECURE UPI PAYMENT
+                <button onclick="proceedVaultCheckout()" class="w-full py-3.5 bg-bhav-emerald text-black font-black text-xs uppercase tracking-wider rounded-xl transition hover:bg-emerald-300">
+                  COMPLETE INSTANT UPI PAYMENT
                 </button>
               </div>
 
             </div>
 
           </div>
-        </div>
 
-      </div>
-    </section>
-
-    <!-- ==================== SECTION 3: EXPLORE BOTTOMS (EXACT REPLICA OF SCREENSHOT 2) ==================== -->
-    <section id="bottoms-section" class="py-10 border-b border-zinc-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center mb-6">
-          <h2 class="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight uppercase font-heading">
-            EXPLORE BOTTOMS
-          </h2>
-        </div>
-
-        <!-- 3-Model Bottoms Layout (From Screenshot 2) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          
-          <!-- Column 1: Black Washed Denim -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Relaxed Fit Black Denim', 1199, 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80" 
-                   alt="Black Denim" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-2 text-center">
-              <h4 class="text-xs font-bold text-zinc-800">Straight-Leg Washed Black Denim</h4>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹1,199</p>
-            </div>
-          </div>
-
-          <!-- Column 2: Olive Cargo Shorts -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Military Olive Cargo Shorts', 699, 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=800&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=800&q=80" 
-                   alt="Olive Shorts" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-2 text-center">
-              <h4 class="text-xs font-bold text-zinc-800">Tactical Olive Cargo Shorts</h4>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹699</p>
-            </div>
-          </div>
-
-          <!-- Column 3: Brown Wide-Leg Trousers -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Pleated Brown Wide-Leg Trousers', 899, 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=80" 
-                   alt="Brown Pants" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-2 text-center">
-              <h4 class="text-xs font-bold text-zinc-800">Chocolate Brown Relaxed Trousers</h4>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹899</p>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Subtitle & Dots Pagination (From Screenshot 2) -->
-        <div class="mt-6 text-center">
-          <div class="text-sm font-extrabold uppercase tracking-widest text-zinc-800 font-heading">
-            JOGGERS | JEANS | PANTS | SHORTS
-          </div>
-          <div class="flex items-center justify-center gap-2 mt-4">
-            <span class="w-2.5 h-2.5 rounded-full bg-brand-teal"></span>
-            <span class="w-2 h-2 rounded-full bg-zinc-300"></span>
-            <span class="w-2 h-2 rounded-full bg-zinc-300"></span>
-            <span class="w-2 h-2 rounded-full bg-zinc-300"></span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ==================== SECTION 4: EXPLORE ACCESSORIES (FROM SCREENSHOT 3) ==================== -->
-    <section id="accessories-section" class="py-10 border-b border-zinc-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center mb-6">
-          <h2 class="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight uppercase font-heading">
-            EXPLORE ACCESSORIES
-          </h2>
-        </div>
-
-        <!-- 3-Column Accessories Layout (Matches Screenshot 3) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          
-          <!-- Accessory 1: FC Barcelona Cap -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Vintage Maroon Club Cap', 349, 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=800&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4] flex items-center justify-center p-6">
-              <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=800&q=80" 
-                   alt="Maroon Club Cap" 
-                   class="max-h-64 object-contain group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-2 text-center">
-              <h4 class="text-xs font-bold text-zinc-800">Vintage Maroon Chino Cap</h4>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹349</p>
-            </div>
-          </div>
-
-          <!-- Accessory 2: Blue Galactic Perfume -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Galactic Eau De Parfum (100ml)', 649, 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4] flex items-center justify-center p-6">
-              <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80" 
-                   alt="Galactic Perfume" 
-                   class="max-h-64 object-contain group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-2 text-center">
-              <h4 class="text-xs font-bold text-zinc-800">Galactic Eau De Parfum (100ml)</h4>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹649</p>
-            </div>
-          </div>
-
-          <!-- Accessory 3: Batman/Batwing Tactical Crossbody -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Tactical Batwing Crossbody Pack', 499, 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4] flex items-center justify-center p-6">
-              <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80" 
-                   alt="Tactical Crossbody Pack" 
-                   class="max-h-64 object-contain group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-2 text-center">
-              <h4 class="text-xs font-bold text-zinc-800">Tactical Batwing Crossbody Pack</h4>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹499</p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="mt-6 text-center">
-          <div class="text-sm font-extrabold uppercase tracking-widest text-zinc-800 font-heading">
-            BAGS | PERFUMES | CAPS & MORE
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ==================== SECTION 5: NEW ARRIVALS CAROUSEL (FROM SCREENSHOT 4) ==================== -->
-    <section id="new-arrivals-section" class="py-10 border-b border-zinc-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center mb-6">
-          <h2 class="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight uppercase font-heading">
-            NEW ARRIVALS
-          </h2>
-        </div>
-
-        <!-- 4-Card Carousel (Ghost Rider Pack, Straight Fit Denim, Urban Blaze, Black Clover) -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          
-          <!-- Card 1: Official Ghost Rider Backpack -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Ghost Rider: Inferno Backpack', 1299, 'https://images.unsplash.com/photo-1577733966973-d680bffd2e80?auto=format&fit=crop&w=700&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-900 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1577733966973-d680bffd2e80?auto=format&fit=crop&w=700&q=80" 
-                   alt="Ghost Rider Backpack" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <div class="absolute top-2 left-2 bg-black/80 text-[10px] text-zinc-200 font-mono px-2 py-0.5 rounded">
-                OFFICIAL MERCH
-              </div>
-              <div class="absolute bottom-0 inset-x-0 bg-black/90 text-white text-[10px] font-bold py-1.5 text-center uppercase tracking-wider">
-                EVERYDAY GEAR
-              </div>
-            </div>
-            <div class="mt-2">
-              <h4 class="text-xs font-bold text-zinc-900">Ghost Rider: Inferno</h4>
-              <p class="text-[11px] text-zinc-500">Waterproof Heavy Backpack</p>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹1,299</p>
-            </div>
-          </div>
-
-          <!-- Card 2: Straight-Fit Denim: Ice Blue -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Straight-Fit Denim: Ice Blue', 999, 'https://images.unsplash.com/photo-1542272604-780c96856592?auto=format&fit=crop&w=700&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1542272604-780c96856592?auto=format&fit=crop&w=700&q=80" 
-                   alt="Ice Blue Denim" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <div class="absolute bottom-0 inset-x-0 bg-zinc-900 text-white text-[10px] font-bold py-1.5 text-center uppercase tracking-wider">
-                STRAIGHT FIT
-              </div>
-            </div>
-            <div class="mt-2">
-              <h4 class="text-xs font-bold text-zinc-900">Straight-Fit Denim: Ice Blue</h4>
-              <p class="text-[11px] text-zinc-500">100% Rigid Heavyweight Cotton</p>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹999</p>
-            </div>
-          </div>
-
-          <!-- Card 3: Urban Blaze Sneakers: Terra -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Urban Blaze: Terra Retro Sneakers', 1499, 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=700&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=700&q=80" 
-                   alt="Urban Blaze Sneakers" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <div class="absolute bottom-0 inset-x-0 bg-zinc-900 text-white text-[10px] font-bold py-1.5 text-center uppercase tracking-wider">
-                RETRO LOW TOP
-              </div>
-            </div>
-            <div class="mt-2">
-              <h4 class="text-xs font-bold text-zinc-900">Urban Blaze: Terra</h4>
-              <p class="text-[11px] text-zinc-500">Men Low Top Suede Sneakers</p>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹1,499</p>
-            </div>
-          </div>
-
-          <!-- Card 4: Black Clover: Black Bulls Bomber Jacket -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Black Clover: Black Bulls Oversized Bomber', 1399, 'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=700&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-900 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=700&q=80" 
-                   alt="Black Bulls Jacket" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <div class="absolute top-2 left-2 bg-black/80 text-[10px] text-zinc-200 font-mono px-2 py-0.5 rounded">
-                OVERSIZED FIT
-              </div>
-            </div>
-            <div class="mt-2">
-              <h4 class="text-xs font-bold text-zinc-900">Black Clover: Black Bulls</h4>
-              <p class="text-[11px] text-zinc-500">Embroidered Moto Jacket</p>
-              <p class="text-xs font-mono font-bold text-zinc-900 mt-0.5">₹1,399</p>
+          <!-- Previous Steals Marquee -->
+          <div class="mt-8 pt-6 border-t border-bhav-border flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-zinc-400 gap-2">
+            <span class="text-zinc-500 uppercase flex items-center gap-1">
+              <i data-lucide="award" class="w-4 h-4 text-bhav-emerald"></i> Hall of Steals:
+            </span>
+            <div id="ticker-steals" class="text-zinc-300 text-center sm:text-right">
+              "Aman (Ahmedabad) claimed Vintage Racing Jacket at <strong class="text-bhav-emerald">₹480</strong>"
             </div>
           </div>
 
@@ -719,64 +455,115 @@
       </div>
     </section>
 
-    <!-- ==================== SECTION 6: TOPWEAR (FROM SCREENSHOT 5) ==================== -->
-    <section id="topwear-section" class="py-10 border-b border-zinc-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- ==================== CURATED DROP CATEGORIES ==================== -->
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-mono uppercase tracking-widest text-bhav-emerald font-bold">Curated Classifications</span>
+        <h2 class="text-3xl sm:text-4xl font-black font-syne text-white mt-1">THE SILHOUETTES</h2>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         
-        <div class="text-center mb-6">
-          <h2 class="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight uppercase font-heading">
-            TOPWEAR
-          </h2>
+        <!-- Category Card 1 -->
+        <div onclick="filterCategory('tees')" class="group relative rounded-2xl overflow-hidden bg-bhav-card border border-bhav-border cursor-pointer aspect-[3/4] flex flex-col justify-end p-5">
+          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=700&q=80" alt="Heavyweight Tees" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-60">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div class="relative z-10">
+            <span class="text-[10px] font-mono text-bhav-emerald uppercase tracking-wider">240-280 GSM</span>
+            <h3 class="text-lg font-bold font-syne text-white mt-0.5">Heavyweight Tees</h3>
+            <p class="text-[11px] text-zinc-400 mt-1">Boxy & Drop-shoulder fits</p>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <!-- Category Card 2 -->
+        <div onclick="filterCategory('jackets')" class="group relative rounded-2xl overflow-hidden bg-bhav-card border border-bhav-border cursor-pointer aspect-[3/4] flex flex-col justify-end p-5">
+          <img src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=700&q=80" alt="Motorsport Jackets" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-60">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div class="relative z-10">
+            <span class="text-[10px] font-mono text-bhav-coral uppercase tracking-wider">Outerwear</span>
+            <h3 class="text-lg font-bold font-syne text-white mt-0.5">Moto & Varsity</h3>
+            <p class="text-[11px] text-zinc-400 mt-1">Vintage oversized jackets</p>
+          </div>
+        </div>
+
+        <!-- Category Card 3 -->
+        <div onclick="filterCategory('cargos')" class="group relative rounded-2xl overflow-hidden bg-bhav-card border border-bhav-border cursor-pointer aspect-[3/4] flex flex-col justify-end p-5">
+          <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=700&q=80" alt="Tactical Cargos" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-60">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div class="relative z-10">
+            <span class="text-[10px] font-mono text-bhav-emerald uppercase tracking-wider">Modular Twill</span>
+            <h3 class="text-lg font-bold font-syne text-white mt-0.5">Parachute & Cargos</h3>
+            <p class="text-[11px] text-zinc-400 mt-1">Wide-leg tactical pants</p>
+          </div>
+        </div>
+
+        <!-- Category Card 4 -->
+        <div onclick="filterCategory('kicks')" class="group relative rounded-2xl overflow-hidden bg-bhav-card border border-bhav-border cursor-pointer aspect-[3/4] flex flex-col justify-end p-5">
+          <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=700&q=80" alt="Street Kicks" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-60">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div class="relative z-10">
+            <span class="text-[10px] font-mono text-bhav-coral uppercase tracking-wider">Footwear</span>
+            <h3 class="text-lg font-bold font-syne text-white mt-0.5">Street Kicks</h3>
+            <p class="text-[11px] text-zinc-400 mt-1">Retro low tops & sneakers</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PRODUCT CATALOG & DROPS ==================== -->
+    <section id="drops-section" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-bhav-border/60">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-zinc-500">24/7 Available Inventory</span>
+          <h2 class="text-3xl font-black font-syne text-white mt-1">NEW SEASON DROPS</h2>
+          <p class="text-xs text-bhav-muted mt-1">Fixed price staples with verified GSM and boxy streetwear fits.</p>
+        </div>
+
+        <!-- Sorting Selector -->
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-zinc-500 font-mono">Sort:</span>
+          <select id="sort-select" onchange="sortProducts(this.value)" class="bg-bhav-card border border-bhav-border rounded-xl px-3 py-1.5 text-xs text-zinc-300 outline-none focus:border-bhav-emerald">
+            <option value="featured">Featured First</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Dynamic Product Grid -->
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Rendered by JavaScript -->
+      </div>
+
+    </section>
+
+    <!-- ==================== VIRAL REFERRAL CLUB STRIP ==================== -->
+    <section class="py-14 bg-bhav-card/40 border-y border-bhav-border/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="bg-gradient-to-r from-bhav-card via-black to-bhav-card border border-bhav-border rounded-3xl p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8">
           
-          <!-- Column 1: Spider-Man All Topwear -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Marvel Spider-Man Oversized Tee', 599, 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80" 
-                   alt="All Topwear" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-3 text-center">
-              <h3 class="text-base font-extrabold uppercase tracking-wider text-zinc-900">ALL TOPWEAR</h3>
-              <p class="text-xs text-zinc-500 font-mono mt-0.5">From ₹499</p>
-            </div>
+          <div class="space-y-2 text-center lg:text-left">
+            <span class="text-xs font-mono uppercase tracking-widest text-bhav-emerald font-bold">Zero-Rupee Delivery Hack</span>
+            <h3 class="text-2xl sm:text-3xl font-black font-syne text-white">UNLOCK YOUR VIRAL REFERRAL PASS</h3>
+            <p class="text-xs sm:text-sm text-bhav-muted max-w-xl">
+              Share your link with your college or thrifting group. When a friend grabs their first drop, you immediately unlock a <strong>Free Express Delivery Pass (Save ₹70)</strong> for your next checkout.
+            </p>
           </div>
 
-          <!-- Column 2: Slytherin Green Pattern T-Shirts -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Hogwarts Slytherin Pattern Tee', 599, 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80" 
-                   alt="T-Shirts" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
+          <!-- Share Link Box -->
+          <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-3">
+            <div class="relative">
+              <input type="text" id="referral-input" readonly value="https://bhavdrop.vercel.app/?pass=BHAV-VIP" 
+                     class="w-full sm:w-72 bg-zinc-950 border border-bhav-border rounded-xl px-4 py-3 text-xs font-mono text-zinc-300 outline-none">
             </div>
-            <div class="mt-3 text-center">
-              <h3 class="text-base font-extrabold uppercase tracking-wider text-zinc-900">T-SHIRTS</h3>
-              <p class="text-xs text-zinc-500 font-mono mt-0.5">From ₹499</p>
-            </div>
-          </div>
-
-          <!-- Column 3: Blue Plaid Classic Shirts -->
-          <div class="group cursor-pointer flex flex-col justify-between" onclick="quickAddToCart('Classic Navy Plaid Casual Shirt', 849, 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80')">
-            <div class="relative rounded-lg overflow-hidden bg-zinc-100 aspect-[3/4]">
-              <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80" 
-                   alt="Shirts" 
-                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <button class="absolute bottom-3 left-3 right-3 bg-white text-zinc-900 py-2 text-xs font-bold rounded shadow hover:bg-brand-red hover:text-white transition opacity-0 group-hover:opacity-100">
-                ADD TO BAG +
-              </button>
-            </div>
-            <div class="mt-3 text-center">
-              <h3 class="text-base font-extrabold uppercase tracking-wider text-zinc-900">SHIRTS</h3>
-              <p class="text-xs text-zinc-500 font-mono mt-0.5">From ₹849</p>
-            </div>
+            <button onclick="shareReferralWhatsApp()" class="px-6 py-3 rounded-xl bg-bhav-emerald hover:bg-emerald-300 text-black font-extrabold text-xs uppercase tracking-wider whitespace-nowrap transition glow-emerald flex items-center justify-center gap-2">
+              <i data-lucide="share-2" class="w-4 h-4"></i>
+              SHARE ON WHATSAPP
+            </button>
           </div>
 
         </div>
@@ -785,150 +572,131 @@
     </section>
 
     <!-- ==================== TRACK ORDER QUICK SECTION ==================== -->
-    <section id="track-section" class="py-12 bg-zinc-50 border-b border-zinc-200">
-      <div class="max-w-xl mx-auto px-4 text-center">
-        <h3 class="text-xl font-black text-zinc-900 font-heading">TRACK YOUR BHAVDROP PARCEL</h3>
-        <p class="text-xs text-zinc-500 mt-1">Enter your 7-character Order ID or 10-digit WhatsApp phone number.</p>
-        
-        <div class="mt-4 flex gap-2">
-          <input type="text" id="track-input" placeholder="e.g. BD-8921 or 9876543210" class="w-full bg-white border border-zinc-300 rounded-lg px-4 py-2.5 text-xs text-zinc-900 font-mono outline-none focus:border-brand-red">
-          <button onclick="trackOrder()" class="px-5 py-2.5 bg-zinc-900 hover:bg-brand-red text-white text-xs font-bold rounded-lg transition shrink-0">
-            Track
-          </button>
-        </div>
-        <div id="track-output" class="hidden mt-4 p-4 bg-white border border-zinc-200 rounded-lg text-left text-xs font-mono"></div>
+    <section class="py-14 max-w-xl mx-auto px-4 text-center">
+      <span class="text-xs font-mono uppercase tracking-widest text-zinc-500">Fulfillment Verification</span>
+      <h3 class="text-2xl font-bold font-syne text-white mt-1">TRACK YOUR BHAVDROP</h3>
+      <p class="text-xs text-bhav-muted mt-1">Enter your 6-digit Order ID or 10-digit WhatsApp number.</p>
+      
+      <div class="mt-5 flex gap-2">
+        <input type="text" id="track-input" placeholder="e.g. BD-8921 or 9876543210" class="w-full bg-bhav-card border border-bhav-border rounded-xl px-4 py-3 text-xs text-white font-mono outline-none focus:border-bhav-emerald">
+        <button onclick="trackParcel()" class="px-6 py-3 bg-white hover:bg-bhav-emerald text-black text-xs font-bold font-syne rounded-xl transition shrink-0">
+          TRACK
+        </button>
       </div>
+
+      <div id="track-result" class="hidden mt-4 p-4 bg-bhav-card border border-bhav-border rounded-2xl text-left text-xs font-mono"></div>
     </section>
 
   </main>
 
-  <!-- ==================== FOOTER (THE SOULED STORE STYLE) ==================== -->
-  <footer class="bg-zinc-900 text-white pt-12 pb-8 text-xs">
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-black border-t border-bhav-border text-zinc-400 text-xs pt-12 pb-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Top 3 Guarantees Strip (Directly seen at bottom of screenshot 1 & 2) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-10 border-b border-zinc-800 text-center md:text-left">
+      <!-- Guarantees Row -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-10 border-b border-bhav-border/70 text-center md:text-left">
         <div class="flex items-center justify-center md:justify-start gap-3">
-          <i data-lucide="rotate-ccw" class="w-6 h-6 text-brand-red shrink-0"></i>
+          <div class="w-10 h-10 rounded-xl bg-bhav-card flex items-center justify-center text-bhav-emerald border border-bhav-border">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
           <div>
-            <h5 class="font-bold text-white uppercase">30 Days Easy Returns</h5>
-            <p class="text-zinc-400 text-[11px]">& Hassle-free Exchanges</p>
+            <h5 class="font-bold text-white uppercase font-syne">100% Quality Inspected</h5>
+            <p class="text-[11px] text-bhav-muted">No torn hems, bacon collars, or cracked prints.</p>
           </div>
         </div>
+
         <div class="flex items-center justify-center md:justify-start gap-3">
-          <i data-lucide="truck" class="w-6 h-6 text-brand-red shrink-0"></i>
+          <div class="w-10 h-10 rounded-xl bg-bhav-card flex items-center justify-center text-bhav-coral border border-bhav-border">
+            <i data-lucide="truck" class="w-5 h-5"></i>
+          </div>
           <div>
-            <h5 class="font-bold text-white uppercase">Free & Fast Shipping</h5>
-            <p class="text-zinc-400 text-[11px]">On prepaid orders via Delhivery Express</p>
+            <h5 class="font-bold text-white uppercase font-syne">Flat ₹70 Express Dispatch</h5>
+            <p class="text-[11px] text-bhav-muted">Delhivery Airway Tracked from Gujarat hub.</p>
           </div>
         </div>
+
         <div class="flex items-center justify-center md:justify-start gap-3">
-          <i data-lucide="shield-check" class="w-6 h-6 text-brand-red shrink-0"></i>
+          <div class="w-10 h-10 rounded-xl bg-bhav-card flex items-center justify-center text-bhav-emerald border border-bhav-border">
+            <i data-lucide="zap" class="w-5 h-5"></i>
+          </div>
           <div>
-            <h5 class="font-bold text-white uppercase">100% Secure Checkout</h5>
-            <p class="text-zinc-400 text-[11px]">Instant UPI Autopay / GPay / PhonePe</p>
+            <h5 class="font-bold text-white uppercase font-syne">Instant UPI Verification</h5>
+            <p class="text-[11px] text-bhav-muted">GPay, PhonePe, and Paytm zero-MDR checkout.</p>
           </div>
         </div>
       </div>
 
-      <!-- Links Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-b border-zinc-800 text-zinc-400">
-        <div>
-          <h6 class="text-white font-bold uppercase tracking-wider mb-3">NEED HELP</h6>
-          <ul class="space-y-2">
-            <li><a href="#track-section" class="hover:text-white">Track Order</a></li>
-            <li><a href="#" class="hover:text-white">Returns & Refunds</a></li>
-            <li><a href="#" class="hover:text-white">Contact Us</a></li>
-            <li><a href="#" class="hover:text-white">FAQs</a></li>
-          </ul>
-        </div>
-        <div>
-          <h6 class="text-white font-bold uppercase tracking-wider mb-3">COMPANY</h6>
-          <ul class="space-y-2">
-            <li><a href="#" class="hover:text-white">About Us</a></li>
-            <li><a href="#" class="hover:text-white">Careers</a></li>
-            <li><a href="#" class="hover:text-white">Community Stores</a></li>
-            <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
-          </ul>
-        </div>
-        <div>
-          <h6 class="text-white font-bold uppercase tracking-wider mb-3">MORE INFO</h6>
-          <ul class="space-y-2">
-            <li><a href="#vault-section" class="hover:text-white">The Sunday Vault Rules</a></li>
-            <li><a href="#" class="hover:text-white">Sitemap</a></li>
-            <li><a href="#" class="hover:text-white">Gift Vouchers</a></li>
-            <li><a href="#" class="hover:text-white">Membership Club</a></li>
-          </ul>
-        </div>
-        <div>
-          <h6 class="text-white font-bold uppercase tracking-wider mb-3">OWNER PORTAL</h6>
-          <p class="text-zinc-500 text-[11px] mb-2">Manage live falling clock settings & view parcel queue.</p>
-          <button onclick="openAdminModal()" class="px-3 py-1.5 bg-zinc-800 hover:bg-brand-red text-white text-xs font-bold rounded flex items-center gap-1.5 transition">
-            <i data-lucide="lock" class="w-3.5 h-3.5"></i> Admin Login
+      <!-- Links & Admin Lock -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-500">
+        <p>© 2026 BHAVDROP INDIA // Neo-Streetwear Drops. All rights reserved.</p>
+        
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-white transition">Privacy Policy</a>
+          <span>•</span>
+          <a href="#" class="hover:text-white transition">Vault Drop Rules</a>
+          <span>•</span>
+          <!-- Secret Owner Portal -->
+          <button onclick="openAdmin()" class="hover:text-bhav-emerald transition flex items-center gap-1 text-zinc-600 hover:text-zinc-300">
+            <i data-lucide="lock" class="w-3.5 h-3.5"></i> Owner Admin
           </button>
         </div>
-      </div>
-
-      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-500 text-[11px]">
-        <p>© 2026 BHAVDROP INDIA (The Souled Store Design Architecture). All rights reserved.</p>
-        <p>100% Combed Heavy Cotton • Designed in Gujarat, India</p>
       </div>
 
     </div>
   </footer>
 
-  <!-- ==================== SHOPPING CART DRAWER ==================== -->
-  <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
-    <div class="w-full max-w-md bg-white h-full p-6 flex flex-col justify-between shadow-2xl">
+  <!-- ==================== SLIDE-OUT SHOPPING BAG DRAWER ==================== -->
+  <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex justify-end">
+    <div class="w-full max-w-md bg-bhav-bg border-l border-bhav-border h-full p-6 flex flex-col justify-between shadow-2xl">
       
       <div>
-        <div class="flex items-center justify-between pb-4 border-b border-zinc-200">
+        <div class="flex items-center justify-between pb-4 border-b border-bhav-border">
           <div class="flex items-center gap-2">
-            <i data-lucide="shopping-bag" class="w-5 h-5 text-brand-red"></i>
-            <h3 class="text-base font-extrabold text-zinc-900">MY SHOPPING BAG (<span id="cart-drawer-count">0</span>)</h3>
+            <i data-lucide="shopping-bag" class="w-5 h-5 text-bhav-emerald"></i>
+            <h3 class="text-base font-extrabold font-syne text-white">YOUR SHOPPING BAG (<span id="cart-drawer-count">0</span>)</h3>
           </div>
-          <button onclick="toggleCartDrawer(false)" class="text-zinc-500 hover:text-zinc-800">
+          <button onclick="toggleCart(false)" class="p-1 text-zinc-400 hover:text-white">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
 
-        <!-- Items Container -->
-        <div id="cart-items-container" class="py-4 space-y-3 max-h-[55vh] overflow-y-auto no-scrollbar">
-          <div class="text-center text-xs text-zinc-400 py-12">Your shopping bag is empty.</div>
+        <!-- Cart Items List -->
+        <div id="cart-items-container" class="py-4 space-y-3 max-h-[50vh] overflow-y-auto no-scrollbar">
+          <div class="text-center text-xs text-zinc-500 py-12 font-mono">Your shopping bag is empty.</div>
         </div>
 
-        <!-- Coupon Strip -->
-        <div class="pt-3 border-t border-zinc-200">
+        <!-- Coupon Code Strip -->
+        <div class="pt-3 border-t border-bhav-border">
           <div class="flex gap-2">
-            <input type="text" id="coupon-code-input" placeholder="Coupon Code (Try 'VIPFREE')" class="w-full bg-zinc-100 border border-zinc-300 rounded px-3 py-2 text-xs font-mono uppercase outline-none focus:border-brand-red">
-            <button onclick="applyCoupon()" class="px-4 py-2 bg-zinc-900 hover:bg-brand-red text-white text-xs font-bold rounded transition shrink-0">
+            <input type="text" id="coupon-input" placeholder="Coupon Code (Try 'VIPDROP')" class="w-full bg-bhav-card border border-bhav-border rounded-xl px-3 py-2 text-xs font-mono uppercase text-white outline-none focus:border-bhav-emerald">
+            <button onclick="applyCoupon()" class="px-4 py-2 bg-bhav-border hover:bg-bhav-emerald hover:text-black text-white text-xs font-bold rounded-xl transition shrink-0">
               Apply
             </button>
           </div>
-          <p id="coupon-msg" class="text-[10px] text-zinc-500 mt-1"></p>
+          <p id="coupon-alert" class="text-[10px] mt-1 font-mono"></p>
         </div>
       </div>
 
-      <!-- Bottom Checkout Totals -->
-      <div class="border-t border-zinc-200 pt-4 space-y-2">
-        <div class="flex justify-between text-xs text-zinc-600">
-          <span>Cart Subtotal</span>
-          <span id="cart-subtotal" class="font-mono font-bold text-zinc-900">₹0</span>
+      <!-- Checkout Totals -->
+      <div class="border-t border-bhav-border pt-4 space-y-2">
+        <div class="flex justify-between text-xs text-bhav-muted">
+          <span>Items Subtotal</span>
+          <span id="subtotal-val" class="font-mono text-white">₹0</span>
         </div>
-        <div class="flex justify-between text-xs text-zinc-600">
-          <span>Doorstep Courier (All India)</span>
-          <span id="cart-shipping" class="font-mono font-bold text-zinc-900">₹70</span>
+        <div class="flex justify-between text-xs text-bhav-muted">
+          <span>Tracked Courier (All India)</span>
+          <span id="shipping-val" class="font-mono text-white">₹70</span>
         </div>
-        <div id="cart-discount-row" class="hidden flex justify-between text-xs text-emerald-600 font-bold">
-          <span>Free Shipping Discount</span>
-          <span class="font-mono">-₹70</span>
+        <div id="discount-row" class="hidden flex justify-between text-xs text-bhav-emerald font-mono">
+          <span>Promo Discount (VIPDROP)</span>
+          <span id="discount-val">-₹0</span>
         </div>
-        <div class="flex justify-between text-sm font-extrabold text-zinc-900 border-t border-zinc-200 pt-2">
+        <div class="flex justify-between text-sm font-extrabold text-white border-t border-bhav-border pt-2 font-syne">
           <span>Grand Total</span>
-          <span id="cart-grand-total" class="text-brand-red font-mono text-base">₹0</span>
+          <span id="grand-total-val" class="text-bhav-emerald font-mono text-base">₹0</span>
         </div>
 
-        <button onclick="openCheckoutModal()" class="w-full py-3.5 bg-brand-red hover:bg-brand-darkRed text-white font-extrabold text-xs uppercase tracking-wider rounded transition shadow-lg shadow-red-500/20">
+        <button onclick="openCheckoutModal()" class="w-full py-4 bg-bhav-emerald hover:bg-emerald-300 text-black font-black text-xs uppercase tracking-wider rounded-xl transition glow-emerald">
           PROCEED TO CHECKOUT
         </button>
       </div>
@@ -937,107 +705,120 @@
   </div>
 
   <!-- ==================== FAST CHECKOUT MODAL ==================== -->
-  <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
-      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-800">
+  <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-bhav-card border border-bhav-border rounded-3xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
+      
+      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <h3 class="text-lg font-black text-zinc-900 font-heading mb-1">SHIPPING & PAYMENT</h3>
-      <p class="text-xs text-zinc-500 mb-4">Complete your order with instant UPI verification.</p>
+      <div class="mb-4">
+        <span class="text-[10px] font-mono text-bhav-emerald uppercase tracking-widest font-bold">Instant Dispatch</span>
+        <h3 class="text-lg font-black font-syne text-white">SHIPPING & UPI PAYMENT</h3>
+      </div>
 
-      <form onsubmit="handleOrderSubmission(event)" class="space-y-3">
+      <form onsubmit="handleCheckoutSubmit(event)" class="space-y-3.5">
         <div>
-          <label class="text-[11px] font-bold text-zinc-700 block mb-1">Full Name</label>
-          <input type="text" id="cust-name" required placeholder="Aman Sharma" class="w-full px-3 py-2 border border-zinc-300 rounded text-xs outline-none focus:border-brand-red">
+          <label class="text-[11px] font-bold text-zinc-400 block mb-1">Full Name</label>
+          <input type="text" id="order-name" required placeholder="Aman Sharma" class="w-full px-3.5 py-2.5 bg-zinc-950 border border-bhav-border rounded-xl text-xs text-white outline-none focus:border-bhav-emerald">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="text-[11px] font-bold text-zinc-700 block mb-1">WhatsApp Mobile</label>
-            <input type="tel" id="cust-phone" required placeholder="9876543210" class="w-full px-3 py-2 border border-zinc-300 rounded text-xs outline-none focus:border-brand-red">
+            <label class="text-[11px] font-bold text-zinc-400 block mb-1">WhatsApp Phone</label>
+            <input type="tel" id="order-phone" required placeholder="9876543210" class="w-full px-3.5 py-2.5 bg-zinc-950 border border-bhav-border rounded-xl text-xs text-white font-mono outline-none focus:border-bhav-emerald">
           </div>
           <div>
-            <label class="text-[11px] font-bold text-zinc-700 block mb-1">PIN Code</label>
-            <input type="text" id="cust-pincode" required placeholder="380001" class="w-full px-3 py-2 border border-zinc-300 rounded text-xs outline-none focus:border-brand-red">
+            <label class="text-[11px] font-bold text-zinc-400 block mb-1">PIN Code</label>
+            <input type="text" id="order-pincode" required placeholder="380001" class="w-full px-3.5 py-2.5 bg-zinc-950 border border-bhav-border rounded-xl text-xs text-white font-mono outline-none focus:border-bhav-emerald">
           </div>
         </div>
 
         <div>
-          <label class="text-[11px] font-bold text-zinc-700 block mb-1">Delivery Address</label>
-          <textarea id="cust-address" required rows="2" placeholder="House/Flat No, Landmark, Street" class="w-full px-3 py-2 border border-zinc-300 rounded text-xs outline-none focus:border-brand-red"></textarea>
+          <label class="text-[11px] font-bold text-zinc-400 block mb-1">Delivery Address</label>
+          <textarea id="order-address" required rows="2" placeholder="House/Flat No, Landmark, Street" class="w-full px-3.5 py-2.5 bg-zinc-950 border border-bhav-border rounded-xl text-xs text-white outline-none focus:border-bhav-emerald"></textarea>
         </div>
 
-        <div class="bg-zinc-50 p-3 rounded-lg border border-zinc-200 text-xs">
-          <div class="flex justify-between font-bold text-zinc-800">
-            <span>Total Payable:</span>
-            <span id="chk-final-total" class="font-mono text-brand-red">₹0</span>
-          </div>
+        <div class="bg-black/60 p-3.5 rounded-xl border border-bhav-border text-xs flex justify-between items-center font-mono">
+          <span class="text-zinc-400">Total Payable:</span>
+          <span id="checkout-total-val" class="font-bold text-bhav-emerald text-sm">₹0</span>
         </div>
 
-        <button type="submit" class="w-full py-3 bg-brand-red hover:bg-brand-darkRed text-white font-black text-xs uppercase tracking-wider rounded transition">
-          CONFIRM & PAY VIA UPI
+        <button type="submit" class="w-full py-4 bg-bhav-emerald hover:bg-emerald-300 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition glow-emerald">
+          CONFIRM & AUTHORIZE VIA UPI
         </button>
       </form>
+
     </div>
   </div>
 
-  <!-- ==================== OWNER ADMIN MODAL (PASS: bhav2026) ==================== -->
-  <div id="admin-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
-      <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-800">
+  <!-- ==================== OWNER ADMIN MODAL (PIN: bhav2026) ==================== -->
+  <div id="admin-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-bhav-card border border-bhav-border rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
+      
+      <button onclick="closeAdmin()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <div id="admin-auth-view" class="max-w-xs mx-auto text-center py-6">
-        <i data-lucide="shield" class="w-10 h-10 text-brand-red mx-auto mb-2"></i>
-        <h4 class="text-base font-bold text-zinc-900">Owner Access Required</h4>
-        <p class="text-xs text-zinc-500 mt-1 mb-4">Enter password (default: bhav2026)</p>
-        <input type="password" id="admin-pass" placeholder="Password" class="w-full px-3 py-2 border border-zinc-300 rounded text-xs mb-3 text-center font-mono outline-none">
-        <button onclick="verifyAdminPass()" class="w-full py-2 bg-brand-red text-white text-xs font-bold rounded">
-          Unlock Dashboard
+      <!-- Auth Screen -->
+      <div id="admin-auth" class="max-w-xs mx-auto text-center py-6">
+        <div class="w-12 h-12 rounded-2xl bg-bhav-coral/20 border border-bhav-coral text-bhav-coral flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="shield-alert" class="w-6 h-6"></i>
+        </div>
+        <h4 class="text-lg font-bold font-syne text-white">Owner Portal</h4>
+        <p class="text-xs text-bhav-muted mt-1 mb-4">Enter master PIN to adjust drops & view parcels</p>
+        
+        <input type="password" id="admin-pin" placeholder="Enter PIN (Default: bhav2026)" class="w-full px-4 py-2.5 bg-zinc-950 border border-bhav-border rounded-xl text-xs text-white text-center font-mono outline-none mb-3">
+        <button onclick="verifyAdmin()" class="w-full py-2.5 bg-bhav-emerald text-black font-bold text-xs rounded-xl hover:bg-emerald-300 transition">
+          Unlock Console
         </button>
       </div>
 
-      <div id="admin-panel-view" class="hidden space-y-6">
-        <div class="flex items-center justify-between border-b pb-3">
-          <h3 class="text-base font-black text-zinc-900 font-heading">BHAVDROP OWNER DASHBOARD</h3>
-          <span class="text-[10px] bg-emerald-100 text-emerald-800 font-mono font-bold px-2 py-0.5 rounded">AUTHENTICATED</span>
+      <!-- Admin Panel View -->
+      <div id="admin-panel" class="hidden space-y-6">
+        <div class="flex items-center justify-between border-b border-bhav-border pb-3">
+          <div>
+            <h3 class="text-lg font-bold font-syne text-white">BHAVDROP OWNER ENGINE</h3>
+            <span class="text-[10px] font-mono text-bhav-emerald">STATUS: ACTIVE MASTER CONTROLLER</span>
+          </div>
+          <button onclick="resetStoreData()" class="text-[11px] text-bhav-coral font-mono hover:underline">
+            Reset Demo Data
+          </button>
         </div>
 
-        <!-- Vault Drop Controller -->
-        <div class="bg-zinc-50 border p-4 rounded-xl">
-          <h5 class="text-xs font-bold uppercase tracking-wider mb-2 text-zinc-800">Sunday Vault Live Clock Settings</h5>
-          <div class="grid grid-cols-2 gap-3 text-xs">
+        <!-- Vault Drop Clock Settings Form -->
+        <div class="bg-zinc-950 p-4 rounded-2xl border border-bhav-border space-y-3">
+          <h5 class="text-xs font-mono font-bold uppercase text-bhav-emerald">Sunday Vault Clock Parameters</h5>
+          <div class="grid grid-cols-2 gap-3 text-xs font-mono">
             <div>
-              <label class="block text-zinc-500 mb-1">Start Price (₹)</label>
-              <input type="number" id="adm-v-start" value="1199" class="w-full p-2 border rounded font-mono">
+              <label class="block text-zinc-400 mb-1">Start Price (₹)</label>
+              <input type="number" id="adm-start-price" value="1299" class="w-full p-2 bg-bhav-card border border-bhav-border rounded-lg text-white">
             </div>
             <div>
-              <label class="block text-zinc-500 mb-1">Floor Reserve (₹)</label>
-              <input type="number" id="adm-v-floor" value="350" class="w-full p-2 border rounded font-mono">
+              <label class="block text-zinc-400 mb-1">Floor Reserve (₹)</label>
+              <input type="number" id="adm-floor-price" value="399" class="w-full p-2 bg-bhav-card border border-bhav-border rounded-lg text-white">
             </div>
           </div>
-          <button onclick="updateVaultSettings()" class="mt-3 px-4 py-2 bg-zinc-900 text-white text-xs font-bold rounded hover:bg-brand-red transition">
+          <button onclick="saveVaultParams()" class="px-4 py-2 bg-bhav-border hover:bg-bhav-emerald hover:text-black text-white text-xs font-bold rounded-lg transition font-mono">
             Save & Reset Vault Clock
           </button>
         </div>
 
-        <!-- Customer Orders Table -->
+        <!-- Orders Queue Table -->
         <div>
-          <h5 class="text-xs font-bold uppercase tracking-wider mb-2 text-zinc-800">Recent Customer Orders</h5>
-          <div class="border rounded-lg overflow-x-auto">
+          <h5 class="text-xs font-mono font-bold uppercase text-zinc-400 mb-2">Customer Order Queue</h5>
+          <div class="border border-bhav-border rounded-xl overflow-x-auto">
             <table class="w-full text-left text-xs font-mono">
-              <thead class="bg-zinc-100 border-b text-zinc-600">
+              <thead class="bg-zinc-950 text-zinc-500 border-b border-bhav-border">
                 <tr>
-                  <th class="p-2.5">Order ID</th>
-                  <th class="p-2.5">Customer</th>
+                  <th class="p-2.5">ID</th>
+                  <th class="p-2.5">Recipient</th>
                   <th class="p-2.5">Total</th>
                   <th class="p-2.5">Status</th>
                 </tr>
               </thead>
-              <tbody id="admin-orders-table" class="divide-y text-[11px]">
-                <!-- Dynamically populated -->
+              <tbody id="admin-orders-body" class="divide-y divide-bhav-border">
+                <!-- Dynamically injected -->
               </tbody>
             </table>
           </div>
@@ -1048,18 +829,118 @@
     </div>
   </div>
 
-  <!-- ==================== JAVASCRIPT APP LOGIC ==================== -->
+  <!-- ==================== JAVASCRIPT APPLICATION LOGIC ==================== -->
   <script>
-    // 1. Audio Effects (Web Audio API)
+    // -------------------------------------------------------------
+    // 1. DATA STATE & CATALOG INVENTORY
+    // -------------------------------------------------------------
+    const PRODUCTS = [
+      {
+        id: 'bd-01',
+        title: 'Cyberpunk Acid Washed Heavy Tee',
+        price: 549,
+        category: 'tees',
+        gsm: '260 GSM',
+        fit: 'Boxy Drop-Shoulder',
+        img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=700&q=80',
+        sizes: ['S', 'M', 'L', 'XL']
+      },
+      {
+        id: 'bd-02',
+        title: 'Tokyo Racing Windbreaker Jacket',
+        price: 1199,
+        category: 'jackets',
+        gsm: 'Double-Layer Nylon',
+        fit: 'Relaxed Motorsport',
+        img: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=700&q=80',
+        sizes: ['M', 'L', 'XL', 'XXL']
+      },
+      {
+        id: 'bd-03',
+        title: 'Modular 6-Pocket Tactical Cargos',
+        price: 899,
+        category: 'cargos',
+        gsm: 'Heavy Twill Cotton',
+        fit: 'Wide-Leg Relaxed',
+        img: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=700&q=80',
+        sizes: ['30', '32', '34', '36']
+      },
+      {
+        id: 'bd-04',
+        title: 'Urban Blaze Terra Low-Tops',
+        price: 1499,
+        category: 'kicks',
+        gsm: 'Suede & Leather',
+        fit: 'True to Size',
+        img: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=700&q=80',
+        sizes: ['UK 7', 'UK 8', 'UK 9', 'UK 10']
+      },
+      {
+        id: 'bd-05',
+        title: 'Vintage Brown Flannel Overshirt',
+        price: 949,
+        category: 'jackets',
+        gsm: '320 GSM Flannel',
+        fit: 'Relaxed Layering',
+        img: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=700&q=80',
+        sizes: ['M', 'L', 'XL']
+      },
+      {
+        id: 'bd-06',
+        title: 'Monochrome Graphic Tribal Tee',
+        price: 499,
+        category: 'tees',
+        gsm: '240 GSM Pure Combed',
+        fit: 'Boxy Street',
+        img: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=700&q=80',
+        sizes: ['S', 'M', 'L', 'XL']
+      },
+      {
+        id: 'bd-07',
+        title: 'Ice Blue Rigid Straight-Fit Denim',
+        price: 1099,
+        category: 'cargos',
+        gsm: '14 Oz Rigid Denim',
+        fit: 'Straight Leg',
+        img: 'https://images.unsplash.com/photo-1542272604-780c96856592?auto=format&fit=crop&w=700&q=80',
+        sizes: ['30', '32', '34', '36']
+      },
+      {
+        id: 'bd-08',
+        title: 'Batwing Tactical Crossbody Pack',
+        price: 499,
+        category: 'tees',
+        gsm: 'Cordura 500D',
+        fit: 'Adjustable Strap',
+        img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80',
+        sizes: ['One Size']
+      }
+    ];
+
+    let currentCategory = 'all';
+    let searchQuery = '';
+    let sortMode = 'featured';
+
+    let cart = JSON.parse(localStorage.getItem('bhav_cart') || '[]');
+    let wishlist = JSON.parse(localStorage.getItem('bhav_wishlist') || '[]');
+    let couponApplied = false;
+
+    // -------------------------------------------------------------
+    // 2. SYNTHETIC AUDIO ENGINE (Web Audio API)
+    // -------------------------------------------------------------
+    let audioEnabled = true;
     let audioCtx = null;
-    function playBeep(freq = 440, duration = 0.08) {
+
+    function playSynthTone(freq = 440, duration = 0.05, type = 'sine') {
+      if (!audioEnabled) return;
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === 'suspended') audioCtx.resume();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
+        osc.type = type;
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
@@ -1068,109 +949,239 @@
       } catch (e) {}
     }
 
-    // 2. Navigation Tabs
-    function selectNavTab(btn, cat) {
-      document.querySelectorAll('.nav-tab').forEach(b => {
-        b.className = 'nav-tab text-zinc-600 hover:text-brand-red h-full px-2 flex items-center font-bold transition';
-      });
-      btn.className = 'nav-tab active h-full px-2 flex items-center font-bold';
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      document.getElementById('sound-label').innerText = audioEnabled ? 'Audio ON' : 'Audio OFF';
+      document.getElementById('sound-icon').className = audioEnabled ? 'w-4 h-4 text-bhav-emerald' : 'w-4 h-4 text-zinc-600';
     }
 
-    function toggleSideDrawer(show) {
-      const drawer = document.getElementById('side-drawer');
-      if (show) drawer.classList.remove('hidden');
-      else drawer.classList.add('hidden');
-    }
-
-    // 3. Falling Bhav Sunday Vault Engine
-    let vaultStartPrice = 1199;
-    let vaultFloorPrice = 350;
-    let vaultCurrentPrice = 1199;
+    // -------------------------------------------------------------
+    // 3. THE SUNDAY VAULT FALLING PRICE ENGINE
+    // -------------------------------------------------------------
+    let vaultStartPrice = Number(localStorage.getItem('bhav_v_start') || 1299);
+    let vaultFloorPrice = Number(localStorage.getItem('bhav_v_floor') || 399);
+    let vaultCurrentPrice = vaultStartPrice;
+    let vaultStep = 15;
+    let vaultIntervalSec = 3;
     let vaultLocked = false;
-    let vaultCountdownSeconds = 180;
-    let vaultCountdownInterval = null;
+    let vaultLockSeconds = 180;
+    let vaultLockTimer = null;
 
-    function updateVaultClockDisplay() {
+    function updateVaultClockUI() {
       document.getElementById('vault-price-text').innerText = '₹' + vaultCurrentPrice;
       document.getElementById('vault-btn-price').innerText = '₹' + vaultCurrentPrice;
 
-      const progress = ((vaultCurrentPrice - vaultFloorPrice) / (vaultStartPrice - vaultFloorPrice)) * 100;
+      // Progress bar percentage
+      const totalSpan = vaultStartPrice - vaultFloorPrice;
+      const currentProgress = ((vaultCurrentPrice - vaultFloorPrice) / totalSpan) * 100;
       const bar = document.getElementById('vault-progress-bar');
-      if (bar) bar.style.width = Math.max(0, Math.min(100, progress)) + '%';
+      if (bar) bar.style.width = Math.max(0, Math.min(100, currentProgress)) + '%';
     }
 
-    // 4-Second Live Falling Clock Interval
+    // Live ticking countdown interval (every 3 seconds)
     setInterval(() => {
       if (vaultLocked) return;
+
       if (vaultCurrentPrice > vaultFloorPrice) {
-        vaultCurrentPrice -= 10;
+        vaultCurrentPrice -= vaultStep;
         if (vaultCurrentPrice < vaultFloorPrice) vaultCurrentPrice = vaultFloorPrice;
-        updateVaultClockDisplay();
-        playBeep(330, 0.04);
+        updateVaultClockUI();
+        playSynthTone(580, 0.04, 'triangle');
       }
-    }, 4000);
+    }, vaultIntervalSec * 1000);
+
+    // Dynamic Watcher Fluctuation for real-time room feel
+    setInterval(() => {
+      const el = document.getElementById('live-watchers');
+      if (el) {
+        const delta = Math.floor(Math.random() * 5) - 2;
+        let count = parseInt(el.innerText) + delta;
+        if (count < 28) count = 35;
+        if (count > 64) count = 52;
+        el.innerText = count;
+      }
+    }, 5000);
 
     function claimVaultItem() {
       if (vaultLocked) return;
       vaultLocked = true;
-      playBeep(880, 0.2);
+      playSynthTone(880, 0.25, 'square');
 
       document.getElementById('vault-action-container').classList.add('hidden');
-      document.getElementById('vault-lock-box').classList.remove('hidden');
-      document.getElementById('locked-bhav-val').innerText = '₹' + vaultCurrentPrice;
+      document.getElementById('vault-locked-box').classList.remove('hidden');
+      document.getElementById('locked-price-val').innerText = '₹' + vaultCurrentPrice;
 
-      vaultCountdownSeconds = 180;
-      clearInterval(vaultCountdownInterval);
-      vaultCountdownInterval = setInterval(() => {
-        vaultCountdownSeconds--;
-        document.getElementById('lock-countdown').innerText = vaultCountdownSeconds + 's';
-        if (vaultCountdownSeconds <= 0) {
-          clearInterval(vaultCountdownInterval);
+      vaultLockSeconds = 180;
+      clearInterval(vaultLockTimer);
+      vaultLockTimer = setInterval(() => {
+        vaultLockSeconds--;
+        document.getElementById('vault-lock-countdown').innerText = vaultLockSeconds + 's';
+        if (vaultLockSeconds <= 0) {
+          clearInterval(vaultLockTimer);
           vaultLocked = false;
           document.getElementById('vault-action-container').classList.remove('hidden');
-          document.getElementById('vault-lock-box').classList.add('hidden');
+          document.getElementById('vault-locked-box').classList.add('hidden');
         }
       }, 1000);
     }
 
-    function proceedToVaultCheckout() {
+    function proceedVaultCheckout() {
       cart = [{
+        id: 'vault-claim-lot-1',
         title: 'Vintage Tokyo Racing Windbreaker (Vault Won)',
         price: vaultCurrentPrice,
-        qty: 1,
-        img: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=400&q=80'
+        size: 'L',
+        img: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80',
+        qty: 1
       }];
       updateCartUI();
       openCheckoutModal();
     }
 
-    // 4. Shopping Cart & Bag Logic
-    let cart = JSON.parse(localStorage.getItem('bd_souled_cart')) || [];
-    let isFreeShipping = false;
-
-    function quickAddToCart(title, price, img) {
-      cart.push({ title, price: Number(price), qty: 1, img });
-      localStorage.setItem('bd_souled_cart', JSON.stringify(cart));
-      updateCartUI();
-      toggleCartDrawer(true);
-      playBeep(520, 0.08);
+    function scrollToVault() {
+      document.getElementById('vault-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function toggleCartDrawer(show) {
+    // -------------------------------------------------------------
+    // 4. PRODUCT CATALOG RENDERING & FILTERING
+    // -------------------------------------------------------------
+    function renderProducts() {
+      const container = document.getElementById('products-grid');
+      let filtered = PRODUCTS.filter(p => {
+        const matchCat = currentCategory === 'all' || p.category === currentCategory;
+        const matchSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                            p.gsm.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchCat && matchSearch;
+      });
+
+      if (sortMode === 'low') filtered.sort((a, b) => a.price - b.price);
+      if (sortMode === 'high') filtered.sort((a, b) => b.price - a.price);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-16 text-center font-mono text-zinc-500">
+            No streetwear pieces found for query "${searchQuery}".
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => {
+        const isWished = wishlist.includes(p.id);
+        return `
+          <div class="group bg-bhav-card border border-bhav-border rounded-2xl p-4 flex flex-col justify-between hover:border-bhav-borderLight transition duration-300">
+            <div>
+              <!-- Image Aspect Container -->
+              <div class="relative rounded-xl overflow-hidden aspect-[4/5] bg-zinc-950">
+                <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                
+                <!-- GSM Badge -->
+                <div class="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono text-bhav-emerald font-semibold border border-bhav-emerald/20">
+                  ${p.gsm}
+                </div>
+
+                <!-- Wishlist Heart Button -->
+                <button onclick="toggleWishlistItem('${p.id}')" class="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-black/60 backdrop-blur-md text-white hover:text-bhav-coral transition">
+                  <i data-lucide="heart" class="w-4 h-4 ${isWished ? 'text-bhav-coral fill-current' : ''}"></i>
+                </button>
+              </div>
+
+              <!-- Product Details -->
+              <div class="mt-3.5">
+                <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">${p.fit}</span>
+                <h4 class="text-sm font-bold text-white mt-0.5 line-clamp-1 font-syne">${p.title}</h4>
+              </div>
+
+              <!-- Size Pill Selector -->
+              <div class="flex items-center gap-1.5 mt-2.5">
+                ${p.sizes.map((s, idx) => `
+                  <button onclick="selectProductSize(this)" class="size-btn px-2 py-0.5 rounded text-[10px] font-mono border ${idx === 0 ? 'border-bhav-emerald text-bhav-emerald bg-bhav-emerald/10' : 'border-bhav-border text-zinc-400 hover:border-zinc-500'}">
+                    ${s}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Price & Add Action -->
+            <div class="mt-4 pt-3 border-t border-bhav-border flex items-center justify-between">
+              <div>
+                <span class="text-[9px] font-mono text-zinc-500 uppercase block">Fixed Bhav</span>
+                <span class="text-base font-black font-mono text-bhav-emerald">₹${p.price}</span>
+              </div>
+              <button onclick="addToBag('${p.id}')" class="px-3.5 py-2 rounded-xl bg-bhav-cardLight hover:bg-bhav-emerald hover:text-black text-white text-xs font-bold transition flex items-center gap-1.5 border border-bhav-border">
+                <span>Add</span> +
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function filterCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.nav-cat-btn').forEach(b => {
+        b.className = 'nav-cat-btn px-4 py-2 rounded-full text-bhav-muted hover:text-white transition';
+      });
+      if (btn) btn.className = 'nav-cat-btn px-4 py-2 rounded-full bg-bhav-border text-white transition';
+      renderProducts();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val.trim();
+      renderProducts();
+    }
+
+    function sortProducts(val) {
+      sortMode = val;
+      renderProducts();
+    }
+
+    function selectProductSize(btn) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.size-btn').forEach(b => {
+        b.className = 'size-btn px-2 py-0.5 rounded text-[10px] font-mono border border-bhav-border text-zinc-400 hover:border-zinc-500';
+      });
+      btn.className = 'size-btn px-2 py-0.5 rounded text-[10px] font-mono border border-bhav-emerald text-bhav-emerald bg-bhav-emerald/10';
+    }
+
+    // -------------------------------------------------------------
+    // 5. SHOPPING BAG & CART STATE
+    // -------------------------------------------------------------
+    function addToBag(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      cart.push({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        img: product.img,
+        size: 'L',
+        qty: 1
+      });
+
+      localStorage.setItem('bhav_cart', JSON.stringify(cart));
+      updateCartUI();
+      toggleCart(true);
+      playSynthTone(720, 0.08, 'sine');
+    }
+
+    function toggleCart(open) {
       const drawer = document.getElementById('cart-drawer');
-      if (show) drawer.classList.remove('hidden');
+      if (open) drawer.classList.remove('hidden');
       else drawer.classList.add('hidden');
     }
 
     function updateCartUI() {
-      document.getElementById('header-cart-badge').innerText = cart.length;
+      document.getElementById('bag-badge').innerText = cart.length;
       document.getElementById('cart-drawer-count').innerText = cart.length;
 
       const container = document.getElementById('cart-items-container');
       if (cart.length === 0) {
-        container.innerHTML = '<div class="text-center text-xs text-zinc-400 py-12">Your shopping bag is empty.</div>';
-        document.getElementById('cart-subtotal').innerText = '₹0';
-        document.getElementById('cart-grand-total').innerText = '₹0';
+        container.innerHTML = '<div class="text-center text-xs text-zinc-500 py-12 font-mono">Your shopping bag is empty.</div>';
+        document.getElementById('subtotal-val').innerText = '₹0';
+        document.getElementById('grand-total-val').innerText = '₹0';
         return;
       }
 
@@ -1178,49 +1189,66 @@
       container.innerHTML = cart.map((item, idx) => {
         subtotal += item.price;
         return `
-          <div class="flex items-center gap-3 bg-zinc-50 p-2.5 rounded-lg border border-zinc-200 text-xs">
-            <img src="${item.img}" class="w-12 h-14 object-cover rounded">
+          <div class="flex items-center gap-3 bg-bhav-card p-3 rounded-2xl border border-bhav-border text-xs">
+            <img src="${item.img}" class="w-12 h-14 object-cover rounded-xl bg-zinc-950">
             <div class="flex-grow">
-              <h5 class="font-bold text-zinc-900 line-clamp-1">${item.title}</h5>
-              <span class="text-zinc-500 font-mono">₹${item.price}</span>
+              <h5 class="font-bold text-white line-clamp-1 font-syne">${item.title}</h5>
+              <div class="text-[11px] text-zinc-400 font-mono mt-0.5">₹${item.price} • Size: ${item.size}</div>
             </div>
-            <button onclick="removeCartItem(${idx})" class="text-red-500 hover:text-red-700 font-bold p-1">✕</button>
+            <button onclick="removeFromCart(${idx})" class="p-1.5 text-zinc-500 hover:text-bhav-coral transition">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
           </div>
         `;
       }).join('');
 
-      const shipping = isFreeShipping ? 0 : (cart.length > 0 ? 70 : 0);
-      document.getElementById('cart-subtotal').innerText = '₹' + subtotal;
-      document.getElementById('cart-grand-total').innerText = '₹' + (subtotal + shipping);
-      document.getElementById('chk-final-total').innerText = '₹' + (subtotal + shipping);
+      const shipping = cart.length > 0 ? 70 : 0;
+      const discount = couponApplied ? Math.round(subtotal * 0.1) : 0;
+
+      if (couponApplied) {
+        document.getElementById('discount-row').classList.remove('hidden');
+        document.getElementById('discount-val').innerText = '-₹' + discount;
+      } else {
+        document.getElementById('discount-row').classList.add('hidden');
+      }
+
+      const grandTotal = Math.max(0, subtotal + shipping - discount);
+
+      document.getElementById('subtotal-val').innerText = '₹' + subtotal;
+      document.getElementById('shipping-val').innerText = '₹' + shipping;
+      document.getElementById('grand-total-val').innerText = '₹' + grandTotal;
+      document.getElementById('checkout-total-val').innerText = '₹' + grandTotal;
+
+      lucide.createIcons();
     }
 
-    function removeCartItem(idx) {
+    function removeFromCart(idx) {
       cart.splice(idx, 1);
-      localStorage.setItem('bd_souled_cart', JSON.stringify(cart));
+      localStorage.setItem('bhav_cart', JSON.stringify(cart));
       updateCartUI();
     }
 
     function applyCoupon() {
-      const code = document.getElementById('coupon-code-input').value.trim().toUpperCase();
-      const msg = document.getElementById('coupon-msg');
-      if (code === 'VIPFREE') {
-        isFreeShipping = true;
-        document.getElementById('cart-discount-row').classList.remove('hidden');
-        document.getElementById('cart-shipping').innerText = 'FREE (₹0)';
-        msg.className = 'text-[10px] text-emerald-600 font-bold mt-1';
-        msg.innerText = 'Coupon VIPFREE applied! Free Delivery unlocked.';
+      const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+      const alertEl = document.getElementById('coupon-alert');
+      if (code === 'VIPDROP') {
+        couponApplied = true;
+        alertEl.className = 'text-[10px] text-bhav-emerald mt-1 font-mono';
+        alertEl.innerText = 'Coupon VIPDROP active! Flat 10% slashed.';
         updateCartUI();
+        playSynthTone(900, 0.1, 'sine');
       } else {
-        msg.className = 'text-[10px] text-red-500 font-bold mt-1';
-        msg.innerText = 'Invalid coupon code. Try VIPFREE.';
+        alertEl.className = 'text-[10px] text-bhav-coral mt-1 font-mono';
+        alertEl.innerText = 'Invalid pass. Try VIPDROP.';
       }
     }
 
-    // 5. Checkout & Order Flow
+    // -------------------------------------------------------------
+    // 6. CHECKOUT MODAL & ORDER CREATION
+    // -------------------------------------------------------------
     function openCheckoutModal() {
       if (cart.length === 0) return alert('Your shopping bag is empty!');
-      toggleCartDrawer(false);
+      toggleCart(false);
       document.getElementById('checkout-modal').classList.remove('hidden');
     }
 
@@ -1228,113 +1256,155 @@
       document.getElementById('checkout-modal').classList.add('hidden');
     }
 
-    function handleOrderSubmission(e) {
+    function handleCheckoutSubmit(e) {
       e.preventDefault();
       const order = {
         id: 'BD-' + Math.floor(1000 + Math.random() * 9000),
-        name: document.getElementById('cust-name').value,
-        phone: document.getElementById('cust-phone').value,
-        address: document.getElementById('cust-address').value,
-        total: document.getElementById('chk-final-total').innerText,
+        name: document.getElementById('order-name').value,
+        phone: document.getElementById('order-phone').value,
+        address: document.getElementById('order-address').value,
+        pincode: document.getElementById('order-pincode').value,
+        total: document.getElementById('checkout-total-val').innerText,
         date: new Date().toLocaleDateString(),
         status: 'PAID • PREPARING FOR DISPATCH'
       };
 
-      const orders = JSON.parse(localStorage.getItem('bd_souled_orders') || '[]');
+      const orders = JSON.parse(localStorage.getItem('bhav_orders') || '[]');
       orders.unshift(order);
-      localStorage.setItem('bd_souled_orders', JSON.stringify(orders));
+      localStorage.setItem('bhav_orders', JSON.stringify(orders));
 
       // Reset cart
       cart = [];
-      localStorage.setItem('bd_souled_cart', JSON.stringify([]));
+      localStorage.setItem('bhav_cart', JSON.stringify([]));
+      couponApplied = false;
       updateCartUI();
       closeCheckoutModal();
 
-      alert(`🎉 Order Confirmed!\nOrder ID: ${order.id}\nCourier: Delhivery Express\nWe have dispatched confirmation details to ${order.phone}.`);
+      alert(`🎉 Order Confirmed!\n\nOrder ID: ${order.id}\nCourier: Delhivery Express\nWe have dispatched airway tracking to WhatsApp: ${order.phone}`);
     }
 
-    // 6. Track Order Quick Lookup
-    function trackOrder() {
+    // -------------------------------------------------------------
+    // 7. TRACK PARCEL ENGINE
+    // -------------------------------------------------------------
+    function trackParcel() {
       const q = document.getElementById('track-input').value.trim();
-      const out = document.getElementById('track-output');
-      const orders = JSON.parse(localStorage.getItem('bd_souled_orders') || '[]');
+      const out = document.getElementById('track-result');
+      const orders = JSON.parse(localStorage.getItem('bhav_orders') || '[]');
       const found = orders.find(o => o.id === q || o.phone === q);
 
       out.classList.remove('hidden');
       if (found) {
         out.innerHTML = `
-          <div class="text-zinc-900 font-bold">Order ${found.id} Found!</div>
-          <div class="text-zinc-600 mt-1">Recipient: ${found.name} (${found.phone})</div>
-          <div class="text-zinc-600">Total: ${found.total}</div>
-          <div class="text-emerald-600 font-bold mt-1">● Status: ${found.status}</div>
-          <div class="text-zinc-400 text-[10px] mt-1">Courier: Delhivery Airway Bill #2849102847</div>
+          <div class="text-white font-bold font-syne">Order ${found.id} Verified!</div>
+          <div class="text-zinc-400 mt-1">Customer: ${found.name} (${found.phone})</div>
+          <div class="text-zinc-400">Destination: ${found.address} [PIN: ${found.pincode}]</div>
+          <div class="text-bhav-emerald font-bold mt-1">Status: ${found.status}</div>
+          <div class="text-zinc-500 text-[10px] mt-1">Airway Bill: #DLHV-${Math.floor(10000000 + Math.random() * 90000000)}</div>
         `;
       } else {
-        out.innerHTML = '<div class="text-zinc-500">No active parcel found for that query. Test by placing an order first!</div>';
+        out.innerHTML = `
+          <div class="text-zinc-500">No active parcel found matching "${q}". Test by placing an order first!</div>
+        `;
       }
     }
 
-    // 7. Owner Admin Portal (bhav2026)
-    function openAdminModal() {
+    // -------------------------------------------------------------
+    // 8. VIRAL REFERRAL SHARE & WISHLIST
+    // -------------------------------------------------------------
+    function shareReferralWhatsApp() {
+      const link = document.getElementById('referral-input').value;
+      const text = encodeURIComponent(`Yo! Check out BhavDrop. Streetwear drops where the price falls every 4 seconds. Use my link to unlock Free Delivery: ${link}`);
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    }
+
+    function toggleWishlistItem(id) {
+      if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(x => x !== id);
+      } else {
+        wishlist.push(id);
+        playSynthTone(700, 0.05, 'triangle');
+      }
+      localStorage.setItem('bhav_wishlist', JSON.stringify(wishlist));
+      document.getElementById('wish-badge').innerText = wishlist.length;
+      renderProducts();
+    }
+
+    function toggleWishlistModal() {
+      alert(`Wishlist Bookmarks (${wishlist.length} saved). Items will notify your WhatsApp before Sunday drops!`);
+    }
+
+    function toggleMobileNav(show) {
+      const drawer = document.getElementById('cart-drawer');
+      // Re-use or customize as needed
+    }
+
+    // -------------------------------------------------------------
+    // 9. OWNER ADMIN PORTAL (PIN: bhav2026)
+    // -------------------------------------------------------------
+    function openAdmin() {
       document.getElementById('admin-modal').classList.remove('hidden');
     }
 
-    function closeAdminModal() {
+    function closeAdmin() {
       document.getElementById('admin-modal').classList.add('hidden');
     }
 
-    function verifyAdminPass() {
-      const pass = document.getElementById('admin-pass').value;
-      if (pass === 'bhav2026') {
-        document.getElementById('admin-auth-view').classList.add('hidden');
-        document.getElementById('admin-panel-view').classList.remove('hidden');
+    function verifyAdmin() {
+      const pin = document.getElementById('admin-pin').value;
+      if (pin === 'bhav2026') {
+        document.getElementById('admin-auth').classList.add('hidden');
+        document.getElementById('admin-panel').classList.remove('hidden');
         renderAdminOrders();
       } else {
-        alert('Incorrect password!');
+        alert('Invalid PIN!');
       }
     }
 
-    function updateVaultSettings() {
-      vaultStartPrice = Number(document.getElementById('adm-v-start').value);
-      vaultFloorPrice = Number(document.getElementById('adm-v-floor').value);
-      vaultCurrentPrice = vaultStartPrice;
+    function saveVaultParams() {
+      const s = Number(document.getElementById('adm-start-price').value);
+      const f = Number(document.getElementById('adm-floor-price').value);
+      vaultStartPrice = s;
+      vaultFloorPrice = f;
+      vaultCurrentPrice = s;
       vaultLocked = false;
-      updateVaultClockDisplay();
-      alert('Vault Drop settings updated! Clock reset to ₹' + vaultStartPrice);
+      localStorage.setItem('bhav_v_start', s);
+      localStorage.setItem('bhav_v_floor', f);
+      updateVaultClockUI();
+      alert('Vault clock parameters saved & reset to ₹' + s);
     }
 
     function renderAdminOrders() {
-      const orders = JSON.parse(localStorage.getItem('bd_souled_orders') || '[]');
-      const tbody = document.getElementById('admin-orders-table');
+      const orders = JSON.parse(localStorage.getItem('bhav_orders') || '[]');
+      const tbody = document.getElementById('admin-orders-body');
       if (orders.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="p-3 text-center text-zinc-400">No customer orders placed yet.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" class="p-3 text-center text-zinc-500">No orders placed yet.</td></tr>';
         return;
       }
       tbody.innerHTML = orders.map(o => `
-        <tr>
-          <td class="p-2 text-brand-red font-bold">${o.id}</td>
-          <td class="p-2">${o.name}<br><span class="text-zinc-400">${o.phone}</span></td>
-          <td class="p-2">${o.total}</td>
-          <td class="p-2 text-emerald-600">${o.status}</td>
+        <tr class="hover:bg-zinc-900/50">
+          <td class="p-2.5 text-bhav-emerald font-bold">${o.id}</td>
+          <td class="p-2.5 text-white">${o.name}<br><span class="text-zinc-500 text-[10px]">${o.phone}</span></td>
+          <td class="p-2.5 text-white">${o.total}</td>
+          <td class="p-2.5 text-bhav-coral text-[10px]">${o.status}</td>
         </tr>
       `).join('');
     }
 
-    function handleLiveSearch(query) {
-      console.log('Searching for:', query);
+    function resetStoreData() {
+      localStorage.removeItem('bhav_orders');
+      localStorage.removeItem('bhav_cart');
+      localStorage.removeItem('bhav_wishlist');
+      alert('Demo data cleared! Reloading...');
+      location.reload();
     }
 
-    function toggleWishlistModal() {
-      alert('Wishlist: Tap any heart icon to bookmark styles!');
-    }
-
-    function openAuthModal() {
-      alert('Account Login / OTP screen ready for Cashfree/Firebase Auth integration!');
-    }
-
-    // Initial run
-    updateVaultClockDisplay();
+    // -------------------------------------------------------------
+    // INITIALIZATION
+    // -------------------------------------------------------------
+    updateVaultClockUI();
     updateCartUI();
+    renderProducts();
+    document.getElementById('wish-badge').innerText = wishlist.length;
     lucide.createIcons();
   </script>
 </body>
