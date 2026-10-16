@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BhavDrop - Beat The Clock</title>
+  <!-- Tailwind CSS for sleek dark-mode styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen flex flex-col items-center p-4">
+
+  <!-- Header -->
+  <header class="w-full max-w-md flex justify-between items-center py-4 border-b border-zinc-800">
+    <h1 class="text-2xl font-black tracking-tighter text-emerald-400">BHAVDROP</h1>
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+      <span class="text-xs font-mono text-zinc-400 tracking-wider">LIVE DROP</span>
+    </div>
+  </header>
+
+  <!-- Product Card -->
+  <div class="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-3xl p-5 mt-6 shadow-2xl">
+    
+    <!-- Product Image -->
+    <div class="relative">
+      <img id="product-img" 
+           src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80" 
+           alt="Vintage Heavyweight Tee" 
+           class="w-full h-80 object-cover rounded-2xl border border-zinc-800">
+      <div class="absolute top-3 left-3 bg-black/80 px-3 py-1 rounded-full text-xs font-semibold text-zinc-300">
+        Oversized Fit (Size L)
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="mt-4">
+      <h2 id="product-title" class="text-xl font-extrabold">Vintage 90s Heavy Graphic Tee</h2>
+      <p class="text-sm text-zinc-400 mt-1">240 GSM Pure Cotton. Boxy fit. Charcoal wash.</p>
+    </div>
+
+    <!-- The Falling Bhav Box -->
+    <div class="my-6 bg-black/70 border border-zinc-800 rounded-2xl p-4 text-center">
+      <span class="text-xs font-mono uppercase text-zinc-500 tracking-widest">Current Bhav</span>
+      <div id="price-display" class="text-6xl font-black font-mono text-emerald-400 mt-1">
+        ₹999
+      </div>
+      <div class="flex justify-between items-center text-xs text-zinc-500 mt-3 px-2 font-mono">
+        <span>Start: ₹999</span>
+        <span class="text-red-400">Drops ₹10 every 4s</span>
+        <span>Floor: ₹350</span>
+      </div>
+    </div>
+
+    <!-- Claim Button -->
+    <div id="action-container">
+      <button id="claim-btn" 
+              onclick="startCheckout()" 
+              class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xl rounded-2xl transition active:scale-95 shadow-lg shadow-emerald-500/20">
+        CLAIM BHAV AT <span id="btn-price">₹999</span>
+      </button>
+    </div>
+
+    <!-- Hidden Checkout Box (Appears after clicking Claim) -->
+    <div id="checkout-box" class="hidden space-y-3 bg-black/90 p-4 rounded-2xl border border-emerald-500/40">
+      <div class="text-sm text-emerald-400 font-bold text-center">
+        ⚡ Bhav Locked! Complete payment in 3 mins.
+      </div>
+      <div class="text-xs text-zinc-400 flex justify-between">
+        <span>Locked Bhav: <strong id="locked-price" class="text-white">₹0</strong></span>
+        <span>Express Delivery: <strong class="text-white">₹70</strong></span>
+      </div>
+      <div class="text-sm font-bold text-white flex justify-between border-t border-zinc-800 pt-2">
+        <span>Total to Pay:</span>
+        <span id="total-price" class="text-emerald-400 font-mono">₹0</span>
+      </div>
+      <input type="tel" id="user-phone" required placeholder="Enter WhatsApp Number" 
+             class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white text-sm outline-none focus:border-emerald-500">
+      <button onclick="payViaUPI()" 
+              class="w-full py-3.5 bg-emerald-400 hover:bg-emerald-300 text-black font-extrabold text-base rounded-xl transition">
+        CONFIRM & PAY VIA UPI
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Trust Footer -->
+  <footer class="mt-8 text-center text-xs text-zinc-500 max-w-md">
+    <p>🚚 Flat ₹70 Doorstep Delivery all over India via Delhivery.</p>
+    <p class="mt-1">All sales final. Share your link to unlock free delivery.</p>
+  </footer>
+
+  <!-- Simple JavaScript Logic (The Falling Clock Engine) -->
+  <script>
+    let currentPrice = 999;
+    const floorPrice = 350;
+    const dropAmount = 10;
+    const intervalSeconds = 4;
+    let isLocked = false;
+
+    // This timer runs every 4 seconds automatically
+    const clockTimer = setInterval(() => {
+      if (isLocked) return;
+
+      if (currentPrice > floorPrice) {
+        currentPrice -= dropAmount;
+        if (currentPrice < floorPrice) currentPrice = floorPrice;
+        
+        // Update the screen numbers instantly
+        document.getElementById('price-display').innerText = '₹' + currentPrice;
+        document.getElementById('btn-price').innerText = '₹' + currentPrice;
+      } else {
+        clearInterval(clockTimer);
+      }
+    }, intervalSeconds * 1000);
+
+    // What happens when user clicks CLAIM
+    function startCheckout() {
+      isLocked = true; // Stop the price from dropping
+      document.getElementById('action-container').classList.add('hidden');
+      document.getElementById('checkout-box').classList.remove('hidden');
+      
+      document.getElementById('locked-price').innerText = '₹' + currentPrice;
+      document.getElementById('total-price').innerText = '₹' + (currentPrice + 70);
+    }
+
+    // What happens when user enters WhatsApp number and taps PAY
+    function payViaUPI() {
+      const phone = document.getElementById('user-phone').value;
+      if (!phone || phone.length < 10) {
+        alert('Please enter a valid 10-digit WhatsApp number');
+        return;
+      }
+      const total = currentPrice + 70;
+      alert(`Bhav locked at ₹${currentPrice}! Total: ₹${total}.\nOpening UPI gateway for ${phone}...`);
+      // Here you link your Razorpay or Cashfree UPI link
+    }
+  </script>
+</body>
+</html>
