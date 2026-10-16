@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BhavDrop | Neo-Streetwear & Sunday Vault Drops</title>
+  <title>BHAVDROP // Midnight Couture, Seductive Silhouettes & The Vault</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Syne (Editorial Headings) + Plus Jakarta Sans (Modern Body) + JetBrains Mono (Prices/Timers) -->
+  <!-- Google Fonts: Cinzel Decorative, Playfair Display, Plus Jakarta Sans, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -22,37 +22,50 @@
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            heading: ['"Syne"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            display: ['"Cinzel"', 'serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            bhav: {
-              bg: '#0a0c10',
-              card: '#11141b',
-              cardLight: '#181c25',
-              border: '#232834',
-              borderLight: '#303746',
-              emerald: '#00e599',
-              emeraldGlow: '#00e59933',
-              coral: '#ff4655',
-              coralGlow: '#ff465533',
-              muted: '#7a8499',
-              light: '#f1f4f9'
+            noir: {
+              950: '#040507',
+              900: '#07090d',
+              850: '#0d1017',
+              800: '#141822',
+              border: '#212736',
+              borderLight: '#30394e'
+            },
+            gold: {
+              light: '#f5e7b2',
+              DEFAULT: '#d4af37',
+              dark: '#997a15',
+              glow: 'rgba(212, 175, 55, 0.28)'
+            },
+            wine: {
+              light: '#9e1b32',
+              DEFAULT: '#6b0f24',
+              dark: '#3d0512',
+              glow: 'rgba(158, 27, 50, 0.35)'
             }
           },
           keyframes: {
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' }
+            },
             ticker: {
               '0%': { transform: 'translateX(0%)' },
               '100%': { transform: 'translateX(-50%)' }
             },
-            pulseSubtle: {
-              '0%, 100%': { opacity: '1' },
-              '50%': { opacity: '0.6' }
+            pulseSlow: {
+              '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+              '50%': { opacity: '0.6', transform: 'scale(0.98)' }
             }
           },
           animation: {
-            ticker: 'ticker 24s linear infinite',
-            'pulse-subtle': 'pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+            shimmer: 'shimmer 4s ease-in-out infinite',
+            ticker: 'ticker 28s linear infinite',
+            'pulse-slow': 'pulseSlow 3s ease-in-out infinite'
           }
         }
       }
@@ -61,131 +74,139 @@
 
   <style>
     body {
-      background-color: #0a0c10;
-      color: #f1f4f9;
+      background-color: #040507;
+      color: #ede8df;
       font-family: 'Plus Jakarta Sans', sans-serif;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    .font-syne { font-family: 'Syne', sans-serif; }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Luxury Shimmer Gradient Overlay */
+    .gold-shimmer {
+      background: linear-gradient(90deg, #d4af37 0%, #fff2cc 50%, #d4af37 100%);
+      background-size: 200% auto;
+      color: transparent;
+      -webkit-background-clip: text;
+      animation: shimmer 5s linear infinite;
+    }
+
+    .wine-glow-box {
+      box-shadow: 0 0 50px -10px rgba(158, 27, 50, 0.45);
+    }
     
-    /* Subtle Cyber Grid Background Overlay */
-    .cyber-grid {
-      background-size: 40px 40px;
+    .gold-glow-box {
+      box-shadow: 0 0 45px -8px rgba(212, 175, 55, 0.35);
+    }
+
+    /* Subtle mesh ambient background */
+    .velvet-grid {
       background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    }
-    
-    /* Glowing button borders */
-    .glow-emerald {
-      box-shadow: 0 0 25px -4px rgba(0, 229, 153, 0.35);
-    }
-    .glow-coral {
-      box-shadow: 0 0 25px -4px rgba(255, 70, 85, 0.4);
+        radial-gradient(circle at 15% 15%, rgba(107, 15, 36, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.12) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
     }
   </style>
 </head>
-<body class="cyber-grid selection:bg-bhav-emerald selection:text-black">
+<body class="velvet-grid selection:bg-wine-light selection:text-gold-light">
 
-  <!-- ==================== LIVE PROMO TICKER STRIP ==================== -->
-  <div class="bg-gradient-to-r from-bhav-card via-black to-bhav-card border-b border-bhav-border/80 text-[11px] font-semibold tracking-wider uppercase overflow-hidden py-2 select-none">
+  <!-- ==================== PRIVATE INTIMATE PROMO TICKER ==================== -->
+  <div class="bg-gradient-to-r from-noir-950 via-wine-dark to-noir-950 border-b border-wine-DEFAULT/40 text-[11px] font-mono tracking-widest uppercase overflow-hidden py-2 select-none">
     <div class="flex whitespace-nowrap animate-ticker">
-      <div class="flex items-center gap-8 shrink-0">
-        <span class="flex items-center gap-2 text-bhav-coral">
-          <span class="w-2 h-2 rounded-full bg-bhav-coral animate-ping"></span>
-          NEXT LIVE VAULT DROP: THIS SUNDAY @ 8:00 PM IST
+      <div class="flex items-center gap-10 shrink-0">
+        <span class="flex items-center gap-2 text-gold">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold animate-ping"></span>
+          MIDNIGHT VAULT // SUNDAY 8:00 PM IST DROP
         </span>
         <span class="text-zinc-600">✦</span>
-        <span class="text-bhav-emerald">STREETWEAR AT THE BHAV YOU DECIDE</span>
+        <span class="text-zinc-300">DISCREET PACKAGING ON ALL INTIMATE & EVENING WEAR</span>
         <span class="text-zinc-600">✦</span>
-        <span class="text-zinc-300">USE PASS <strong class="text-bhav-emerald font-mono">VIPDROP</strong> FOR 10% OFF</span>
+        <span class="text-wine-light">INVITATION PASS: USE <strong class="text-gold font-bold">LUSTVIP</strong> FOR 15% OFF</span>
         <span class="text-zinc-600">✦</span>
-        <span class="text-zinc-400">FLAT ₹70 TRACKED ALL-INDIA EXPRESS DISPATCH</span>
+        <span class="text-zinc-300">COMPLIMENTARY AIRWAY COURIER ON ORDERS ABOVE ₹1,499</span>
         <span class="text-zinc-600">✦</span>
       </div>
-      <!-- Duplicate for infinite seamless scroll -->
-      <div class="flex items-center gap-8 shrink-0 ml-8">
-        <span class="flex items-center gap-2 text-bhav-coral">
-          <span class="w-2 h-2 rounded-full bg-bhav-coral animate-ping"></span>
-          NEXT LIVE VAULT DROP: THIS SUNDAY @ 8:00 PM IST
+      <div class="flex items-center gap-10 shrink-0 ml-10">
+        <span class="flex items-center gap-2 text-gold">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold animate-ping"></span>
+          MIDNIGHT VAULT // SUNDAY 8:00 PM IST DROP
         </span>
         <span class="text-zinc-600">✦</span>
-        <span class="text-bhav-emerald">STREETWEAR AT THE BHAV YOU DECIDE</span>
+        <span class="text-zinc-300">DISCREET PACKAGING ON ALL INTIMATE & EVENING WEAR</span>
         <span class="text-zinc-600">✦</span>
-        <span class="text-zinc-300">USE PASS <strong class="text-bhav-emerald font-mono">VIPDROP</strong> FOR 10% OFF</span>
+        <span class="text-wine-light">INVITATION PASS: USE <strong class="text-gold font-bold">LUSTVIP</strong> FOR 15% OFF</span>
         <span class="text-zinc-600">✦</span>
-        <span class="text-zinc-400">FLAT ₹70 TRACKED ALL-INDIA EXPRESS DISPATCH</span>
+        <span class="text-zinc-300">COMPLIMENTARY AIRWAY COURIER ON ORDERS ABOVE ₹1,499</span>
         <span class="text-zinc-600">✦</span>
       </div>
     </div>
   </div>
 
-  <!-- ==================== SLEEK HEADER & NAV ==================== -->
-  <header class="sticky top-0 z-40 bg-bhav-bg/85 backdrop-blur-xl border-b border-bhav-border/60">
+  <!-- ==================== LUXURY NAVBAR ==================== -->
+  <header class="sticky top-0 z-40 bg-noir-950/90 backdrop-blur-2xl border-b border-noir-border/70">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       
-      <!-- Brand Logo with Custom Geometric Glyph -->
+      <!-- Brand Crest & Logo -->
       <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-bhav-emerald via-teal-500 to-bhav-coral p-0.5 group-hover:rotate-6 transition duration-300">
-          <div class="w-full h-full bg-bhav-bg rounded-[10px] flex items-center justify-center">
-            <!-- Neo-geometric Indian drop glyph -->
-            <svg class="w-6 h-6 text-bhav-emerald" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L4.5 15.5C3 18.2 4.9 21.5 8 21.5h8c3.1 0 5-3.3 3.5-6L12 2z"/>
-              <path d="M12 9v6" stroke="#ff4655" stroke-width="2.5"/>
-              <circle cx="12" cy="18" r="1" fill="#00e599"/>
+        <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-wine-DEFAULT via-noir-900 to-gold p-[1px] group-hover:scale-105 transition duration-500 shadow-lg shadow-wine-glow">
+          <div class="w-full h-full bg-noir-950 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 2L3 9v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9l-9-7z"/>
+              <path d="M12 22V12"/>
+              <path d="m9 15 3-3 3 3" stroke="#9e1b32"/>
             </svg>
           </div>
         </div>
         <div class="leading-none">
-          <span class="block text-2xl font-black tracking-tighter text-white font-syne group-hover:text-bhav-emerald transition">
-            BHAV<span class="text-bhav-coral">DROP</span>
+          <span class="block text-2xl font-black tracking-widest font-cinzel text-white group-hover:text-gold transition">
+            BHAV<span class="text-wine-light font-playfair italic">DROP</span>
           </span>
-          <span class="text-[9px] font-mono tracking-widest text-bhav-muted uppercase">DECIDE YOUR BHAV</span>
+          <span class="text-[8px] font-mono tracking-[0.3em] text-zinc-400 uppercase">MAISON DE LUXE // SÉDUCTION</span>
         </div>
       </a>
 
-      <!-- Center Category Navigation -->
-      <nav class="hidden lg:flex items-center gap-1.5 p-1 bg-bhav-card/80 border border-bhav-border rounded-full text-xs font-bold tracking-wider uppercase">
-        <button onclick="filterCategory('all', this)" class="nav-cat-btn px-4 py-2 rounded-full bg-bhav-border text-white transition">All Drops</button>
-        <button onclick="filterCategory('tees', this)" class="nav-cat-btn px-4 py-2 rounded-full text-bhav-muted hover:text-white transition">Oversized</button>
-        <button onclick="filterCategory('jackets', this)" class="nav-cat-btn px-4 py-2 rounded-full text-bhav-muted hover:text-white transition">Jackets</button>
-        <button onclick="filterCategory('cargos', this)" class="nav-cat-btn px-4 py-2 rounded-full text-bhav-muted hover:text-white transition">Tactical</button>
-        <button onclick="filterCategory('kicks', this)" class="nav-cat-btn px-4 py-2 rounded-full text-bhav-muted hover:text-white transition">Kicks</button>
+      <!-- Center Seductive Navigation -->
+      <nav class="hidden lg:flex items-center gap-1 bg-noir-900/90 border border-noir-border px-3 py-1.5 rounded-full text-xs tracking-wider uppercase font-medium">
+        <button onclick="filterCategory('all', this)" class="nav-cat-btn px-4 py-2 rounded-full bg-noir-800 text-gold-light transition">All Offerings</button>
+        <button onclick="filterCategory('her', this)" class="nav-cat-btn px-4 py-2 rounded-full text-zinc-400 hover:text-white transition">Her Desire</button>
+        <button onclick="filterCategory('him', this)" class="nav-cat-btn px-4 py-2 rounded-full text-zinc-400 hover:text-white transition">His Allure</button>
+        <button onclick="filterCategory('jewels', this)" class="nav-cat-btn px-4 py-2 rounded-full text-zinc-400 hover:text-white transition">Heirloom Jewels</button>
         
-        <!-- Burning Vault Trigger Tab -->
-        <a href="#vault-section" class="px-4 py-2 rounded-full bg-bhav-coral/15 text-bhav-coral border border-bhav-coral/30 hover:bg-bhav-coral hover:text-white transition flex items-center gap-1.5 font-extrabold">
-          <span class="w-1.5 h-1.5 rounded-full bg-bhav-coral animate-ping"></span>
-          ⚡ SUNDAY VAULT
+        <!-- Burning Vault Link -->
+        <a href="#vault-section" class="px-4 py-2 rounded-full bg-gradient-to-r from-wine-DEFAULT to-wine-dark text-gold-light border border-gold/30 hover:border-gold hover:text-white transition flex items-center gap-1.5 font-bold tracking-widest shadow-md shadow-wine-glow">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold animate-ping"></span>
+          MIDNIGHT VAULT
         </a>
       </nav>
 
-      <!-- Right Utility Controls -->
+      <!-- Right Controls -->
       <div class="flex items-center gap-3 sm:gap-4">
         
-        <!-- Live Search Input -->
-        <div class="hidden md:flex items-center bg-bhav-card border border-bhav-border rounded-full px-3.5 py-1.5 text-xs text-zinc-300 w-52 lg:w-64 focus-within:border-bhav-emerald transition">
-          <i data-lucide="search" class="w-4 h-4 text-bhav-muted mr-2"></i>
-          <input type="text" id="live-search" oninput="handleSearch(this.value)" placeholder="Search 240+ GSM, Cargo, Racing..." class="bg-transparent border-none outline-none w-full text-xs placeholder:text-zinc-500">
-          <span class="text-[10px] font-mono text-zinc-600 bg-zinc-800/80 px-1.5 py-0.5 rounded">⌘K</span>
+        <!-- Search Bar -->
+        <div class="hidden md:flex items-center bg-noir-900 border border-noir-border rounded-full px-3.5 py-1.5 text-xs text-zinc-300 w-48 lg:w-60 focus-within:border-gold/50 transition">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-zinc-500 mr-2"></i>
+          <input type="text" id="live-search" oninput="handleSearch(this.value)" placeholder="Search Silk, Corset, Emerald..." class="bg-transparent border-none outline-none w-full text-xs placeholder:text-zinc-600">
         </div>
 
-        <!-- Wishlist Toggle -->
-        <button onclick="toggleWishlistModal()" class="relative p-2.5 rounded-xl bg-bhav-card border border-bhav-border hover:border-bhav-coral text-zinc-300 hover:text-bhav-coral transition" title="Wishlist">
+        <!-- Wishlist -->
+        <button onclick="toggleWishlistModal()" class="relative p-2.5 rounded-full bg-noir-900 border border-noir-border hover:border-wine-light text-zinc-300 hover:text-wine-light transition" title="Private Favorites">
           <i data-lucide="heart" class="w-4 h-4"></i>
-          <span id="wish-badge" class="absolute -top-1 -right-1 bg-bhav-coral text-white font-mono text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+          <span id="wish-badge" class="absolute -top-1 -right-1 bg-wine-DEFAULT text-gold-light font-mono text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-gold/30">0</span>
         </button>
 
-        <!-- Slide Bag Drawer Trigger -->
-        <button onclick="toggleCart(true)" class="relative p-2.5 rounded-xl bg-bhav-card border border-bhav-border hover:border-bhav-emerald text-zinc-100 hover:text-bhav-emerald transition" title="Shopping Bag">
+        <!-- Bag Trigger -->
+        <button onclick="toggleCart(true)" class="relative p-2.5 rounded-full bg-noir-900 border border-noir-border hover:border-gold text-zinc-200 hover:text-gold transition" title="Shopping Bag">
           <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-          <span id="bag-badge" class="absolute -top-1 -right-1 bg-bhav-emerald text-black font-mono text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">0</span>
+          <span id="bag-badge" class="absolute -top-1 -right-1 bg-gold text-noir-950 font-mono text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">0</span>
         </button>
 
-        <!-- Mobile Menu Hamburger -->
-        <button onclick="toggleMobileNav(true)" class="p-2 lg:hidden rounded-xl bg-bhav-card border border-bhav-border text-zinc-300 hover:text-white">
+        <!-- Mobile Menu Trigger -->
+        <button onclick="toggleMobileNav(true)" class="p-2 lg:hidden rounded-full bg-noir-900 border border-noir-border text-zinc-300">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
@@ -193,109 +214,107 @@
     </div>
   </header>
 
-  <!-- Mobile Category Strip (Below Header) -->
-  <div class="lg:hidden flex items-center gap-2 overflow-x-auto no-scrollbar px-4 py-2.5 bg-bhav-card/40 border-b border-bhav-border">
-    <button onclick="filterCategory('all', this)" class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold bg-bhav-border text-white">All</button>
-    <button onclick="filterCategory('tees', this)" class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold text-zinc-400">Tees</button>
-    <button onclick="filterCategory('jackets', this)" class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold text-zinc-400">Jackets</button>
-    <button onclick="filterCategory('cargos', this)" class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold text-zinc-400">Cargos</button>
-    <button onclick="filterCategory('kicks', this)" class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold text-zinc-400">Kicks</button>
-    <a href="#vault-section" class="shrink-0 px-3 py-1 rounded-full text-xs font-extrabold bg-bhav-coral/20 text-bhav-coral border border-bhav-coral/40">⚡ Sunday Vault</a>
+  <!-- Mobile Category Strip -->
+  <div class="lg:hidden flex items-center gap-2 overflow-x-auto no-scrollbar px-4 py-2.5 bg-noir-950/95 border-b border-noir-border">
+    <button onclick="filterCategory('all', this)" class="shrink-0 px-3.5 py-1 rounded-full text-xs font-medium bg-noir-800 text-gold-light">All</button>
+    <button onclick="filterCategory('her', this)" class="shrink-0 px-3.5 py-1 rounded-full text-xs font-medium text-zinc-400">Her Desire</button>
+    <button onclick="filterCategory('him', this)" class="shrink-0 px-3.5 py-1 rounded-full text-xs font-medium text-zinc-400">His Allure</button>
+    <button onclick="filterCategory('jewels', this)" class="shrink-0 px-3.5 py-1 rounded-full text-xs font-medium text-zinc-400">Jewellery</button>
+    <a href="#vault-section" class="shrink-0 px-3.5 py-1 rounded-full text-xs font-bold bg-wine-DEFAULT/80 text-gold-light border border-gold/40">⚡ Vault</a>
   </div>
 
   <main class="flex-grow">
 
-    <!-- ==================== EDITORIAL HERO LOOKBOOK ==================== -->
-    <section class="relative pt-6 pb-14 overflow-hidden">
+    <!-- ==================== PROVOCATIVE EDITORIAL HERO BANNER ==================== -->
+    <section class="relative pt-6 pb-16 overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="relative rounded-3xl bg-gradient-to-b from-bhav-card to-bhav-bg border border-bhav-border p-6 sm:p-10 lg:p-12 overflow-hidden shadow-2xl">
+        <div class="relative rounded-3xl bg-gradient-to-br from-noir-900 via-noir-950 to-[#19040a] border border-noir-border/80 p-6 sm:p-12 lg:p-16 overflow-hidden shadow-2xl wine-glow-box">
           
-          <!-- Background Glow Orbs -->
-          <div class="absolute -top-32 -left-32 w-80 h-80 bg-bhav-emerald/15 rounded-full blur-[90px] pointer-events-none"></div>
-          <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-bhav-coral/15 rounded-full blur-[90px] pointer-events-none"></div>
+          <!-- Background Ambient Lights -->
+          <div class="absolute -top-40 -left-40 w-96 h-96 bg-wine-DEFAULT/25 rounded-full blur-[110px] pointer-events-none"></div>
+          <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-gold/15 rounded-full blur-[110px] pointer-events-none"></div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
             
-            <!-- Left Editorial Text -->
+            <!-- Left Text Content -->
             <div class="lg:col-span-7 space-y-6">
               
-              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-bhav-cardLight border border-bhav-border text-xs font-mono font-medium text-bhav-emerald">
-                <span class="w-2 h-2 rounded-full bg-bhav-emerald animate-ping"></span>
-                <span>SEASON 04 // AHMEDABAD & SURAT SURPLUS LABS</span>
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-noir-900/90 border border-gold/40 text-[11px] font-mono tracking-widest text-gold-light uppercase">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold animate-ping"></span>
+                <span>COLLECTION PRIVÉE // NOCTURNE DROP 03</span>
               </div>
 
-              <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black font-syne tracking-tight leading-[1.05] text-white">
-                STREETWEAR AT THE <span class="text-transparent bg-clip-text bg-gradient-to-r from-bhav-emerald via-teal-300 to-bhav-coral">BHAV YOU DECIDE.</span>
+              <h1 class="text-4xl sm:text-6xl xl:text-7xl font-playfair font-black tracking-tight leading-[1.08] text-white">
+                WEAR THE SILHOUETTES OF <span class="gold-shimmer italic font-serif">DESIRE & POWER.</span>
               </h1>
 
-              <p class="text-sm sm:text-base text-bhav-muted max-w-xl font-normal leading-relaxed">
-                We hunt heavy 240–380 GSM factory deadstocks, vintage Japanese motorsport windbreakers, and modular cargos. Buy everyday staples at fixed fair prices, or gamble in our Sunday live falling clock.
+              <p class="text-sm sm:text-base text-zinc-400 max-w-xl font-light leading-relaxed">
+                Sculpted velvet corsetry, floor-grazing satin slips, and liquid silk tailoring for men. Accompanied by solid 18K vermeil serpent chokers and Colombian emeralds. Buy fixed staples or gamble on the Sunday Midnight Falling Clock.
               </p>
 
-              <!-- Lookbook Badge Pill Stack -->
+              <!-- Luxury Quality Pills -->
               <div class="flex flex-wrap gap-2 pt-1 font-mono text-[11px]">
-                <span class="px-3 py-1 rounded-lg bg-bhav-card border border-bhav-border text-zinc-300">✦ 280 GSM French Terry</span>
-                <span class="px-3 py-1 rounded-lg bg-bhav-card border border-bhav-border text-zinc-300">✦ Pre-Shrunk Bio Wash</span>
-                <span class="px-3 py-1 rounded-lg bg-bhav-card border border-bhav-border text-bhav-emerald">✦ Limited 1-of-1 Lots</span>
-                <span class="px-3 py-1 rounded-lg bg-bhav-card border border-bhav-border text-bhav-coral">✦ No Fast-Fashion Jitters</span>
+                <span class="px-3 py-1 rounded-full bg-noir-850 border border-noir-border text-zinc-300">✦ 100% Heavy Mulberry Silk</span>
+                <span class="px-3 py-1 rounded-full bg-noir-850 border border-noir-border text-zinc-300">✦ Steel-Boned Corsetry</span>
+                <span class="px-3 py-1 rounded-full bg-noir-850 border border-gold/40 text-gold-light">✦ 18K Micro-Paved Vermeil</span>
+                <span class="px-3 py-1 rounded-full bg-noir-850 border border-wine-DEFAULT text-wine-light">✦ 100% Confidential Parcel</span>
               </div>
 
-              <!-- Hero Call-To-Action Row -->
+              <!-- CTA Row -->
               <div class="flex flex-wrap items-center gap-4 pt-3">
-                <a href="#vault-section" class="px-7 py-4 rounded-2xl bg-bhav-emerald hover:bg-emerald-300 text-black font-black text-sm uppercase tracking-wider transition glow-emerald flex items-center gap-2">
-                  <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
-                  ENTER SUNDAY VAULT
+                <a href="#vault-section" class="px-8 py-4 rounded-full bg-gradient-to-r from-gold via-gold-light to-gold hover:opacity-90 text-noir-950 font-cinzel font-bold text-xs tracking-widest uppercase transition gold-glow-box flex items-center gap-2.5">
+                  <i data-lucide="flame" class="w-4 h-4 fill-noir-950"></i>
+                  ENTER MIDNIGHT VAULT
                 </a>
-                <a href="#drops-section" class="px-6 py-4 rounded-2xl bg-bhav-card border border-bhav-border hover:border-zinc-500 text-white font-bold text-sm transition flex items-center gap-2">
-                  Explore Everyday Catalog
-                  <i data-lucide="arrow-down" class="w-4 h-4 text-bhav-muted"></i>
+                <a href="#collection-section" class="px-7 py-4 rounded-full bg-noir-900 border border-noir-border hover:border-gold/50 text-white font-medium text-xs tracking-wider uppercase transition flex items-center gap-2">
+                  Browse Catalog
+                  <i data-lucide="arrow-down-right" class="w-4 h-4 text-gold"></i>
                 </a>
               </div>
 
             </div>
 
-            <!-- Right Interactive Lookbook Card Frame -->
+            <!-- Right Visual Lookbook Frame -->
             <div class="lg:col-span-5 relative">
-              <div class="relative rounded-2xl overflow-hidden bg-bhav-card border border-bhav-border group">
+              <div class="relative rounded-3xl overflow-hidden bg-noir-900 border border-gold/30 group shadow-2xl">
                 
-                <!-- Main Lookbook Image -->
-                <div class="aspect-[4/5] overflow-hidden bg-zinc-950 relative">
-                  <img id="hero-lookbook-img" 
-                       src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=900&q=80" 
-                       alt="BhavDrop Heavy Moto Bomber" 
-                       class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                  <div class="absolute inset-0 bg-gradient-to-t from-bhav-bg via-transparent to-black/30"></div>
+                <div class="aspect-[4/5] overflow-hidden relative">
+                  <img id="hero-img" 
+                       src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" 
+                       alt="Luxury Seductive Evening Silhouettes" 
+                       class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                  <div class="absolute inset-0 bg-gradient-to-t from-noir-950 via-transparent to-black/40"></div>
                 </div>
 
-                <!-- Floating Editorial Meta Tag -->
+                <!-- Floating Editorial Badges -->
                 <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
-                  <span class="px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono font-bold tracking-wider text-bhav-emerald border border-bhav-emerald/30">
-                    FEATURED SPECIMEN
+                  <span class="px-3 py-1 rounded-full bg-noir-950/80 backdrop-blur-md text-[10px] font-mono tracking-widest text-gold border border-gold/30 uppercase">
+                    HER DESIRE // COUTURE
                   </span>
-                  <span class="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono text-zinc-300">
-                    EDITION: 1/1
+                  <span class="px-3 py-1 rounded-full bg-noir-950/80 backdrop-blur-md text-[10px] font-mono text-zinc-300 border border-noir-border">
+                    1-OF-1 ARCHIVE
                   </span>
                 </div>
 
-                <!-- Card Bottom Overlay -->
-                <div class="absolute bottom-4 left-4 right-4 bg-bhav-bg/90 backdrop-blur-md border border-bhav-border rounded-xl p-4">
+                <!-- Bottom Glass Overlay -->
+                <div class="absolute bottom-4 left-4 right-4 bg-noir-950/90 backdrop-blur-xl border border-noir-border/80 rounded-2xl p-4">
                   <div class="flex items-center justify-between">
                     <div>
-                      <h4 class="text-sm font-bold text-white font-syne">Tokyo Cyber Moto Jacket</h4>
-                      <p class="text-[11px] text-bhav-muted font-mono mt-0.5">320g Waterproof Double Nylon</p>
+                      <h4 class="text-sm font-bold text-white font-playfair">Velvet Underwire Corset Gown</h4>
+                      <p class="text-[11px] text-zinc-400 font-mono mt-0.5">Heavy Silk Velvet & Boning</p>
                     </div>
                     <div class="text-right">
-                      <span class="text-[10px] font-mono text-zinc-500 uppercase block">Starting Bhav</span>
-                      <span class="text-lg font-black font-mono text-bhav-emerald">₹1,299</span>
+                      <span class="text-[9px] font-mono text-zinc-500 uppercase block">Reserve Bhav</span>
+                      <span class="text-base font-bold font-mono text-gold-light">₹2,499</span>
                     </div>
                   </div>
-                  <div class="mt-3 pt-2.5 border-t border-bhav-border/60 flex items-center justify-between text-[11px]">
-                    <span class="text-bhav-coral font-bold flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-bhav-coral animate-ping"></span>
+                  <div class="mt-3 pt-2.5 border-t border-noir-border flex items-center justify-between text-[11px]">
+                    <span class="text-wine-light font-bold flex items-center gap-1.5 font-mono">
+                      <span class="w-1.5 h-1.5 rounded-full bg-wine-light animate-ping"></span>
                       Sunday 8 PM Vault
                     </span>
-                    <button onclick="scrollToVault()" class="text-white hover:text-bhav-emerald font-bold transition flex items-center gap-1">
+                    <button onclick="scrollToVault()" class="text-gold hover:text-white font-bold transition flex items-center gap-1">
                       Inspect Clock <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                     </button>
                   </div>
@@ -311,128 +330,122 @@
       </div>
     </section>
 
-    <!-- ==================== SECTION: THE SUNDAY VAULT (DUTCH AUCTION ENGINE) ==================== -->
-    <section id="vault-section" class="py-16 bg-gradient-to-b from-bhav-bg via-[#07090c] to-bhav-bg border-y border-bhav-border/70 relative">
+    <!-- ==================== THE MIDNIGHT VAULT (REVERSE BHAV CLOCK) ==================== -->
+    <section id="vault-section" class="py-16 bg-gradient-to-b from-noir-950 via-[#0a0508] to-noir-950 border-y border-wine-DEFAULT/30 relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <!-- Vault Header & Live Stats Bar -->
-        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10">
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-12">
           <div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-bhav-coral/15 border border-bhav-coral/30 text-bhav-coral text-xs font-mono font-bold tracking-widest uppercase mb-2">
-              <span class="w-2 h-2 rounded-full bg-bhav-coral animate-ping"></span>
-              THE SUNDAY VAULT • REVERSE BHAV CLOCK
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-wine-dark/70 border border-wine-DEFAULT/60 text-gold-light text-xs font-mono font-bold tracking-widest uppercase mb-2">
+              <span class="w-2 h-2 rounded-full bg-gold animate-ping"></span>
+              THE MIDNIGHT VAULT • REVERSE BHAV CLOCK
             </div>
-            <h2 class="text-3xl sm:text-5xl font-black font-syne tracking-tight text-white">
-              BEAT THE FALLING BHAV.
+            <h2 class="text-3xl sm:text-5xl font-black font-cinzel tracking-tight text-white mt-1">
+              SEDUCE THE FALLING CLOCK.
             </h2>
-            <p class="text-xs sm:text-sm text-bhav-muted mt-2 max-w-xl">
-              The price drops by <strong>₹15 every 3 seconds</strong>. First thrifter to tap <strong>CLAIM</strong> locks the parcel. If you wait for the reserve floor, someone else steals it.
+            <p class="text-xs sm:text-sm text-zinc-400 mt-2 max-w-xl font-light">
+              This specimen drops by <strong>₹35 every 3 seconds</strong>. The first connoisseur to hit <strong>CLAIM</strong> freezes the parcel. Wait too long for the reserve floor, and another steals it.
             </p>
           </div>
 
-          <!-- Watcher Stack & Sound Effect Toggle -->
-          <div class="flex flex-wrap items-center gap-3">
-            
-            <!-- Live Watcher Counter Pill -->
-            <div class="flex items-center gap-3 bg-bhav-card border border-bhav-border px-4 py-2 rounded-2xl">
+          <!-- Watchers & Sound Synthesizer -->
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 bg-noir-900 border border-noir-border px-4 py-2 rounded-full">
               <div class="flex -space-x-2">
-                <img class="w-7 h-7 rounded-full border-2 border-bhav-card object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Bidder">
-                <img class="w-7 h-7 rounded-full border-2 border-bhav-card object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Bidder">
-                <img class="w-7 h-7 rounded-full border-2 border-bhav-card object-cover" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" alt="Bidder">
+                <img class="w-6 h-6 rounded-full border border-gold object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Bidder">
+                <img class="w-6 h-6 rounded-full border border-gold object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Bidder">
+                <img class="w-6 h-6 rounded-full border border-gold object-cover" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" alt="Bidder">
               </div>
               <div class="font-mono text-xs">
-                <span id="live-watchers" class="text-bhav-emerald font-bold">42</span>
-                <span class="text-zinc-500">thrifters in room</span>
+                <span id="live-watchers" class="text-gold font-bold">57</span>
+                <span class="text-zinc-500">watching room</span>
               </div>
             </div>
 
-            <!-- Audio Synthesizer Toggle Button -->
-            <button id="sound-btn" onclick="toggleAudio()" class="px-3.5 py-2.5 rounded-2xl bg-bhav-card border border-bhav-border text-zinc-300 hover:text-white text-xs font-mono flex items-center gap-2 transition" title="Toggle Sound">
-              <i data-lucide="volume-2" id="sound-icon" class="w-4 h-4 text-bhav-emerald"></i>
-              <span id="sound-label">Audio ON</span>
+            <button id="sound-btn" onclick="toggleAudio()" class="px-3.5 py-2.5 rounded-full bg-noir-900 border border-noir-border text-zinc-300 hover:text-gold text-xs font-mono flex items-center gap-2 transition" title="Audio Toggle">
+              <i data-lucide="volume-2" id="sound-icon" class="w-4 h-4 text-gold"></i>
+              <span id="sound-label">Pulse ON</span>
             </button>
-
           </div>
         </div>
 
-        <!-- The Falling Clock Terminal Console -->
-        <div class="max-w-4xl mx-auto bg-bhav-card border border-bhav-border rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        <!-- The Falling Clock Terminal -->
+        <div class="max-w-4xl mx-auto bg-noir-900/90 border border-gold/40 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden wine-glow-box">
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
             
-            <!-- Vault Lot Visual -->
-            <div class="relative rounded-2xl overflow-hidden aspect-[4/5] bg-zinc-950 border border-bhav-border">
+            <!-- Vault Image -->
+            <div class="relative rounded-2xl overflow-hidden aspect-[4/5] bg-noir-950 border border-noir-border">
               <img id="vault-display-img" 
-                   src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" 
-                   alt="Vault Piece" 
+                   src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80" 
+                   alt="18K Gold Emerald Serpent Choker" 
                    class="w-full h-full object-cover">
               
-              <div class="absolute top-3 left-3 bg-black/85 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-bhav-emerald border border-bhav-emerald/30">
-                LOT #01 // SUNDAY DROP
+              <div class="absolute top-3 left-3 bg-noir-950/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-mono text-gold border border-gold/30">
+                LOT #01 // MIDNIGHT HEIRLOOM
               </div>
 
-              <div class="absolute bottom-3 inset-x-3 bg-black/85 backdrop-blur-md p-3 rounded-xl text-center text-xs font-mono text-zinc-300">
-                100% Rigid Heavyweight • Boxy Sizing (Chest 44")
+              <div class="absolute bottom-3 inset-x-3 bg-noir-950/90 backdrop-blur-md p-3 rounded-xl text-center text-xs font-mono text-zinc-300 border border-noir-border">
+                18K Heavy Vermeil • Zambian Emerald Eyes • Solid 65g
               </div>
             </div>
 
-            <!-- Vault Mechanics & Claim Trigger -->
+            <!-- Vault Mechanics & Claim -->
             <div class="flex flex-col justify-between h-full space-y-6">
               
               <div>
-                <span class="text-xs font-mono text-bhav-muted uppercase tracking-widest">Sourced in Gujarat // 1-of-1 Specimen</span>
-                <h3 id="vault-display-title" class="text-2xl sm:text-3xl font-black font-syne text-white mt-1">
-                  Vintage Tokyo Racing Windbreaker
+                <span class="text-xs font-mono text-gold uppercase tracking-widest">Single Collector Lot // Cert. #BD-9021</span>
+                <h3 id="vault-display-title" class="text-2xl sm:text-3xl font-black font-playfair text-white mt-1">
+                  The Cleopatra Serpent Emerald Choker
                 </h3>
-                <p class="text-xs text-bhav-muted mt-2 leading-relaxed">
-                  Heavy 320g double-layer waterproof nylon with authentic motorsport embroidery and reflective piping.
+                <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+                  Heavy micro-paved cubic zirconia scales with genuine emerald cabochon eyes set in 18K yellow gold vermeil over sterling silver.
                 </p>
               </div>
 
-              <!-- Price Terminal Screen -->
-              <div class="bg-black/80 border border-bhav-border rounded-2xl p-5 text-center relative overflow-hidden">
-                <!-- Visual depletion progress bar -->
-                <div id="vault-progress-bar" class="absolute bottom-0 left-0 h-1 bg-bhav-emerald transition-all duration-1000 w-full"></div>
+              <!-- Price Terminal -->
+              <div class="bg-black/80 border border-gold/30 rounded-2xl p-5 text-center relative overflow-hidden">
+                <div id="vault-progress-bar" class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-wine-DEFAULT to-gold transition-all duration-1000 w-full"></div>
                 
-                <span class="text-[11px] font-mono uppercase tracking-widest text-zinc-500">Live Dropping Bhav</span>
-                <div id="vault-price-text" class="text-6xl sm:text-7xl font-black font-mono text-bhav-emerald mt-1 tracking-tight">
-                  ₹1,299
+                <span class="text-[10px] font-mono uppercase tracking-widest text-zinc-500">Live Dropping Bhav</span>
+                <div id="vault-price-text" class="text-5xl sm:text-6xl font-black font-mono text-gold mt-1 tracking-tight">
+                  ₹4,999
                 </div>
 
                 <div class="flex justify-between items-center text-xs text-zinc-400 mt-4 px-2 font-mono">
-                  <span>Start: <strong class="text-white">₹1,299</strong></span>
-                  <span class="text-bhav-coral font-bold flex items-center gap-1">
-                    <i data-lucide="trending-down" class="w-3.5 h-3.5"></i> -₹15 / 3s
+                  <span>Start: <strong class="text-white">₹4,999</strong></span>
+                  <span class="text-wine-light font-bold flex items-center gap-1">
+                    <i data-lucide="trending-down" class="w-3.5 h-3.5"></i> -₹35 / 3s
                   </span>
-                  <span>Reserve Floor: <strong class="text-white">₹399</strong></span>
+                  <span>Floor: <strong class="text-white">₹1,499</strong></span>
                 </div>
               </div>
 
               <!-- Action Controls -->
               <div id="vault-action-container">
-                <button onclick="claimVaultItem()" class="w-full py-4.5 bg-bhav-emerald hover:bg-emerald-300 text-black font-black text-lg sm:text-xl font-syne rounded-2xl transition active:scale-95 glow-emerald flex items-center justify-center gap-2">
-                  <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
-                  CLAIM BHAV AT <span id="vault-btn-price" class="font-mono">₹1,299</span>
+                <button onclick="claimVaultItem()" class="w-full py-4.5 bg-gradient-to-r from-gold via-gold-light to-gold hover:opacity-90 text-noir-950 font-black text-sm uppercase tracking-widest font-cinzel rounded-2xl transition active:scale-95 gold-glow-box flex items-center justify-center gap-2">
+                  <i data-lucide="zap" class="w-4 h-4 fill-noir-950"></i>
+                  CLAIM SPECIMEN AT <span id="vault-btn-price" class="font-mono">₹4,999</span>
                 </button>
-                <p class="text-center text-[11px] text-zinc-500 mt-2 font-mono">
-                  Tapping claim halts the clock for everyone for 180s to finish UPI authorization.
+                <p class="text-center text-[10px] text-zinc-500 mt-2 font-mono">
+                  Tapping claim locks this piece exclusively for 180s to complete UPI authorization.
                 </p>
               </div>
 
-              <!-- Post-Claim Locked Screen -->
-              <div id="vault-locked-box" class="hidden bg-bhav-cardLight border border-bhav-emerald/50 rounded-2xl p-5 space-y-3">
-                <div class="flex items-center justify-between text-xs font-bold text-bhav-emerald font-mono">
+              <!-- Post-Claim Lockout Box -->
+              <div id="vault-locked-box" class="hidden bg-noir-850 border border-gold/60 rounded-2xl p-5 space-y-3">
+                <div class="flex items-center justify-between text-xs font-bold text-gold font-mono">
                   <span class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-bhav-emerald animate-ping"></span> BHAV SECURED FOR YOU!
+                    <span class="w-2 h-2 rounded-full bg-gold animate-ping"></span> BHAV FROZEN FOR YOU
                   </span>
-                  <span class="text-bhav-coral">Locks out in: <strong id="vault-lock-countdown">180s</strong></span>
+                  <span class="text-wine-light">Expires in: <strong id="vault-lock-countdown">180s</strong></span>
                 </div>
                 <div class="text-xs text-zinc-400 flex justify-between font-mono">
-                  <span>Claimed Price: <strong id="locked-price-val" class="text-white">₹0</strong></span>
-                  <span>Express Dispatch: <strong class="text-white">₹70</strong></span>
+                  <span>Locked Amount: <strong id="locked-price-val" class="text-white">₹0</strong></span>
+                  <span>Insured Express: <strong class="text-white">₹70 (Waived)</strong></span>
                 </div>
-                <button onclick="proceedVaultCheckout()" class="w-full py-3.5 bg-bhav-emerald text-black font-black text-xs uppercase tracking-wider rounded-xl transition hover:bg-emerald-300">
-                  COMPLETE INSTANT UPI PAYMENT
+                <button onclick="proceedVaultCheckout()" class="w-full py-3.5 bg-gold text-noir-950 font-black text-xs uppercase tracking-wider rounded-xl transition hover:bg-gold-light font-cinzel">
+                  COMPLETE INSTANT UPI AUTHORIZATION
                 </button>
               </div>
 
@@ -440,13 +453,13 @@
 
           </div>
 
-          <!-- Previous Steals Marquee -->
-          <div class="mt-8 pt-6 border-t border-bhav-border flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-zinc-400 gap-2">
-            <span class="text-zinc-500 uppercase flex items-center gap-1">
-              <i data-lucide="award" class="w-4 h-4 text-bhav-emerald"></i> Hall of Steals:
+          <!-- Hall of Wins -->
+          <div class="mt-8 pt-6 border-t border-noir-border flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-zinc-400 gap-2">
+            <span class="text-zinc-500 uppercase flex items-center gap-1.5">
+              <i data-lucide="crown" class="w-4 h-4 text-gold"></i> Previous Steals:
             </span>
             <div id="ticker-steals" class="text-zinc-300 text-center sm:text-right">
-              "Aman (Ahmedabad) claimed Vintage Racing Jacket at <strong class="text-bhav-emerald">₹480</strong>"
+              "Kavya (Bandra) claimed Velvet Boned Bustier at <strong class="text-gold">₹1,620</strong> (Started ₹4,200)"
             </div>
           </div>
 
@@ -455,114 +468,99 @@
       </div>
     </section>
 
-    <!-- ==================== CURATED DROP CATEGORIES ==================== -->
+    <!-- ==================== THREE TEMPLES OF SEDUCTION ==================== -->
     <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-mono uppercase tracking-widest text-bhav-emerald font-bold">Curated Classifications</span>
-        <h2 class="text-3xl sm:text-4xl font-black font-syne text-white mt-1">THE SILHOUETTES</h2>
+        <span class="text-xs font-mono uppercase tracking-[0.25em] text-gold font-bold">Curated Portfolios</span>
+        <h2 class="text-3xl sm:text-4xl font-black font-cinzel text-white mt-1">THE REALMS OF DESIRE</h2>
       </div>
 
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <!-- Category Card 1 -->
-        <div onclick="filterCategory('tees')" class="group relative rounded-2xl overflow-hidden bg-bhav-card border border-bhav-border cursor-pointer aspect-[3/4] flex flex-col justify-end p-5">
-          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=700&q=80" alt="Heavyweight Tees" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-60">
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-          <div class="relative z-10">
-            <span class="text-[10px] font-mono text-bhav-emerald uppercase tracking-wider">240-280 GSM</span>
-            <h3 class="text-lg font-bold font-syne text-white mt-0.5">Heavyweight Tees</h3>
-            <p class="text-[11px] text-zinc-400 mt-1">Boxy & Drop-shoulder fits</p>
+        <!-- Pillar 1: HER DESIRE -->
+        <div onclick="filterCategory('her')" class="group relative rounded-3xl overflow-hidden bg-noir-900 border border-noir-border hover:border-wine-DEFAULT cursor-pointer aspect-[3/4] flex flex-col justify-end p-6 transition duration-500">
+          <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80" alt="Her Desire - Corsetry & Satin" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-60">
+          <div class="absolute inset-0 bg-gradient-to-t from-noir-950 via-noir-950/40 to-transparent"></div>
+          <div class="relative z-10 space-y-1">
+            <span class="text-[10px] font-mono text-wine-light uppercase tracking-widest font-bold">Women's Couture</span>
+            <h3 class="text-2xl font-bold font-playfair text-white">Her Desire</h3>
+            <p class="text-xs text-zinc-400 font-light">Sculpted corsets, cowl slip silks, and sheer evening attire.</p>
           </div>
         </div>
 
-        <!-- Category Card 2 -->
-        <div onclick="filterCategory('jackets')" class="group relative rounded-2xl overflow-hidden bg-bhav-card border border-bhav-border cursor-pointer aspect-[3/4] flex flex-col justify-end p-5">
-          <img src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=700&q=80" alt="Motorsport Jackets" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-60">
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-          <div class="relative z-10">
-            <span class="text-[10px] font-mono text-bhav-coral uppercase tracking-wider">Outerwear</span>
-            <h3 class="text-lg font-bold font-syne text-white mt-0.5">Moto & Varsity</h3>
-            <p class="text-[11px] text-zinc-400 mt-1">Vintage oversized jackets</p>
+        <!-- Pillar 2: HIS ALLURE -->
+        <div onclick="filterCategory('him')" class="group relative rounded-3xl overflow-hidden bg-noir-900 border border-noir-border hover:border-gold cursor-pointer aspect-[3/4] flex flex-col justify-end p-6 transition duration-500">
+          <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80" alt="His Allure - Tailoring & Silk" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-60">
+          <div class="absolute inset-0 bg-gradient-to-t from-noir-950 via-noir-950/40 to-transparent"></div>
+          <div class="relative z-10 space-y-1">
+            <span class="text-[10px] font-mono text-gold uppercase tracking-widest font-bold">Men's Nocturne</span>
+            <h3 class="text-2xl font-bold font-playfair text-white">His Allure</h3>
+            <p class="text-xs text-zinc-400 font-light">Midnight velvet blazers, sheer mulberry silk, and sharp trousers.</p>
           </div>
         </div>
 
-        <!-- Category Card 3 -->
-        <div onclick="filterCategory('cargos')" class="group relative rounded-2xl overflow-hidden bg-bhav-card border border-bhav-border cursor-pointer aspect-[3/4] flex flex-col justify-end p-5">
-          <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=700&q=80" alt="Tactical Cargos" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-60">
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-          <div class="relative z-10">
-            <span class="text-[10px] font-mono text-bhav-emerald uppercase tracking-wider">Modular Twill</span>
-            <h3 class="text-lg font-bold font-syne text-white mt-0.5">Parachute & Cargos</h3>
-            <p class="text-[11px] text-zinc-400 mt-1">Wide-leg tactical pants</p>
-          </div>
-        </div>
-
-        <!-- Category Card 4 -->
-        <div onclick="filterCategory('kicks')" class="group relative rounded-2xl overflow-hidden bg-bhav-card border border-bhav-border cursor-pointer aspect-[3/4] flex flex-col justify-end p-5">
-          <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=700&q=80" alt="Street Kicks" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-60">
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-          <div class="relative z-10">
-            <span class="text-[10px] font-mono text-bhav-coral uppercase tracking-wider">Footwear</span>
-            <h3 class="text-lg font-bold font-syne text-white mt-0.5">Street Kicks</h3>
-            <p class="text-[11px] text-zinc-400 mt-1">Retro low tops & sneakers</p>
+        <!-- Pillar 3: JEWELS & HEIRLOOMS -->
+        <div onclick="filterCategory('jewels')" class="group relative rounded-3xl overflow-hidden bg-noir-900 border border-noir-border hover:border-gold cursor-pointer aspect-[3/4] flex flex-col justify-end p-6 transition duration-500">
+          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80" alt="Heirloom Jewels" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-60">
+          <div class="absolute inset-0 bg-gradient-to-t from-noir-950 via-noir-950/40 to-transparent"></div>
+          <div class="relative z-10 space-y-1">
+            <span class="text-[10px] font-mono text-gold-light uppercase tracking-widest font-bold">Heirloom Statements</span>
+            <h3 class="text-2xl font-bold font-playfair text-white">Jewels & Gold</h3>
+            <p class="text-xs text-zinc-400 font-light">Serpent chokers, Colombian emerald pendants, and signets.</p>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- ==================== PRODUCT CATALOG & DROPS ==================== -->
-    <section id="drops-section" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-bhav-border/60">
+    <!-- ==================== MAIN CATALOG COLLECTION ==================== -->
+    <section id="collection-section" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-noir-border/60">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
-          <span class="text-xs font-mono uppercase tracking-widest text-zinc-500">24/7 Available Inventory</span>
-          <h2 class="text-3xl font-black font-syne text-white mt-1">NEW SEASON DROPS</h2>
-          <p class="text-xs text-bhav-muted mt-1">Fixed price staples with verified GSM and boxy streetwear fits.</p>
+          <span class="text-xs font-mono uppercase tracking-widest text-gold font-semibold">Ready For Immediate Dispatch</span>
+          <h2 class="text-3xl font-black font-cinzel text-white mt-1">CURATED PIECES</h2>
+          <p class="text-xs text-zinc-400 mt-1">Fixed fair prices. Every piece dispatched in discrete unmarked matte-black parcel boxes.</p>
         </div>
 
-        <!-- Sorting Selector -->
         <div class="flex items-center gap-2">
           <span class="text-xs text-zinc-500 font-mono">Sort:</span>
-          <select id="sort-select" onchange="sortProducts(this.value)" class="bg-bhav-card border border-bhav-border rounded-xl px-3 py-1.5 text-xs text-zinc-300 outline-none focus:border-bhav-emerald">
+          <select id="sort-select" onchange="sortProducts(this.value)" class="bg-noir-900 border border-noir-border rounded-xl px-3 py-1.5 text-xs text-zinc-300 outline-none focus:border-gold">
             <option value="featured">Featured First</option>
-            <option value="low">Price: Low to High</option>
-            <option value="high">Price: High to Low</option>
+            <option value="low">Bhav: Low to High</option>
+            <option value="high">Bhav: High to Low</option>
           </select>
         </div>
       </div>
 
-      <!-- Dynamic Product Grid -->
+      <!-- Products Grid -->
       <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Rendered by JavaScript -->
+        <!-- Injected via JavaScript -->
       </div>
 
     </section>
 
-    <!-- ==================== VIRAL REFERRAL CLUB STRIP ==================== -->
-    <section class="py-14 bg-bhav-card/40 border-y border-bhav-border/80">
+    <!-- ==================== PRIVATE CLIENT INVITATION PASS ==================== -->
+    <section class="py-14 bg-noir-900/60 border-y border-noir-border/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="bg-gradient-to-r from-bhav-card via-black to-bhav-card border border-bhav-border rounded-3xl p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div class="bg-gradient-to-r from-noir-950 via-wine-dark/40 to-noir-950 border border-gold/30 rounded-3xl p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8">
           
           <div class="space-y-2 text-center lg:text-left">
-            <span class="text-xs font-mono uppercase tracking-widest text-bhav-emerald font-bold">Zero-Rupee Delivery Hack</span>
-            <h3 class="text-2xl sm:text-3xl font-black font-syne text-white">UNLOCK YOUR VIRAL REFERRAL PASS</h3>
-            <p class="text-xs sm:text-sm text-bhav-muted max-w-xl">
-              Share your link with your college or thrifting group. When a friend grabs their first drop, you immediately unlock a <strong>Free Express Delivery Pass (Save ₹70)</strong> for your next checkout.
+            <span class="text-xs font-mono uppercase tracking-widest text-gold font-bold">The Midnight Circle</span>
+            <h3 class="text-2xl sm:text-3xl font-black font-cinzel text-white">UNLOCK COMPLIMENTARY EXPRESS PASS</h3>
+            <p class="text-xs sm:text-sm text-zinc-400 max-w-xl font-light">
+              Send your private invite link to someone worthy. When they claim their first piece, your account automatically unlocks <strong>Permanent Free Express Courier (Save ₹70)</strong> on all future drops.
             </p>
           </div>
 
-          <!-- Share Link Box -->
           <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-3">
-            <div class="relative">
-              <input type="text" id="referral-input" readonly value="https://bhavdrop.vercel.app/?pass=BHAV-VIP" 
-                     class="w-full sm:w-72 bg-zinc-950 border border-bhav-border rounded-xl px-4 py-3 text-xs font-mono text-zinc-300 outline-none">
-            </div>
-            <button onclick="shareReferralWhatsApp()" class="px-6 py-3 rounded-xl bg-bhav-emerald hover:bg-emerald-300 text-black font-extrabold text-xs uppercase tracking-wider whitespace-nowrap transition glow-emerald flex items-center justify-center gap-2">
+            <input type="text" id="referral-input" readonly value="https://bhavdrop.vercel.app/?pass=NOCTURNE-VIP" 
+                   class="w-full sm:w-72 bg-black border border-noir-border rounded-xl px-4 py-3 text-xs font-mono text-gold-light outline-none">
+            <button onclick="shareReferralWhatsApp()" class="px-6 py-3 rounded-xl bg-gold hover:bg-gold-light text-noir-950 font-cinzel font-bold text-xs uppercase tracking-wider whitespace-nowrap transition flex items-center justify-center gap-2 gold-glow-box">
               <i data-lucide="share-2" class="w-4 h-4"></i>
-              SHARE ON WHATSAPP
+              SHARE VIA WHATSAPP
             </button>
           </div>
 
@@ -571,72 +569,70 @@
       </div>
     </section>
 
-    <!-- ==================== TRACK ORDER QUICK SECTION ==================== -->
+    <!-- ==================== DISCREET PARCEL TRACKER ==================== -->
     <section class="py-14 max-w-xl mx-auto px-4 text-center">
-      <span class="text-xs font-mono uppercase tracking-widest text-zinc-500">Fulfillment Verification</span>
-      <h3 class="text-2xl font-bold font-syne text-white mt-1">TRACK YOUR BHAVDROP</h3>
-      <p class="text-xs text-bhav-muted mt-1">Enter your 6-digit Order ID or 10-digit WhatsApp number.</p>
+      <span class="text-xs font-mono uppercase tracking-widest text-zinc-500">Confidential Tracking</span>
+      <h3 class="text-2xl font-bold font-cinzel text-white mt-1">TRACK YOUR ORDER</h3>
+      <p class="text-xs text-zinc-400 mt-1">Enter your 6-digit Order ID or WhatsApp number for live Delhivery status.</p>
       
       <div class="mt-5 flex gap-2">
-        <input type="text" id="track-input" placeholder="e.g. BD-8921 or 9876543210" class="w-full bg-bhav-card border border-bhav-border rounded-xl px-4 py-3 text-xs text-white font-mono outline-none focus:border-bhav-emerald">
-        <button onclick="trackParcel()" class="px-6 py-3 bg-white hover:bg-bhav-emerald text-black text-xs font-bold font-syne rounded-xl transition shrink-0">
-          TRACK
+        <input type="text" id="track-input" placeholder="e.g. BD-7819 or 9876543210" class="w-full bg-noir-900 border border-noir-border rounded-xl px-4 py-3 text-xs text-white font-mono outline-none focus:border-gold">
+        <button onclick="trackParcel()" class="px-6 py-3 bg-gold hover:bg-gold-light text-noir-950 text-xs font-bold font-cinzel rounded-xl transition shrink-0">
+          VERIFY
         </button>
       </div>
 
-      <div id="track-result" class="hidden mt-4 p-4 bg-bhav-card border border-bhav-border rounded-2xl text-left text-xs font-mono"></div>
+      <div id="track-result" class="hidden mt-4 p-4 bg-noir-900 border border-noir-border rounded-2xl text-left text-xs font-mono"></div>
     </section>
 
   </main>
 
   <!-- ==================== FOOTER ==================== -->
-  <footer class="bg-black border-t border-bhav-border text-zinc-400 text-xs pt-12 pb-8">
+  <footer class="bg-black border-t border-noir-border text-zinc-400 text-xs pt-12 pb-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Guarantees Row -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-10 border-b border-bhav-border/70 text-center md:text-left">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-10 border-b border-noir-border/70 text-center md:text-left">
         <div class="flex items-center justify-center md:justify-start gap-3">
-          <div class="w-10 h-10 rounded-xl bg-bhav-card flex items-center justify-center text-bhav-emerald border border-bhav-border">
-            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          <div class="w-10 h-10 rounded-full bg-noir-900 flex items-center justify-center text-gold border border-gold/30">
+            <i data-lucide="shield" class="w-4 h-4"></i>
           </div>
           <div>
-            <h5 class="font-bold text-white uppercase font-syne">100% Quality Inspected</h5>
-            <p class="text-[11px] text-bhav-muted">No torn hems, bacon collars, or cracked prints.</p>
+            <h5 class="font-bold text-white uppercase font-cinzel text-xs">100% Discreet Packaging</h5>
+            <p class="text-[11px] text-zinc-500">Unmarked black security boxes with tamper seals.</p>
           </div>
         </div>
 
         <div class="flex items-center justify-center md:justify-start gap-3">
-          <div class="w-10 h-10 rounded-xl bg-bhav-card flex items-center justify-center text-bhav-coral border border-bhav-border">
-            <i data-lucide="truck" class="w-5 h-5"></i>
+          <div class="w-10 h-10 rounded-full bg-noir-900 flex items-center justify-center text-wine-light border border-wine-DEFAULT">
+            <i data-lucide="truck" class="w-4 h-4"></i>
           </div>
           <div>
-            <h5 class="font-bold text-white uppercase font-syne">Flat ₹70 Express Dispatch</h5>
-            <p class="text-[11px] text-bhav-muted">Delhivery Airway Tracked from Gujarat hub.</p>
+            <h5 class="font-bold text-white uppercase font-cinzel text-xs">Insured Air Express</h5>
+            <p class="text-[11px] text-zinc-500">Delhivery Airway Priority with OTP verification.</p>
           </div>
         </div>
 
         <div class="flex items-center justify-center md:justify-start gap-3">
-          <div class="w-10 h-10 rounded-xl bg-bhav-card flex items-center justify-center text-bhav-emerald border border-bhav-border">
-            <i data-lucide="zap" class="w-5 h-5"></i>
+          <div class="w-10 h-10 rounded-full bg-noir-900 flex items-center justify-center text-gold border border-gold/30">
+            <i data-lucide="gem" class="w-4 h-4"></i>
           </div>
           <div>
-            <h5 class="font-bold text-white uppercase font-syne">Instant UPI Verification</h5>
-            <p class="text-[11px] text-bhav-muted">GPay, PhonePe, and Paytm zero-MDR checkout.</p>
+            <h5 class="font-bold text-white uppercase font-cinzel text-xs">Certified Finery</h5>
+            <p class="text-[11px] text-zinc-500">18K Gold Vermeil & Tested Lab-Grown Emeralds.</p>
           </div>
         </div>
       </div>
 
-      <!-- Links & Admin Lock -->
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-500">
-        <p>© 2026 BHAVDROP INDIA // Neo-Streetwear Drops. All rights reserved.</p>
+        <p>© 2026 BHAVDROP LUXE // Nocturne Atelier. All rights reserved.</p>
         
         <div class="flex items-center gap-4">
-          <a href="#" class="hover:text-white transition">Privacy Policy</a>
+          <a href="#" class="hover:text-gold transition">Confidentiality Terms</a>
           <span>•</span>
-          <a href="#" class="hover:text-white transition">Vault Drop Rules</a>
+          <a href="#" class="hover:text-gold transition">Midnight Vault Rules</a>
           <span>•</span>
           <!-- Secret Owner Portal -->
-          <button onclick="openAdmin()" class="hover:text-bhav-emerald transition flex items-center gap-1 text-zinc-600 hover:text-zinc-300">
+          <button onclick="openAdmin()" class="hover:text-gold transition flex items-center gap-1 text-zinc-600 hover:text-zinc-300">
             <i data-lucide="lock" class="w-3.5 h-3.5"></i> Owner Admin
           </button>
         </div>
@@ -645,171 +641,169 @@
     </div>
   </footer>
 
-  <!-- ==================== SLIDE-OUT SHOPPING BAG DRAWER ==================== -->
-  <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex justify-end">
-    <div class="w-full max-w-md bg-bhav-bg border-l border-bhav-border h-full p-6 flex flex-col justify-between shadow-2xl">
+  <!-- ==================== LUXURY BAG DRAWER ==================== -->
+  <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex justify-end">
+    <div class="w-full max-w-md bg-noir-950 border-l border-gold/30 h-full p-6 flex flex-col justify-between shadow-2xl">
       
       <div>
-        <div class="flex items-center justify-between pb-4 border-b border-bhav-border">
+        <div class="flex items-center justify-between pb-4 border-b border-noir-border">
           <div class="flex items-center gap-2">
-            <i data-lucide="shopping-bag" class="w-5 h-5 text-bhav-emerald"></i>
-            <h3 class="text-base font-extrabold font-syne text-white">YOUR SHOPPING BAG (<span id="cart-drawer-count">0</span>)</h3>
+            <i data-lucide="shopping-bag" class="w-5 h-5 text-gold"></i>
+            <h3 class="text-base font-bold font-cinzel text-white">YOUR PRIVATE BAG (<span id="cart-drawer-count">0</span>)</h3>
           </div>
           <button onclick="toggleCart(false)" class="p-1 text-zinc-400 hover:text-white">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
 
-        <!-- Cart Items List -->
+        <!-- Items Container -->
         <div id="cart-items-container" class="py-4 space-y-3 max-h-[50vh] overflow-y-auto no-scrollbar">
-          <div class="text-center text-xs text-zinc-500 py-12 font-mono">Your shopping bag is empty.</div>
+          <div class="text-center text-xs text-zinc-500 py-12 font-mono">Your private bag is empty.</div>
         </div>
 
         <!-- Coupon Code Strip -->
-        <div class="pt-3 border-t border-bhav-border">
+        <div class="pt-3 border-t border-noir-border">
           <div class="flex gap-2">
-            <input type="text" id="coupon-input" placeholder="Coupon Code (Try 'VIPDROP')" class="w-full bg-bhav-card border border-bhav-border rounded-xl px-3 py-2 text-xs font-mono uppercase text-white outline-none focus:border-bhav-emerald">
-            <button onclick="applyCoupon()" class="px-4 py-2 bg-bhav-border hover:bg-bhav-emerald hover:text-black text-white text-xs font-bold rounded-xl transition shrink-0">
-              Apply
+            <input type="text" id="coupon-input" placeholder="VIP Pass (Try 'LUSTVIP')" class="w-full bg-noir-900 border border-noir-border rounded-xl px-3 py-2 text-xs font-mono uppercase text-white outline-none focus:border-gold">
+            <button onclick="applyCoupon()" class="px-4 py-2 bg-noir-800 hover:bg-gold hover:text-noir-950 text-white text-xs font-bold rounded-xl transition shrink-0 font-cinzel">
+              APPLY
             </button>
           </div>
           <p id="coupon-alert" class="text-[10px] mt-1 font-mono"></p>
         </div>
       </div>
 
-      <!-- Checkout Totals -->
-      <div class="border-t border-bhav-border pt-4 space-y-2">
-        <div class="flex justify-between text-xs text-bhav-muted">
+      <!-- Totals & Checkout -->
+      <div class="border-t border-noir-border pt-4 space-y-2">
+        <div class="flex justify-between text-xs text-zinc-400">
           <span>Items Subtotal</span>
           <span id="subtotal-val" class="font-mono text-white">₹0</span>
         </div>
-        <div class="flex justify-between text-xs text-bhav-muted">
-          <span>Tracked Courier (All India)</span>
+        <div class="flex justify-between text-xs text-zinc-400">
+          <span>Insured Express Courier</span>
           <span id="shipping-val" class="font-mono text-white">₹70</span>
         </div>
-        <div id="discount-row" class="hidden flex justify-between text-xs text-bhav-emerald font-mono">
-          <span>Promo Discount (VIPDROP)</span>
+        <div id="discount-row" class="hidden flex justify-between text-xs text-gold font-mono">
+          <span>Privilege Discount (15%)</span>
           <span id="discount-val">-₹0</span>
         </div>
-        <div class="flex justify-between text-sm font-extrabold text-white border-t border-bhav-border pt-2 font-syne">
-          <span>Grand Total</span>
-          <span id="grand-total-val" class="text-bhav-emerald font-mono text-base">₹0</span>
+        <div class="flex justify-between text-sm font-bold text-white border-t border-noir-border pt-2 font-cinzel">
+          <span>Total Payable</span>
+          <span id="grand-total-val" class="text-gold font-mono text-base">₹0</span>
         </div>
 
-        <button onclick="openCheckoutModal()" class="w-full py-4 bg-bhav-emerald hover:bg-emerald-300 text-black font-black text-xs uppercase tracking-wider rounded-xl transition glow-emerald">
-          PROCEED TO CHECKOUT
+        <button onclick="openCheckoutModal()" class="w-full py-4 bg-gradient-to-r from-gold via-gold-light to-gold text-noir-950 font-black text-xs uppercase tracking-widest rounded-xl transition font-cinzel gold-glow-box">
+          PROCEED TO DISCREET CHECKOUT
         </button>
       </div>
 
     </div>
   </div>
 
-  <!-- ==================== FAST CHECKOUT MODAL ==================== -->
-  <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="bg-bhav-card border border-bhav-border rounded-3xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
+  <!-- ==================== DISCREET UPI CHECKOUT MODAL ==================== -->
+  <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-noir-900 border border-gold/40 rounded-3xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
       
       <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
       <div class="mb-4">
-        <span class="text-[10px] font-mono text-bhav-emerald uppercase tracking-widest font-bold">Instant Dispatch</span>
-        <h3 class="text-lg font-black font-syne text-white">SHIPPING & UPI PAYMENT</h3>
+        <span class="text-[10px] font-mono text-gold uppercase tracking-widest font-bold">100% Confidential Delivery</span>
+        <h3 class="text-lg font-bold font-cinzel text-white">RECIPIENT & INSTANT UPI</h3>
       </div>
 
       <form onsubmit="handleCheckoutSubmit(event)" class="space-y-3.5">
         <div>
-          <label class="text-[11px] font-bold text-zinc-400 block mb-1">Full Name</label>
-          <input type="text" id="order-name" required placeholder="Aman Sharma" class="w-full px-3.5 py-2.5 bg-zinc-950 border border-bhav-border rounded-xl text-xs text-white outline-none focus:border-bhav-emerald">
+          <label class="text-[11px] font-bold text-zinc-400 block mb-1">Recipient Name / Pseudonym</label>
+          <input type="text" id="order-name" required placeholder="Aman S." class="w-full px-3.5 py-2.5 bg-black border border-noir-border rounded-xl text-xs text-white outline-none focus:border-gold">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="text-[11px] font-bold text-zinc-400 block mb-1">WhatsApp Phone</label>
-            <input type="tel" id="order-phone" required placeholder="9876543210" class="w-full px-3.5 py-2.5 bg-zinc-950 border border-bhav-border rounded-xl text-xs text-white font-mono outline-none focus:border-bhav-emerald">
+            <label class="text-[11px] font-bold text-zinc-400 block mb-1">WhatsApp Phone (For OTP)</label>
+            <input type="tel" id="order-phone" required placeholder="9876543210" class="w-full px-3.5 py-2.5 bg-black border border-noir-border rounded-xl text-xs text-white font-mono outline-none focus:border-gold">
           </div>
           <div>
             <label class="text-[11px] font-bold text-zinc-400 block mb-1">PIN Code</label>
-            <input type="text" id="order-pincode" required placeholder="380001" class="w-full px-3.5 py-2.5 bg-zinc-950 border border-bhav-border rounded-xl text-xs text-white font-mono outline-none focus:border-bhav-emerald">
+            <input type="text" id="order-pincode" required placeholder="400050" class="w-full px-3.5 py-2.5 bg-black border border-noir-border rounded-xl text-xs text-white font-mono outline-none focus:border-gold">
           </div>
         </div>
 
         <div>
-          <label class="text-[11px] font-bold text-zinc-400 block mb-1">Delivery Address</label>
-          <textarea id="order-address" required rows="2" placeholder="House/Flat No, Landmark, Street" class="w-full px-3.5 py-2.5 bg-zinc-950 border border-bhav-border rounded-xl text-xs text-white outline-none focus:border-bhav-emerald"></textarea>
+          <label class="text-[11px] font-bold text-zinc-400 block mb-1">Confidential Street Address</label>
+          <textarea id="order-address" required rows="2" placeholder="House/Flat No, Landmark, Street" class="w-full px-3.5 py-2.5 bg-black border border-noir-border rounded-xl text-xs text-white outline-none focus:border-gold"></textarea>
         </div>
 
-        <div class="bg-black/60 p-3.5 rounded-xl border border-bhav-border text-xs flex justify-between items-center font-mono">
-          <span class="text-zinc-400">Total Payable:</span>
-          <span id="checkout-total-val" class="font-bold text-bhav-emerald text-sm">₹0</span>
+        <div class="bg-noir-950 p-3.5 rounded-xl border border-noir-border text-xs flex justify-between items-center font-mono">
+          <span class="text-zinc-400">Total Settlement:</span>
+          <span id="checkout-total-val" class="font-bold text-gold text-base">₹0</span>
         </div>
 
-        <button type="submit" class="w-full py-4 bg-bhav-emerald hover:bg-emerald-300 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition glow-emerald">
-          CONFIRM & AUTHORIZE VIA UPI
+        <button type="submit" class="w-full py-4 bg-gradient-to-r from-gold via-gold-light to-gold text-noir-950 font-black text-xs uppercase tracking-widest rounded-xl transition font-cinzel gold-glow-box">
+          AUTHORIZE WITH UPI (GPAY / PHONEPE)
         </button>
       </form>
 
     </div>
   </div>
 
-  <!-- ==================== OWNER ADMIN MODAL (PIN: bhav2026) ==================== -->
-  <div id="admin-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="bg-bhav-card border border-bhav-border rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
+  <!-- ==================== OWNER ADMIN PORTAL (PIN: bhav2026) ==================== -->
+  <div id="admin-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-noir-900 border border-gold/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
       
       <button onclick="closeAdmin()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <!-- Auth Screen -->
       <div id="admin-auth" class="max-w-xs mx-auto text-center py-6">
-        <div class="w-12 h-12 rounded-2xl bg-bhav-coral/20 border border-bhav-coral text-bhav-coral flex items-center justify-center mx-auto mb-3">
-          <i data-lucide="shield-alert" class="w-6 h-6"></i>
+        <div class="w-12 h-12 rounded-full bg-gold/10 border border-gold text-gold flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="lock" class="w-6 h-6"></i>
         </div>
-        <h4 class="text-lg font-bold font-syne text-white">Owner Portal</h4>
-        <p class="text-xs text-bhav-muted mt-1 mb-4">Enter master PIN to adjust drops & view parcels</p>
+        <h4 class="text-lg font-bold font-cinzel text-white">Maison Master Console</h4>
+        <p class="text-xs text-zinc-400 mt-1 mb-4">Enter master PIN to manage drops & dispatches</p>
         
-        <input type="password" id="admin-pin" placeholder="Enter PIN (Default: bhav2026)" class="w-full px-4 py-2.5 bg-zinc-950 border border-bhav-border rounded-xl text-xs text-white text-center font-mono outline-none mb-3">
-        <button onclick="verifyAdmin()" class="w-full py-2.5 bg-bhav-emerald text-black font-bold text-xs rounded-xl hover:bg-emerald-300 transition">
+        <input type="password" id="admin-pin" placeholder="Enter PIN (Default: bhav2026)" class="w-full px-4 py-2.5 bg-black border border-noir-border rounded-xl text-xs text-white text-center font-mono outline-none mb-3">
+        <button onclick="verifyAdmin()" class="w-full py-2.5 bg-gold text-noir-950 font-bold text-xs rounded-xl hover:bg-gold-light transition font-cinzel">
           Unlock Console
         </button>
       </div>
 
-      <!-- Admin Panel View -->
       <div id="admin-panel" class="hidden space-y-6">
-        <div class="flex items-center justify-between border-b border-bhav-border pb-3">
+        <div class="flex items-center justify-between border-b border-noir-border pb-3">
           <div>
-            <h3 class="text-lg font-bold font-syne text-white">BHAVDROP OWNER ENGINE</h3>
-            <span class="text-[10px] font-mono text-bhav-emerald">STATUS: ACTIVE MASTER CONTROLLER</span>
+            <h3 class="text-lg font-bold font-cinzel text-white">BHAVDROP PRIVÉE CONTROLLER</h3>
+            <span class="text-[10px] font-mono text-gold">ACTIVE HIGH-VALUE REVERSE CLOCK</span>
           </div>
-          <button onclick="resetStoreData()" class="text-[11px] text-bhav-coral font-mono hover:underline">
+          <button onclick="resetStoreData()" class="text-[11px] text-wine-light font-mono hover:underline">
             Reset Demo Data
           </button>
         </div>
 
-        <!-- Vault Drop Clock Settings Form -->
-        <div class="bg-zinc-950 p-4 rounded-2xl border border-bhav-border space-y-3">
-          <h5 class="text-xs font-mono font-bold uppercase text-bhav-emerald">Sunday Vault Clock Parameters</h5>
+        <!-- Clock Settings Form -->
+        <div class="bg-black p-4 rounded-2xl border border-noir-border space-y-3">
+          <h5 class="text-xs font-mono font-bold uppercase text-gold">Midnight Vault Clock Parameters</h5>
           <div class="grid grid-cols-2 gap-3 text-xs font-mono">
             <div>
-              <label class="block text-zinc-400 mb-1">Start Price (₹)</label>
-              <input type="number" id="adm-start-price" value="1299" class="w-full p-2 bg-bhav-card border border-bhav-border rounded-lg text-white">
+              <label class="block text-zinc-400 mb-1">Start Bhav (₹)</label>
+              <input type="number" id="adm-start-price" value="4999" class="w-full p-2 bg-noir-850 border border-noir-border rounded-lg text-white">
             </div>
             <div>
-              <label class="block text-zinc-400 mb-1">Floor Reserve (₹)</label>
-              <input type="number" id="adm-floor-price" value="399" class="w-full p-2 bg-bhav-card border border-bhav-border rounded-lg text-white">
+              <label class="block text-zinc-400 mb-1">Reserve Floor (₹)</label>
+              <input type="number" id="adm-floor-price" value="1499" class="w-full p-2 bg-noir-850 border border-noir-border rounded-lg text-white">
             </div>
           </div>
-          <button onclick="saveVaultParams()" class="px-4 py-2 bg-bhav-border hover:bg-bhav-emerald hover:text-black text-white text-xs font-bold rounded-lg transition font-mono">
+          <button onclick="saveVaultParams()" class="px-4 py-2 bg-noir-800 hover:bg-gold hover:text-noir-950 text-white text-xs font-bold rounded-lg transition font-mono">
             Save & Reset Vault Clock
           </button>
         </div>
 
-        <!-- Orders Queue Table -->
+        <!-- Orders Queue -->
         <div>
-          <h5 class="text-xs font-mono font-bold uppercase text-zinc-400 mb-2">Customer Order Queue</h5>
-          <div class="border border-bhav-border rounded-xl overflow-x-auto">
+          <h5 class="text-xs font-mono font-bold uppercase text-zinc-400 mb-2">Private Client Orders</h5>
+          <div class="border border-noir-border rounded-xl overflow-x-auto">
             <table class="w-full text-left text-xs font-mono">
-              <thead class="bg-zinc-950 text-zinc-500 border-b border-bhav-border">
+              <thead class="bg-black text-zinc-500 border-b border-noir-border">
                 <tr>
                   <th class="p-2.5">ID</th>
                   <th class="p-2.5">Recipient</th>
@@ -817,7 +811,7 @@
                   <th class="p-2.5">Status</th>
                 </tr>
               </thead>
-              <tbody id="admin-orders-body" class="divide-y divide-bhav-border">
+              <tbody id="admin-orders-body" class="divide-y divide-noir-border">
                 <!-- Dynamically injected -->
               </tbody>
             </table>
@@ -832,88 +826,88 @@
   <!-- ==================== JAVASCRIPT APPLICATION LOGIC ==================== -->
   <script>
     // -------------------------------------------------------------
-    // 1. DATA STATE & CATALOG INVENTORY
+    // 1. DATA STATE & SEDUCTIVE LUXURY CATALOG
     // -------------------------------------------------------------
     const PRODUCTS = [
       {
-        id: 'bd-01',
-        title: 'Cyberpunk Acid Washed Heavy Tee',
-        price: 549,
-        category: 'tees',
-        gsm: '260 GSM',
-        fit: 'Boxy Drop-Shoulder',
-        img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=700&q=80',
+        id: 'bd-her-01',
+        title: 'Obsidian Velvet Underwire Corset',
+        price: 1899,
+        category: 'her',
+        material: 'Heavy Silk Velvet & Steel Boning',
+        fit: 'Sculpted Waist Cincher',
+        img: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=800&q=80',
+        sizes: ['XS', 'S', 'M', 'L']
+      },
+      {
+        id: 'bd-him-01',
+        title: 'Midnight Bordeaux Velvet Dinner Blazer',
+        price: 3499,
+        category: 'him',
+        material: 'Italian Cotton Velvet & Silk Lapel',
+        fit: 'Tailored Slim Fit',
+        img: 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80',
+        sizes: ['38R', '40R', '42R', '44R']
+      },
+      {
+        id: 'bd-jewel-01',
+        title: 'Emerald Solitaire 18K Signet Ring',
+        price: 2199,
+        category: 'jewels',
+        material: 'Solid Vermeil & Zambian Emerald',
+        fit: 'Unisex Sizing',
+        img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80',
+        sizes: ['Size 7', 'Size 8', 'Size 9', 'Size 10']
+      },
+      {
+        id: 'bd-her-02',
+        title: 'Champagne Satin Cowl-Neck Slip Gown',
+        price: 2299,
+        category: 'her',
+        material: '100% Heavy Mulberry Silk Satin',
+        fit: 'Bias-Cut Drape',
+        img: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+        sizes: ['XS', 'S', 'M', 'L']
+      },
+      {
+        id: 'bd-him-02',
+        title: 'Sheer Black Shadow Striped Silk Shirt',
+        price: 1699,
+        category: 'him',
+        material: 'Semi-Sheer Mulberry Crepe',
+        fit: 'Relaxed Sensual Drape',
+        img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
         sizes: ['S', 'M', 'L', 'XL']
       },
       {
-        id: 'bd-02',
-        title: 'Tokyo Racing Windbreaker Jacket',
-        price: 1199,
-        category: 'jackets',
-        gsm: 'Double-Layer Nylon',
-        fit: 'Relaxed Motorsport',
-        img: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=700&q=80',
-        sizes: ['M', 'L', 'XL', 'XXL']
+        id: 'bd-jewel-02',
+        title: '18K Gold Micro-Pave Cuban Link Chain',
+        price: 2699,
+        category: 'jewels',
+        material: '12mm 18K Heavy Plated Brass',
+        fit: '20 Inch Length',
+        img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80',
+        sizes: ['18 Inch', '20 Inch', '22 Inch']
       },
       {
-        id: 'bd-03',
-        title: 'Modular 6-Pocket Tactical Cargos',
-        price: 899,
-        category: 'cargos',
-        gsm: 'Heavy Twill Cotton',
-        fit: 'Wide-Leg Relaxed',
-        img: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=700&q=80',
+        id: 'bd-her-03',
+        title: 'Liquid Satin Cut-Out Evening Mini',
+        price: 1799,
+        category: 'her',
+        material: 'Double Duchess Stretch Satin',
+        fit: 'Bodycon Silhouette',
+        img: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80',
+        sizes: ['XS', 'S', 'M']
+      },
+      {
+        id: 'bd-him-03',
+        title: 'Obsidian Double-Pleated Wide Trouser',
+        price: 1999,
+        category: 'him',
+        material: 'Lightweight Wool Blend Twill',
+        fit: 'High-Waist Drape',
+        img: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=800&q=80',
         sizes: ['30', '32', '34', '36']
-      },
-      {
-        id: 'bd-04',
-        title: 'Urban Blaze Terra Low-Tops',
-        price: 1499,
-        category: 'kicks',
-        gsm: 'Suede & Leather',
-        fit: 'True to Size',
-        img: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=700&q=80',
-        sizes: ['UK 7', 'UK 8', 'UK 9', 'UK 10']
-      },
-      {
-        id: 'bd-05',
-        title: 'Vintage Brown Flannel Overshirt',
-        price: 949,
-        category: 'jackets',
-        gsm: '320 GSM Flannel',
-        fit: 'Relaxed Layering',
-        img: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=700&q=80',
-        sizes: ['M', 'L', 'XL']
-      },
-      {
-        id: 'bd-06',
-        title: 'Monochrome Graphic Tribal Tee',
-        price: 499,
-        category: 'tees',
-        gsm: '240 GSM Pure Combed',
-        fit: 'Boxy Street',
-        img: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=700&q=80',
-        sizes: ['S', 'M', 'L', 'XL']
-      },
-      {
-        id: 'bd-07',
-        title: 'Ice Blue Rigid Straight-Fit Denim',
-        price: 1099,
-        category: 'cargos',
-        gsm: '14 Oz Rigid Denim',
-        fit: 'Straight Leg',
-        img: 'https://images.unsplash.com/photo-1542272604-780c96856592?auto=format&fit=crop&w=700&q=80',
-        sizes: ['30', '32', '34', '36']
-      },
-      {
-        id: 'bd-08',
-        title: 'Batwing Tactical Crossbody Pack',
-        price: 499,
-        category: 'tees',
-        gsm: 'Cordura 500D',
-        fit: 'Adjustable Strap',
-        img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80',
-        sizes: ['One Size']
       }
     ];
 
@@ -931,7 +925,7 @@
     let audioEnabled = true;
     let audioCtx = null;
 
-    function playSynthTone(freq = 440, duration = 0.05, type = 'sine') {
+    function playSynthTone(freq = 520, duration = 0.08, type = 'sine') {
       if (!audioEnabled) return;
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -940,7 +934,7 @@
         const gain = audioCtx.createGain();
         osc.type = type;
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
@@ -951,34 +945,32 @@
 
     function toggleAudio() {
       audioEnabled = !audioEnabled;
-      document.getElementById('sound-label').innerText = audioEnabled ? 'Audio ON' : 'Audio OFF';
-      document.getElementById('sound-icon').className = audioEnabled ? 'w-4 h-4 text-bhav-emerald' : 'w-4 h-4 text-zinc-600';
+      document.getElementById('sound-label').innerText = audioEnabled ? 'Pulse ON' : 'Pulse OFF';
+      document.getElementById('sound-icon').className = audioEnabled ? 'w-4 h-4 text-gold' : 'w-4 h-4 text-zinc-600';
     }
 
     // -------------------------------------------------------------
-    // 3. THE SUNDAY VAULT FALLING PRICE ENGINE
+    // 3. THE MIDNIGHT VAULT FALLING PRICE CLOCK
     // -------------------------------------------------------------
-    let vaultStartPrice = Number(localStorage.getItem('bhav_v_start') || 1299);
-    let vaultFloorPrice = Number(localStorage.getItem('bhav_v_floor') || 399);
+    let vaultStartPrice = Number(localStorage.getItem('bhav_v_start') || 4999);
+    let vaultFloorPrice = Number(localStorage.getItem('bhav_v_floor') || 1499);
     let vaultCurrentPrice = vaultStartPrice;
-    let vaultStep = 15;
+    let vaultStep = 35;
     let vaultIntervalSec = 3;
     let vaultLocked = false;
     let vaultLockSeconds = 180;
     let vaultLockTimer = null;
 
     function updateVaultClockUI() {
-      document.getElementById('vault-price-text').innerText = '₹' + vaultCurrentPrice;
-      document.getElementById('vault-btn-price').innerText = '₹' + vaultCurrentPrice;
+      document.getElementById('vault-price-text').innerText = '₹' + vaultCurrentPrice.toLocaleString('en-IN');
+      document.getElementById('vault-btn-price').innerText = '₹' + vaultCurrentPrice.toLocaleString('en-IN');
 
-      // Progress bar percentage
       const totalSpan = vaultStartPrice - vaultFloorPrice;
       const currentProgress = ((vaultCurrentPrice - vaultFloorPrice) / totalSpan) * 100;
       const bar = document.getElementById('vault-progress-bar');
       if (bar) bar.style.width = Math.max(0, Math.min(100, currentProgress)) + '%';
     }
 
-    // Live ticking countdown interval (every 3 seconds)
     setInterval(() => {
       if (vaultLocked) return;
 
@@ -986,30 +978,30 @@
         vaultCurrentPrice -= vaultStep;
         if (vaultCurrentPrice < vaultFloorPrice) vaultCurrentPrice = vaultFloorPrice;
         updateVaultClockUI();
-        playSynthTone(580, 0.04, 'triangle');
+        playSynthTone(432, 0.05, 'triangle');
       }
     }, vaultIntervalSec * 1000);
 
-    // Dynamic Watcher Fluctuation for real-time room feel
+    // Dynamic Live Room Watcher Pulse
     setInterval(() => {
       const el = document.getElementById('live-watchers');
       if (el) {
         const delta = Math.floor(Math.random() * 5) - 2;
         let count = parseInt(el.innerText) + delta;
-        if (count < 28) count = 35;
-        if (count > 64) count = 52;
+        if (count < 38) count = 46;
+        if (count > 78) count = 62;
         el.innerText = count;
       }
-    }, 5000);
+    }, 4500);
 
     function claimVaultItem() {
       if (vaultLocked) return;
       vaultLocked = true;
-      playSynthTone(880, 0.25, 'square');
+      playSynthTone(740, 0.3, 'sine');
 
       document.getElementById('vault-action-container').classList.add('hidden');
       document.getElementById('vault-locked-box').classList.remove('hidden');
-      document.getElementById('locked-price-val').innerText = '₹' + vaultCurrentPrice;
+      document.getElementById('locked-price-val').innerText = '₹' + vaultCurrentPrice.toLocaleString('en-IN');
 
       vaultLockSeconds = 180;
       clearInterval(vaultLockTimer);
@@ -1027,11 +1019,11 @@
 
     function proceedVaultCheckout() {
       cart = [{
-        id: 'vault-claim-lot-1',
-        title: 'Vintage Tokyo Racing Windbreaker (Vault Won)',
+        id: 'vault-choker-lot-01',
+        title: 'The Cleopatra Serpent Emerald Choker (Vault Won)',
         price: vaultCurrentPrice,
-        size: 'L',
-        img: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80',
+        size: '18K Vermeil / One Size',
+        img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80',
         qty: 1
       }];
       updateCartUI();
@@ -1043,14 +1035,14 @@
     }
 
     // -------------------------------------------------------------
-    // 4. PRODUCT CATALOG RENDERING & FILTERING
+    // 4. CATALOG DISPLAY & FILTERING
     // -------------------------------------------------------------
     function renderProducts() {
       const container = document.getElementById('products-grid');
       let filtered = PRODUCTS.filter(p => {
         const matchCat = currentCategory === 'all' || p.category === currentCategory;
         const matchSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            p.gsm.toLowerCase().includes(searchQuery.toLowerCase());
+                            p.material.toLowerCase().includes(searchQuery.toLowerCase());
         return matchCat && matchSearch;
       });
 
@@ -1060,7 +1052,7 @@
       if (filtered.length === 0) {
         container.innerHTML = `
           <div class="col-span-full py-16 text-center font-mono text-zinc-500">
-            No streetwear pieces found for query "${searchQuery}".
+            No specimens match your search parameters.
           </div>`;
         return;
       }
@@ -1068,47 +1060,41 @@
       container.innerHTML = filtered.map(p => {
         const isWished = wishlist.includes(p.id);
         return `
-          <div class="group bg-bhav-card border border-bhav-border rounded-2xl p-4 flex flex-col justify-between hover:border-bhav-borderLight transition duration-300">
+          <div class="group bg-noir-900 border border-noir-border rounded-2xl p-4 flex flex-col justify-between hover:border-gold/50 transition duration-500">
             <div>
-              <!-- Image Aspect Container -->
-              <div class="relative rounded-xl overflow-hidden aspect-[4/5] bg-zinc-950">
-                <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              <div class="relative rounded-xl overflow-hidden aspect-[4/5] bg-noir-950">
+                <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                 
-                <!-- GSM Badge -->
-                <div class="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono text-bhav-emerald font-semibold border border-bhav-emerald/20">
-                  ${p.gsm}
+                <div class="absolute top-2.5 left-2.5 bg-noir-950/85 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-mono text-gold font-bold border border-gold/30">
+                  ${p.material}
                 </div>
 
-                <!-- Wishlist Heart Button -->
-                <button onclick="toggleWishlistItem('${p.id}')" class="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-black/60 backdrop-blur-md text-white hover:text-bhav-coral transition">
-                  <i data-lucide="heart" class="w-4 h-4 ${isWished ? 'text-bhav-coral fill-current' : ''}"></i>
+                <button onclick="toggleWishlistItem('${p.id}')" class="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-noir-950/70 backdrop-blur-md text-zinc-300 hover:text-wine-light transition">
+                  <i data-lucide="heart" class="w-4 h-4 ${isWished ? 'text-wine-light fill-current' : ''}"></i>
                 </button>
               </div>
 
-              <!-- Product Details -->
               <div class="mt-3.5">
                 <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">${p.fit}</span>
-                <h4 class="text-sm font-bold text-white mt-0.5 line-clamp-1 font-syne">${p.title}</h4>
+                <h4 class="text-sm font-bold text-white mt-0.5 line-clamp-1 font-playfair">${p.title}</h4>
               </div>
 
-              <!-- Size Pill Selector -->
               <div class="flex items-center gap-1.5 mt-2.5">
                 ${p.sizes.map((s, idx) => `
-                  <button onclick="selectProductSize(this)" class="size-btn px-2 py-0.5 rounded text-[10px] font-mono border ${idx === 0 ? 'border-bhav-emerald text-bhav-emerald bg-bhav-emerald/10' : 'border-bhav-border text-zinc-400 hover:border-zinc-500'}">
+                  <button onclick="selectProductSize(this)" class="size-btn px-2 py-0.5 rounded text-[10px] font-mono border ${idx === 0 ? 'border-gold text-gold bg-gold/10' : 'border-noir-border text-zinc-400 hover:border-zinc-500'}">
                     ${s}
                   </button>
                 `).join('')}
               </div>
             </div>
 
-            <!-- Price & Add Action -->
-            <div class="mt-4 pt-3 border-t border-bhav-border flex items-center justify-between">
+            <div class="mt-4 pt-3 border-t border-noir-border flex items-center justify-between">
               <div>
-                <span class="text-[9px] font-mono text-zinc-500 uppercase block">Fixed Bhav</span>
-                <span class="text-base font-black font-mono text-bhav-emerald">₹${p.price}</span>
+                <span class="text-[9px] font-mono text-zinc-500 uppercase block">Private Bhav</span>
+                <span class="text-base font-bold font-mono text-gold">₹${p.price.toLocaleString('en-IN')}</span>
               </div>
-              <button onclick="addToBag('${p.id}')" class="px-3.5 py-2 rounded-xl bg-bhav-cardLight hover:bg-bhav-emerald hover:text-black text-white text-xs font-bold transition flex items-center gap-1.5 border border-bhav-border">
-                <span>Add</span> +
+              <button onclick="addToBag('${p.id}')" class="px-3.5 py-2 rounded-xl bg-noir-850 hover:bg-gold hover:text-noir-950 text-white text-xs font-bold transition flex items-center gap-1.5 border border-noir-border font-cinzel">
+                <span>Acquire</span> +
               </button>
             </div>
           </div>
@@ -1121,9 +1107,9 @@
     function filterCategory(cat, btn) {
       currentCategory = cat;
       document.querySelectorAll('.nav-cat-btn').forEach(b => {
-        b.className = 'nav-cat-btn px-4 py-2 rounded-full text-bhav-muted hover:text-white transition';
+        b.className = 'nav-cat-btn px-4 py-2 rounded-full text-zinc-400 hover:text-white transition';
       });
-      if (btn) btn.className = 'nav-cat-btn px-4 py-2 rounded-full bg-bhav-border text-white transition';
+      if (btn) btn.className = 'nav-cat-btn px-4 py-2 rounded-full bg-noir-800 text-gold-light transition';
       renderProducts();
     }
 
@@ -1140,9 +1126,9 @@
     function selectProductSize(btn) {
       const parent = btn.parentElement;
       parent.querySelectorAll('.size-btn').forEach(b => {
-        b.className = 'size-btn px-2 py-0.5 rounded text-[10px] font-mono border border-bhav-border text-zinc-400 hover:border-zinc-500';
+        b.className = 'size-btn px-2 py-0.5 rounded text-[10px] font-mono border border-noir-border text-zinc-400 hover:border-zinc-500';
       });
-      btn.className = 'size-btn px-2 py-0.5 rounded text-[10px] font-mono border border-bhav-emerald text-bhav-emerald bg-bhav-emerald/10';
+      btn.className = 'size-btn px-2 py-0.5 rounded text-[10px] font-mono border border-gold text-gold bg-gold/10';
     }
 
     // -------------------------------------------------------------
@@ -1157,14 +1143,14 @@
         title: product.title,
         price: product.price,
         img: product.img,
-        size: 'L',
+        size: product.sizes[0],
         qty: 1
       });
 
       localStorage.setItem('bhav_cart', JSON.stringify(cart));
       updateCartUI();
       toggleCart(true);
-      playSynthTone(720, 0.08, 'sine');
+      playSynthTone(620, 0.08, 'sine');
     }
 
     function toggleCart(open) {
@@ -1179,7 +1165,7 @@
 
       const container = document.getElementById('cart-items-container');
       if (cart.length === 0) {
-        container.innerHTML = '<div class="text-center text-xs text-zinc-500 py-12 font-mono">Your shopping bag is empty.</div>';
+        container.innerHTML = '<div class="text-center text-xs text-zinc-500 py-12 font-mono">Your private bag is empty.</div>';
         document.getElementById('subtotal-val').innerText = '₹0';
         document.getElementById('grand-total-val').innerText = '₹0';
         return;
@@ -1189,35 +1175,36 @@
       container.innerHTML = cart.map((item, idx) => {
         subtotal += item.price;
         return `
-          <div class="flex items-center gap-3 bg-bhav-card p-3 rounded-2xl border border-bhav-border text-xs">
-            <img src="${item.img}" class="w-12 h-14 object-cover rounded-xl bg-zinc-950">
+          <div class="flex items-center gap-3 bg-noir-900 p-3 rounded-2xl border border-noir-border text-xs">
+            <img src="${item.img}" class="w-12 h-14 object-cover rounded-xl bg-noir-950">
             <div class="flex-grow">
-              <h5 class="font-bold text-white line-clamp-1 font-syne">${item.title}</h5>
-              <div class="text-[11px] text-zinc-400 font-mono mt-0.5">₹${item.price} • Size: ${item.size}</div>
+              <h5 class="font-bold text-white line-clamp-1 font-playfair">${item.title}</h5>
+              <div class="text-[11px] text-zinc-400 font-mono mt-0.5">₹${item.price.toLocaleString('en-IN')} • ${item.size}</div>
             </div>
-            <button onclick="removeFromCart(${idx})" class="p-1.5 text-zinc-500 hover:text-bhav-coral transition">
+            <button onclick="removeFromCart(${idx})" class="p-1.5 text-zinc-500 hover:text-wine-light transition">
               <i data-lucide="trash-2" class="w-4 h-4"></i>
             </button>
           </div>
         `;
       }).join('');
 
-      const shipping = cart.length > 0 ? 70 : 0;
-      const discount = couponApplied ? Math.round(subtotal * 0.1) : 0;
+      // Free shipping above ₹1,499
+      const shipping = subtotal >= 1499 || cart.length === 0 ? 0 : 70;
+      const discount = couponApplied ? Math.round(subtotal * 0.15) : 0;
 
       if (couponApplied) {
         document.getElementById('discount-row').classList.remove('hidden');
-        document.getElementById('discount-val').innerText = '-₹' + discount;
+        document.getElementById('discount-val').innerText = '-₹' + discount.toLocaleString('en-IN');
       } else {
         document.getElementById('discount-row').classList.add('hidden');
       }
 
       const grandTotal = Math.max(0, subtotal + shipping - discount);
 
-      document.getElementById('subtotal-val').innerText = '₹' + subtotal;
-      document.getElementById('shipping-val').innerText = '₹' + shipping;
-      document.getElementById('grand-total-val').innerText = '₹' + grandTotal;
-      document.getElementById('checkout-total-val').innerText = '₹' + grandTotal;
+      document.getElementById('subtotal-val').innerText = '₹' + subtotal.toLocaleString('en-IN');
+      document.getElementById('shipping-val').innerText = shipping === 0 ? 'FREE (Privilege)' : '₹70';
+      document.getElementById('grand-total-val').innerText = '₹' + grandTotal.toLocaleString('en-IN');
+      document.getElementById('checkout-total-val').innerText = '₹' + grandTotal.toLocaleString('en-IN');
 
       lucide.createIcons();
     }
@@ -1231,23 +1218,23 @@
     function applyCoupon() {
       const code = document.getElementById('coupon-input').value.trim().toUpperCase();
       const alertEl = document.getElementById('coupon-alert');
-      if (code === 'VIPDROP') {
+      if (code === 'LUSTVIP') {
         couponApplied = true;
-        alertEl.className = 'text-[10px] text-bhav-emerald mt-1 font-mono';
-        alertEl.innerText = 'Coupon VIPDROP active! Flat 10% slashed.';
+        alertEl.className = 'text-[10px] text-gold mt-1 font-mono';
+        alertEl.innerText = 'Privilege Pass Active: 15% Slashed.';
         updateCartUI();
-        playSynthTone(900, 0.1, 'sine');
+        playSynthTone(820, 0.1, 'sine');
       } else {
-        alertEl.className = 'text-[10px] text-bhav-coral mt-1 font-mono';
-        alertEl.innerText = 'Invalid pass. Try VIPDROP.';
+        alertEl.className = 'text-[10px] text-wine-light mt-1 font-mono';
+        alertEl.innerText = 'Invalid pass. Try LUSTVIP.';
       }
     }
 
     // -------------------------------------------------------------
-    // 6. CHECKOUT MODAL & ORDER CREATION
+    // 6. CHECKOUT SUBMISSION
     // -------------------------------------------------------------
     function openCheckoutModal() {
-      if (cart.length === 0) return alert('Your shopping bag is empty!');
+      if (cart.length === 0) return alert('Your private bag is empty.');
       toggleCart(false);
       document.getElementById('checkout-modal').classList.remove('hidden');
     }
@@ -1259,32 +1246,31 @@
     function handleCheckoutSubmit(e) {
       e.preventDefault();
       const order = {
-        id: 'BD-' + Math.floor(1000 + Math.random() * 9000),
+        id: 'BD-LX-' + Math.floor(1000 + Math.random() * 9000),
         name: document.getElementById('order-name').value,
         phone: document.getElementById('order-phone').value,
         address: document.getElementById('order-address').value,
         pincode: document.getElementById('order-pincode').value,
         total: document.getElementById('checkout-total-val').innerText,
         date: new Date().toLocaleDateString(),
-        status: 'PAID • PREPARING FOR DISPATCH'
+        status: 'PAID • DISCREET PACKAGING PREPARED'
       };
 
       const orders = JSON.parse(localStorage.getItem('bhav_orders') || '[]');
       orders.unshift(order);
       localStorage.setItem('bhav_orders', JSON.stringify(orders));
 
-      // Reset cart
       cart = [];
       localStorage.setItem('bhav_cart', JSON.stringify([]));
       couponApplied = false;
       updateCartUI();
       closeCheckoutModal();
 
-      alert(`🎉 Order Confirmed!\n\nOrder ID: ${order.id}\nCourier: Delhivery Express\nWe have dispatched airway tracking to WhatsApp: ${order.phone}`);
+      alert(`✦ Order Authenticated!\n\nOrder Code: ${order.id}\nCourier: Delhivery Priority Express\nDiscreet airway tracking link dispatched via WhatsApp to ${order.phone}`);
     }
 
     // -------------------------------------------------------------
-    // 7. TRACK PARCEL ENGINE
+    // 7. TRACK PARCEL
     // -------------------------------------------------------------
     function trackParcel() {
       const q = document.getElementById('track-input').value.trim();
@@ -1295,25 +1281,25 @@
       out.classList.remove('hidden');
       if (found) {
         out.innerHTML = `
-          <div class="text-white font-bold font-syne">Order ${found.id} Verified!</div>
-          <div class="text-zinc-400 mt-1">Customer: ${found.name} (${found.phone})</div>
+          <div class="text-gold font-bold font-cinzel">Parcel ${found.id} Verified</div>
+          <div class="text-zinc-400 mt-1">Client: ${found.name} (${found.phone})</div>
           <div class="text-zinc-400">Destination: ${found.address} [PIN: ${found.pincode}]</div>
-          <div class="text-bhav-emerald font-bold mt-1">Status: ${found.status}</div>
-          <div class="text-zinc-500 text-[10px] mt-1">Airway Bill: #DLHV-${Math.floor(10000000 + Math.random() * 90000000)}</div>
+          <div class="text-wine-light font-bold mt-1">Status: ${found.status}</div>
+          <div class="text-zinc-500 text-[10px] mt-1">Airway Bill: #DLHV-${Math.floor(10000000 + Math.random() * 90000000)} (Discreet Tag)</div>
         `;
       } else {
         out.innerHTML = `
-          <div class="text-zinc-500">No active parcel found matching "${q}". Test by placing an order first!</div>
+          <div class="text-zinc-500">No active parcel found matching "${q}". Please authenticate an order first.</div>
         `;
       }
     }
 
     // -------------------------------------------------------------
-    // 8. VIRAL REFERRAL SHARE & WISHLIST
+    // 8. REFERRAL & WISHLIST
     // -------------------------------------------------------------
     function shareReferralWhatsApp() {
       const link = document.getElementById('referral-input').value;
-      const text = encodeURIComponent(`Yo! Check out BhavDrop. Streetwear drops where the price falls every 4 seconds. Use my link to unlock Free Delivery: ${link}`);
+      const text = encodeURIComponent(`Privileged access: Seductive silhouettes, velvet blazers, and emerald heirlooms. Watch the price drop live on Sunday. Use my VIP pass: ${link}`);
       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
 
@@ -1322,7 +1308,7 @@
         wishlist = wishlist.filter(x => x !== id);
       } else {
         wishlist.push(id);
-        playSynthTone(700, 0.05, 'triangle');
+        playSynthTone(780, 0.05, 'triangle');
       }
       localStorage.setItem('bhav_wishlist', JSON.stringify(wishlist));
       document.getElementById('wish-badge').innerText = wishlist.length;
@@ -1330,12 +1316,12 @@
     }
 
     function toggleWishlistModal() {
-      alert(`Wishlist Bookmarks (${wishlist.length} saved). Items will notify your WhatsApp before Sunday drops!`);
+      alert(`Private Bookmarks: ${wishlist.length} specimens saved. You will receive an exclusive WhatsApp ping 5 minutes before Sunday drop!`);
     }
 
     function toggleMobileNav(show) {
       const drawer = document.getElementById('cart-drawer');
-      // Re-use or customize as needed
+      // Accessible via cart or dedicated menu
     }
 
     // -------------------------------------------------------------
@@ -1356,7 +1342,7 @@
         document.getElementById('admin-panel').classList.remove('hidden');
         renderAdminOrders();
       } else {
-        alert('Invalid PIN!');
+        alert('Invalid Master PIN.');
       }
     }
 
@@ -1370,22 +1356,22 @@
       localStorage.setItem('bhav_v_start', s);
       localStorage.setItem('bhav_v_floor', f);
       updateVaultClockUI();
-      alert('Vault clock parameters saved & reset to ₹' + s);
+      alert(`Midnight Vault clock reset to ₹${s} with floor ₹${f}`);
     }
 
     function renderAdminOrders() {
       const orders = JSON.parse(localStorage.getItem('bhav_orders') || '[]');
       const tbody = document.getElementById('admin-orders-body');
       if (orders.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="p-3 text-center text-zinc-500">No orders placed yet.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" class="p-3 text-center text-zinc-500">No private dispatches logged yet.</td></tr>';
         return;
       }
       tbody.innerHTML = orders.map(o => `
-        <tr class="hover:bg-zinc-900/50">
-          <td class="p-2.5 text-bhav-emerald font-bold">${o.id}</td>
+        <tr class="hover:bg-noir-950">
+          <td class="p-2.5 text-gold font-bold">${o.id}</td>
           <td class="p-2.5 text-white">${o.name}<br><span class="text-zinc-500 text-[10px]">${o.phone}</span></td>
           <td class="p-2.5 text-white">${o.total}</td>
-          <td class="p-2.5 text-bhav-coral text-[10px]">${o.status}</td>
+          <td class="p-2.5 text-wine-light text-[10px]">${o.status}</td>
         </tr>
       `).join('');
     }
@@ -1394,7 +1380,7 @@
       localStorage.removeItem('bhav_orders');
       localStorage.removeItem('bhav_cart');
       localStorage.removeItem('bhav_wishlist');
-      alert('Demo data cleared! Reloading...');
+      alert('Demo data cleared! Rebuilding atelier...');
       location.reload();
     }
 
