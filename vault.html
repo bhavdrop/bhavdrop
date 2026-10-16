@@ -3,138 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BhavDrop | The Midnight Live Vault</title>
-  <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-  <link href="[https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@700;800&display=swap](https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@700;800&display=swap)" rel="stylesheet">
+  <title>The Live Vault | BHAVDROP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #060709; color: #ede8df; }
     .font-cinzel { font-family: 'Cinzel', serif; }
-    .font-playfair { font-family: 'Playfair Display', serif; }
-    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .font-mono-num { font-family: 'JetBrains Mono', monospace; }
   </style>
 </head>
-<body class="bg-[#050608] text-stone-100 min-h-screen flex flex-col items-center p-4">
+<body class="min-h-screen flex flex-col items-center p-4 selection:bg-[#d4af37] selection:text-black">
 
-  <!-- Nav Header -->
-  <header class="w-full max-w-4xl flex justify-between items-center py-4 border-b border-amber-500/20">
-    <a href="index.html" class="flex items-center gap-2">
-      <span class="font-cinzel text-xl sm:text-2xl font-black text-white tracking-widest">
-        BHAV<span class="text-amber-400">DROP</span>
-      </span>
-      <span class="text-[9px] font-cinzel text-amber-300/60 uppercase tracking-widest border border-amber-500/30 px-1.5 py-0.5 rounded">MIDNIGHT VAULT</span>
-    </a>
-    <a href="index.html" class="text-xs text-stone-400 hover:text-amber-300 font-cinzel tracking-wider">← Return to Store</a>
+  <header class="w-full max-w-4xl flex justify-between items-center py-4 border-b border-zinc-900">
+    <a href="index.html" class="font-cinzel text-xl font-bold tracking-widest text-white">BHAV<span class="text-[#d4af37]">DROP</span></a>
+    <a href="index.html" class="text-xs text-zinc-400 hover:text-white uppercase tracking-wider font-cinzel">← Store Front</a>
   </header>
 
-  <!-- Live Vault Card -->
-  <main class="w-full max-w-4xl bg-gradient-to-b from-[#11050b] via-[#090b0f] to-[#040507] border border-amber-500/30 rounded-3xl p-6 sm:p-10 mt-6 shadow-[0_0_80px_rgba(212,175,55,0.08)] relative overflow-hidden">
-    <div class="flex flex-wrap justify-between items-center gap-2 mb-6">
-      <div class="flex items-center gap-2 text-rose-400 font-mono text-xs font-bold bg-rose-950/40 border border-rose-500/30 px-3 py-1 rounded-full">
-        <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
-        🔴 LIVE DUTCH AUCTION UNLOCKED
-      </div>
-      <div id="live-watcher-count" class="text-xs text-amber-200/70 font-mono">34 Bidders Watching</div>
+  <main class="w-full max-w-4xl bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-10 mt-6 relative shadow-2xl">
+    <div class="flex justify-between items-center mb-6">
+      <span class="px-3 py-1 bg-red-950/40 border border-red-500/40 text-red-400 text-xs font-mono-num rounded-full flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> REVERSE COUNTDOWN ACTIVE
+      </span>
+      <span id="watcher-badge" class="text-xs text-zinc-500 font-mono-num">Synced Realtime</span>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      <div class="relative rounded-2xl overflow-hidden border border-amber-500/30">
-        <img id="vault-img" src="" alt="Vault Item" class="w-full h-96 object-cover">
-        <div class="absolute top-3 left-3 bg-black/80 border border-amber-500/40 px-3 py-1 rounded-full text-[10px] font-cinzel text-amber-300">
-          ONE-OF-ONE PIECE
-        </div>
+      <div class="rounded-2xl overflow-hidden border border-zinc-800 aspect-square">
+        <img id="vault-img" src="" class="w-full h-full object-cover">
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-5">
         <div>
-          <span class="text-xs font-cinzel tracking-widest text-amber-400/80 uppercase">Midnight Lot #01</span>
-          <h1 id="vault-title" class="font-cinzel text-2xl sm:text-3xl font-bold text-white mt-1"></h1>
-          <p id="vault-desc" class="text-xs text-stone-400 mt-2 leading-relaxed"></p>
+          <span class="text-[10px] font-mono-num text-[#d4af37] tracking-widest uppercase">One-Of-One Specimen Drop</span>
+          <h1 id="vault-title" class="font-cinzel text-2xl font-bold text-white mt-1"></h1>
+          <p id="vault-desc" class="text-xs text-zinc-400 mt-2 leading-relaxed"></p>
         </div>
 
-        <!-- The Falling Clock -->
-        <div class="bg-black/80 border border-amber-500/30 rounded-2xl p-5 text-center shadow-inner">
-          <span class="text-[10px] font-cinzel tracking-widest text-amber-300/70 uppercase">Current Real-Time Bhav</span>
-          <div id="vault-price" class="text-5xl sm:text-6xl font-black font-mono text-amber-300 mt-1">₹0</div>
-          <div class="flex justify-between text-xs text-stone-500 mt-3 font-mono px-2">
-            <span id="vault-start">Start: ₹4,999</span>
-            <span class="text-rose-400">Drops ₹35 / 3s</span>
-            <span id="vault-floor">Floor: ₹1,499</span>
+        <div class="bg-black/90 border border-zinc-800 p-5 rounded-2xl text-center">
+          <span class="text-[10px] uppercase font-mono-num text-zinc-500">Live Dropping Bhav</span>
+          <div id="vault-price" class="text-5xl font-mono-num font-bold text-[#d4af37] mt-1">₹0</div>
+          <div class="flex justify-between text-xs text-zinc-500 font-mono-num mt-3">
+            <span id="v-start">Start: ₹0</span>
+            <span id="v-step" class="text-rose-400">Decreasing</span>
+            <span id="v-floor">Floor: ₹0</span>
           </div>
         </div>
 
-        <!-- Action / Claim Area -->
-        <div id="claim-area">
-          <button onclick="claimVaultItem()" class="w-full py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-black font-cinzel font-black text-sm tracking-wider uppercase shadow-[0_0_30px_rgba(212,175,55,0.3)] hover:scale-[1.01] active:scale-95 transition">
-            CLAIM CURRENT BHAV AT <span id="btn-claim-price">₹0</span>
+        <div id="action-box">
+          <button onclick="claimPiece()" class="w-full py-4 bg-gradient-to-r from-[#d4af37] to-[#aa8323] text-black font-cinzel font-bold text-xs uppercase tracking-widest rounded-xl hover:brightness-110 active:scale-95 transition">
+            CAPTURE BHAV AT <span id="btn-price">₹0</span>
           </button>
-          <p class="text-[10px] text-center text-stone-500 mt-2 font-mono">Tapping Claim locks price for 180s to finish UPI payment.</p>
+          <p class="text-[10px] text-center text-zinc-500 font-mono-num mt-2">Capturing reserves this specimen for 180s to complete UPI payment[cite: 6].</p>
         </div>
 
-        <div id="locked-area" class="hidden bg-stone-900 border border-amber-500 p-4 rounded-xl space-y-3">
-          <div class="text-sm font-bold text-amber-300 text-center font-cinzel">⚡ BHAV LOCKED FOR 180 SECONDS</div>
-          <div class="flex justify-between text-xs text-stone-300">
-            <span>Locked Bhav: <strong id="locked-price" class="text-amber-300 font-mono"></strong></span>
-            <span>Discreet Express: <strong class="text-emerald-400 font-mono">FREE</strong></span>
-          </div>
-          <button onclick="proceedToCheckout()" class="w-full py-3 bg-amber-400 text-black font-cinzel font-bold text-xs uppercase tracking-wider rounded-lg">
-            PROCEED TO UPI CHECKOUT ➔
-          </button>
+        <div id="reserved-box" class="hidden bg-zinc-900 border border-[#d4af37] p-5 rounded-xl text-center space-y-3">
+          <div class="text-xs font-mono-num text-[#d4af37] font-bold">⚡ BHAV RESERVED: 180s PAYMENT WINDOW[cite: 6]</div>
+          <div class="text-2xl font-mono-num font-bold text-white" id="res-price">₹0</div>
+          <a href="checkout.html?type=vault" class="block w-full py-3 bg-[#d4af37] text-black font-cinzel font-bold text-xs uppercase rounded-lg">
+            Proceed to QR Checkout ➔
+          </a>
         </div>
       </div>
     </div>
   </main>
 
-  <script src="data.js"></script>
-  <script>
-    let vault = getVault();
-    let currentPrice = vault.startPrice;
-    let timer = null;
+  <script type="module">
+    import { supabase } from './supabase.js';
 
-    function initVault() {
-      document.getElementById('vault-title').innerText = vault.title;
-      document.getElementById('vault-desc').innerText = vault.desc;
-      document.getElementById('vault-img').src = vault.img;
-      document.getElementById('vault-start').innerText = `Start: ₹${vault.startPrice}`;
-      document.getElementById('vault-floor').innerText = `Floor: ₹${vault.floorPrice}`;
-      updatePrice();
+    let auction = null;
+    let ticker = null;
 
-      timer = setInterval(() => {
-        if (currentPrice > vault.floorPrice) {
-          currentPrice -= vault.stepAmount;
-          if (currentPrice < vault.floorPrice) currentPrice = vault.floorPrice;
-          updatePrice();
-        } else {
-          clearInterval(timer);
+    async function fetchAuction() {
+      const { data, error } = await supabase.from('auctions').select('*').limit(1).single();
+      if (error || !data) return;
+      auction = data;
+      renderBase();
+      runPriceLoop();
+      listenChanges();
+    }
+
+    function renderBase() {
+      document.getElementById('vault-title').innerText = auction.title;
+      document.getElementById('vault-desc').innerText = auction.description;
+      document.getElementById('vault-img').src = auction.image_url;
+      document.getElementById('v-start').innerText = `Start: ₹${auction.start_price}`;
+      document.getElementById('v-floor').innerText = `Floor: ₹${auction.floor_price}`;
+      document.getElementById('v-step').innerText = `-₹${auction.step_amount}/${auction.step_seconds}s`;
+    }
+
+    function computeCurrentBhav() {
+      const elapsed = Math.max(0, Math.floor((Date.now() - new Date(auction.starts_at).getTime()) / 1000));
+      const drops = Math.floor(elapsed / auction.step_seconds) * auction.step_amount;
+      return Math.max(auction.floor_price, auction.start_price - drops);
+    }
+
+    function runPriceLoop() {
+      clearInterval(ticker);
+      ticker = setInterval(() => {
+        if (auction.status === 'locked') {
+          const lockAge = (Date.now() - new Date(auction.locked_at).getTime()) / 1000;
+          if (lockAge < 180) {
+            document.getElementById('action-box').classList.add('hidden');
+            document.getElementById('reserved-box').classList.remove('hidden');
+            document.getElementById('res-price').innerText = `₹${auction.locked_price}`;
+            return;
+          }
         }
-      }, vault.stepSeconds * 1000);
+        
+        document.getElementById('action-box').classList.remove('hidden');
+        document.getElementById('reserved-box').classList.add('hidden');
+        const p = computeCurrentBhav();
+        document.getElementById('vault-price').innerText = `₹${p.toLocaleString('en-IN')}`;
+        document.getElementById('btn-price').innerText = `₹${p.toLocaleString('en-IN')}`;
+      }, 1000);
     }
 
-    function updatePrice() {
-      document.getElementById('vault-price').innerText = `₹${currentPrice.toLocaleString('en-IN')}`;
-      document.getElementById('btn-claim-price').innerText = `₹${currentPrice.toLocaleString('en-IN')}`;
-    }
+    window.claimPiece = async () => {
+      const price = computeCurrentBhav();
+      const userTag = localStorage.getItem('bd_user_tag') || 'user_' + Math.random().toString(36).substring(2, 8);
+      localStorage.setItem('bd_user_tag', userTag);
 
-    function claimVaultItem() {
-      clearInterval(timer);
-      document.getElementById('claim-area').classList.add('hidden');
-      document.getElementById('locked-area').classList.remove('hidden');
-      document.getElementById('locked-price').innerText = `₹${currentPrice.toLocaleString('en-IN')}`;
-      
+      const { data, error } = await supabase.rpc('claim_auction_item', {
+        target_id: auction.id,
+        user_tag: userTag,
+        claimed_price: price
+      });
+
+      if (error || !data.success) {
+        alert(data ? data.message : 'Claim conflict. Try again!');
+        return;
+      }
+
       sessionStorage.setItem('bd_vault_order', JSON.stringify({
-        id: vault.id,
-        title: vault.title,
-        price: currentPrice,
-        img: vault.img,
-        qty: 1,
-        selectedSize: 'One-of-One Imperial'
+        auctionId: auction.id,
+        title: auction.title,
+        price: data.locked_price,
+        img: auction.image_url,
+        lockedAt: data.locked_at
       }));
-    }
 
-    function proceedToCheckout() {
       window.location.href = 'checkout.html?type=vault';
+    };
+
+    function listenChanges() {
+      supabase.channel('public:auctions')
+        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'auctions' }, payload => {
+          auction = payload.new;
+        })
+        .subscribe();
     }
 
-    initVault();
+    fetchAuction();
   </script>
 </body>
 </html>
