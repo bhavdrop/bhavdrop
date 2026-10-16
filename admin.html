@@ -206,27 +206,35 @@
     import { supabase } from './supabase.js';
 
     // 1. Master PIN Authentication
-    window.authorizeAccess = () => {
-      const pin = document.getElementById('pin-input').value.trim();
-      if (pin === 'bhav2026') {
-        sessionStorage.setItem('bd_admin_auth', 'true');
-        document.getElementById('pin-modal').classList.add('hidden');
-        document.getElementById('dashboard').classList.remove('hidden');
-        loadAllAdminData();
-      } else {
-        alert('Unauthorized PIN.');
-      }
-    };
 
-    if (sessionStorage.getItem('bd_admin_auth') === 'true') {
+  // Attach to window so HTML onclick="authorizeAccess()" can access it
+  window.authorizeAccess = () => {
+    const pinInput = document.getElementById('pin-input');
+    const pin = pinInput ? pinInput.value.trim() : '';
+
+    if (pin === 'bhav2026') {
+      sessionStorage.setItem('bd_admin_auth', 'true');
       document.getElementById('pin-modal').classList.add('hidden');
       document.getElementById('dashboard').classList.remove('hidden');
+      
+      if (typeof loadAllAdminData === 'function') {
+        loadAllAdminData();
+      }
+    } else {
+      alert('Unauthorized PIN. Please use: bhav2026');
+    }
+  };
+
+  // Auto-unlock if authorized in the current session
+  if (sessionStorage.getItem('bd_admin_auth') === 'true') {
+    const modal = document.getElementById('pin-modal');
+    const dash = document.getElementById('dashboard');
+    if (modal) modal.classList.add('hidden');
+    if (dash) dash.classList.remove('hidden');
+    if (typeof loadAllAdminData === 'function') {
       loadAllAdminData();
     }
-
-    async function loadAllAdminData() {
-      await Promise.all([loadOrders(), loadInventory(), loadVaultSettings()]);
-    }
+  }
 
     // 2. Orders Management
     window.loadOrders = async () => {
