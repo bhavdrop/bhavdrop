@@ -23,11 +23,11 @@
       <h2 class="font-cinzel text-xl text-white font-bold mb-1">OWNER SUITE</h2>
       <p class="text-xs text-zinc-500 mb-6">Database Secure Authentication</p>
       
-      <form id="auth-form">
+      <form id="admin-auth-form" onsubmit="event.preventDefault(); window.submitAdminAuth();">
         <input 
           type="password" 
           id="pin-input" 
-          placeholder="Enter Master PIN (Default: bhav2026)" 
+          placeholder="Enter Master PIN" 
           autofocus
           class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-center text-sm font-mono-num mb-4 outline-none focus:border-white text-white"
         >
@@ -51,29 +51,29 @@
     <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800 pb-5 gap-4">
       <div>
         <div class="flex items-center gap-3">
-          <h1 class="font-cinzel text-2xl font-bold text-white tracking-widest">BHAV<span class="text-stone-400">DROP</span> CONTROL TOWER</h1>
-          <span id="db-indicator" class="px-2 py-0.5 rounded text-[10px] font-mono-num bg-amber-500/10 text-amber-400 border border-amber-500/30">
-            Testing DB...
+          <h1 class="font-cinzel text-2xl font-bold text-white tracking-widest">BHAV<span class="text-stone-400">DROP</span> CONTROL TOWER</h1>[cite: 1]
+          <span id="db-indicator" class="px-2 py-0.5 rounded text-[10px] font-mono-num bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+            Live
           </span>
         </div>
-        <p class="text-xs text-zinc-400 mt-1">Live order dispatch ledger, catalog manager, and reverse auction tuner.</p>
+        <p class="text-xs text-zinc-400 mt-1">Live order dispatch ledger, catalog manager, and reverse auction tuner.</p>[cite: 1]
       </div>
       <div class="flex items-center gap-4 text-xs font-mono-num">
-        <a href="index.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white rounded-lg transition">Store Front ↗</a>
+        <a href="index.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white rounded-lg transition">Store Front ↗</a>[cite: 1]
         <a href="vault.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-rose-400 hover:text-rose-300 rounded-lg transition">Live Vault ↗</a>
-        <button onclick="logoutAdmin()" class="text-zinc-500 hover:text-red-400 transition cursor-pointer">Logout</button>
+        <button onclick="window.logoutAdmin()" class="text-zinc-500 hover:text-red-400 transition cursor-pointer">Logout</button>
       </div>
     </header>
 
-    <!-- KPI Summary Grid -->
+    <!-- Top KPI Summary Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 font-mono-num">
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
         <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Total Orders</span>
-        <div id="kpi-orders" class="text-3xl font-bold text-white mt-1">0</div>
+        <div id="kpi-orders" class="text-3xl font-bold text-white mt-1">0</div>[cite: 1]
       </div>
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
         <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Gross Revenue</span>
-        <div id="kpi-revenue" class="text-3xl font-bold text-emerald-400 mt-1">₹0</div>
+        <div id="kpi-revenue" class="text-3xl font-bold text-emerald-400 mt-1">₹0</div>[cite: 1]
       </div>
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
         <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Catalog Count</span>
@@ -89,10 +89,10 @@
     <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h2 class="font-cinzel text-base font-bold text-white">Customer Orders & Payment Verification</h2>
+          <h2 class="font-cinzel text-base font-bold text-white">Customer Orders & Payment Verification</h2>[cite: 1]
           <p class="text-xs text-zinc-500">Inspect 12-digit UPI UTR numbers and update transit status for tracking.</p>
         </div>
-        <button onclick="window.loadOrders && window.loadOrders()" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded text-[11px] font-mono-num hover:text-white cursor-pointer">
+        <button onclick="window.loadOrders()" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded text-[11px] font-mono-num hover:text-white cursor-pointer">
           Refresh Orders
         </button>
       </div>
@@ -101,18 +101,18 @@
         <table class="w-full text-left text-xs font-mono-num">
           <thead class="border-b border-zinc-800 text-zinc-500">
             <tr>
-              <th class="py-3 px-3">Order Ref</th>
-              <th class="py-3 px-3">Client</th>
-              <th class="py-3 px-3">Shipping Destination</th>
+              <th class="py-3 px-3">Order Ref</th>[cite: 1]
+              <th class="py-3 px-3">Client</th>[cite: 1]
+              <th class="py-3 px-3">Shipping Destination</th>[cite: 1]
               <th class="py-3 px-3">Items</th>
-              <th class="py-3 px-3">Total Amount</th>
+              <th class="py-3 px-3">Total Amount</th>[cite: 1]
               <th class="py-3 px-3">UPI UTR Ref</th>
-              <th class="py-3 px-3">Status</th>
-              <th class="py-3 px-3 text-right">Actions</th>
+              <th class="py-3 px-3">Status</th>[cite: 1]
+              <th class="py-3 px-3 text-right">Actions</th>[cite: 1]
             </tr>
           </thead>
           <tbody id="orders-tbody" class="divide-y divide-zinc-900">
-            <tr><td colspan="8" class="py-6 text-center text-zinc-600">Connecting to database...</td></tr>
+            <tr><td colspan="8" class="py-6 text-center text-zinc-600">Connecting to database...</td></tr>[cite: 1]
           </tbody>
         </table>
       </div>
@@ -162,7 +162,7 @@
         </div>
       </div>
 
-      <button id="pub-btn" onclick="window.publishProduct && window.publishProduct()" class="mt-5 px-6 py-2.5 bg-white hover:bg-stone-200 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer">
+      <button id="pub-btn" onclick="window.publishProduct()" class="mt-5 px-6 py-2.5 bg-white hover:bg-stone-200 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer">
         Publish Piece Across Stores
       </button>
     </section>
@@ -181,7 +181,7 @@
     <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h2 class="font-cinzel text-base font-bold text-white">Reverse Vault Clock Controller</h2>
+          <h2 class="font-cinzel text-base font-bold text-white">Reverse Vault Clock Controller</h2>[cite: 1]
           <p class="text-xs text-zinc-500">Fine-tune the live countdown auction running on `vault.html`.</p>
         </div>
         <span class="text-xs font-mono-num text-rose-500 font-bold">180s Reservation Window</span>
@@ -189,20 +189,20 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono-num">
         <div>
-          <label class="text-zinc-400 block mb-1">Starting Price (₹)</label>
-          <input type="number" id="v-start" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Starting Price (₹)</label>[cite: 1]
+          <input type="number" id="v-start" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div>
-          <label class="text-zinc-400 block mb-1">Floor Reserve (₹)</label>
-          <input type="number" id="v-floor" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Floor Reserve (₹)</label>[cite: 1]
+          <input type="number" id="v-floor" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div>
-          <label class="text-zinc-400 block mb-1">Drop Step (₹)</label>
-          <input type="number" id="v-step" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Drop Step (₹)</label>[cite: 1]
+          <input type="number" id="v-step" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div>
-          <label class="text-zinc-400 block mb-1">Interval (Seconds)</label>
-          <input type="number" id="v-sec" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Interval (Seconds)</label>[cite: 1]
+          <input type="number" id="v-sec" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div class="sm:col-span-2">
           <label class="text-zinc-400 block mb-1">Vault Item Title</label>
@@ -215,10 +215,10 @@
       </div>
 
       <div class="flex flex-wrap gap-3 mt-5">
-        <button onclick="window.saveVaultClock && window.saveVaultClock()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer">
+        <button onclick="window.saveVaultClock()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer">
           Update & Reset Live Clock
         </button>
-        <button onclick="window.unlockVault && window.unlockVault()" class="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono-num rounded-xl transition cursor-pointer">
+        <button onclick="window.unlockVault()" class="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono-num rounded-xl transition cursor-pointer">
           Force Unlock Item
         </button>
       </div>
@@ -239,44 +239,31 @@
           <input type="password" id="change-new-pin" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
         </div>
       </div>
-      <button onclick="window.updateMasterPin && window.updateMasterPin()" class="mt-4 px-5 py-2 bg-zinc-800 hover:bg-zinc-700 text-white font-mono-num text-xs rounded-xl transition cursor-pointer">
+      <button onclick="window.updateMasterPin()" class="mt-4 px-5 py-2 bg-zinc-800 hover:bg-zinc-700 text-white font-mono-num text-xs rounded-xl transition cursor-pointer">
         Update Database PIN
       </button>
     </section>
 
   </div>
 
+  <!-- Central Logic Script -->
   <script type="module">
     import { supabase } from './supabase.js';
 
-    // Test connectivity immediately
-    async function checkDB() {
-      const ind = document.getElementById('db-indicator');
-      const { data, error } = await supabase.from('products').select('count', { count: 'exact', head: true });
-      if (error) {
-        ind.innerText = "DB Error: " + error.message;
-        ind.className = "px-2 py-0.5 rounded text-[10px] font-mono-num bg-rose-500/10 text-rose-400 border border-rose-500/30";
-      } else {
-        ind.innerText = "DB Connected Live";
-        ind.className = "px-2 py-0.5 rounded text-[10px] font-mono-num bg-emerald-500/10 text-emerald-400 border border-emerald-500/30";
-      }
-    }
+    // Global unlock handler
+    window.unlockDashboard = function() {
+      document.getElementById('pin-modal').classList.add('hidden');[cite: 1]
+      document.getElementById('dashboard').classList.remove('hidden');[cite: 1]
+      window.loadAllData();
+    };
 
-    function unlockDashboard() {
-      document.getElementById('pin-modal').classList.add('hidden');
-      document.getElementById('dashboard').classList.remove('hidden');
-      checkDB();
-      loadAllData();
-    }
-
+    // Auto-login check
     if (sessionStorage.getItem('bd_admin_auth') === 'true') {
-      unlockDashboard();
+      window.unlockDashboard();
     }
 
-    // FORM SUBMISSION (Authenticates with verify_admin_pin function)
-    const authForm = document.getElementById('auth-form');
-    authForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    // Direct Auth Verification
+    window.submitAdminAuth = async function() {
       const input = document.getElementById('pin-input');
       const pinVal = input.value.trim();
       const errEl = document.getElementById('pin-error');
@@ -292,37 +279,35 @@
       try {
         const { data, error } = await supabase.rpc('verify_admin_pin', { input_pin: pinVal });
 
-        if (error) {
-          throw error;
-        }
+        if (error) throw error;
 
         if (data === true) {
           sessionStorage.setItem('bd_admin_auth', 'true');
-          unlockDashboard();
+          window.unlockDashboard();
         } else {
-          errEl.innerText = "Incorrect master PIN. Try: bhav2026";
+          errEl.innerText = "Incorrect master PIN. (Default: bhav2026)";
           errEl.classList.remove('hidden');
           input.value = '';
           input.focus();
         }
       } catch (err) {
         console.error("Auth error:", err);
-        errEl.innerText = "Database connection error: " + (err.message || "Cannot verify");
+        errEl.innerText = "Connection Error: " + (err.message || "Failed to reach DB");
         errEl.classList.remove('hidden');
       } finally {
         loadEl.classList.add('hidden');
         btn.disabled = false;
       }
-    });
+    };
 
-    window.logoutAdmin = () => {
+    window.logoutAdmin = function() {
       sessionStorage.removeItem('bd_admin_auth');
       location.reload();
     };
 
-    async function loadAllData() {
-      await Promise.all([loadOrders(), loadInventory(), loadVaultSettings()]);
-    }
+    window.loadAllData = async function() {
+      await Promise.all([window.loadOrders(), window.loadInventory(), window.loadVaultSettings()]);
+    };
 
     // 1. ORDERS
     window.loadOrders = async function() {
@@ -333,44 +318,44 @@
         .order('created_at', { ascending: false });
 
       if (error) {
-        tbody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-rose-400 font-mono-num">Database Query Error: ${error.message}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-rose-400 font-mono-num">Database Error: ${error.message}</td></tr>`;
         return;
       }
 
       if (!orders || orders.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-zinc-600">No client orders recorded in database yet.</td></tr>';
-        document.getElementById('kpi-orders').innerText = '0';
-        document.getElementById('kpi-revenue').innerText = '₹0';
+        tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-zinc-600">No client orders recorded yet.</td></tr>';[cite: 1]
+        document.getElementById('kpi-orders').innerText = '0';[cite: 1]
+        document.getElementById('kpi-revenue').innerText = '₹0';[cite: 1]
         return;
       }
 
-      document.getElementById('kpi-orders').innerText = orders.length;
-      const totalRev = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
+      document.getElementById('kpi-orders').innerText = orders.length;[cite: 1]
+      const totalRev = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);[cite: 1]
       document.getElementById('kpi-revenue').innerText = `₹${totalRev.toLocaleString('en-IN')}`;
 
       tbody.innerHTML = orders.map(o => `
         <tr class="hover:bg-zinc-900/50 transition">
-          <td class="py-3 px-3 text-white font-bold">${o.id}</td>
+          <td class="py-3 px-3 text-white font-bold">${o.id}</td>[cite: 1]
           <td class="py-3 px-3">
-            <span class="text-white font-medium">${o.name}</span><br>
-            <span class="text-zinc-500">${o.phone}</span>
+            <span class="text-white font-medium">${o.name}</span><br>[cite: 1]
+            <span class="text-zinc-500">${o.phone}</span>[cite: 1]
           </td>
-          <td class="py-3 px-3 text-zinc-400 max-w-xs truncate" title="${o.address}">${o.address}</td>
+          <td class="py-3 px-3 text-zinc-400 max-w-xs truncate" title="${o.address}">${o.address}</td>[cite: 1]
           <td class="py-3 px-3 text-zinc-300">
             ${Array.isArray(o.items) ? o.items.map(i => `${i.title} (${i.size \vert{}\vert{} 'Std'}) x${i.qty || 1}`).join(', ') : 'Vault Item'}
           </td>
-          <td class="py-3 px-3 text-white font-bold">₹${Number(o.total).toLocaleString('en-IN')}</td>
+          <td class="py-3 px-3 text-white font-bold">₹${Number(o.total).toLocaleString('en-IN')}</td>[cite: 1]
           <td class="py-3 px-3">
             <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 font-bold">${o.upi_ref || 'None'}</span>
           </td>
           <td class="py-3 px-3">
-            <span class="text-[10px] ${o.status && o.status.includes('DISPATCHED') ? 'text-blue-400' : 'text-amber-400'}">${o.status}</span>
+            <span class="text-[10px] ${o.status && o.status.includes('DISPATCHED') ? 'text-blue-400' : 'text-amber-400'}">${o.status}</span>[cite: 1]
           </td>
           <td class="py-3 px-3 text-right space-x-2">
-            <button onclick="updateOrderStatus('${o.id}', 'DISPATCHED - DELHIVERY AIR')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-zinc-300 rounded cursor-pointer">
+            <button onclick="window.updateOrderStatus('${o.id}', 'DISPATCHED - DELHIVERY AIR')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-zinc-300 rounded cursor-pointer">
               Dispatch
             </button>
-            <button onclick="updateOrderStatus('${o.id}', 'DELIVERED')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-emerald-400 rounded cursor-pointer">
+            <button onclick="window.updateOrderStatus('${o.id}', 'DELIVERED')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-emerald-400 rounded cursor-pointer">
               Delivered
             </button>
           </td>
@@ -407,7 +392,7 @@
       btn.disabled = true;
       btn.innerText = "Publishing to Supabase...";
 
-      const { data, error } = await supabase.from('products').insert([{
+      const { error } = await supabase.from('products').insert([{
         id,
         title,
         category,
@@ -416,14 +401,14 @@
         images: [img],
         badge,
         description
-      }]).select();
+      }]);
 
       btn.disabled = false;
       btn.innerText = "Publish Piece Across Stores";
 
       if (error) {
         console.error("Insert error:", error);
-        return alert('Database Insert Error: ' + error.message + '\nHint: Run the SQL migration to grant public insert permissions.');
+        return alert('Database Insert Error: ' + error.message);
       }
 
       alert(`✨ Piece "${title}" successfully published to ${category}.html and new.html!`);
@@ -434,10 +419,10 @@
       document.getElementById('p-img').value = '';
       document.getElementById('p-badge').value = '';
       document.getElementById('p-desc').value = '';
-      loadInventory();
+      window.loadInventory();
     };
 
-    async function loadInventory() {
+    window.loadInventory = async function() {
       const container = document.getElementById('inventory-grid');
       const { data: prods, error } = await supabase
         .from('products')
@@ -467,16 +452,16 @@
             </div>
           </div>
           <div class="flex gap-2 pt-2 border-t border-zinc-800">
-            <button onclick="quickUpdatePrice('${p.id}', ${p.price})" class="flex-1 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-[10px] text-zinc-300 cursor-pointer">
+            <button onclick="window.quickUpdatePrice('${p.id}', ${p.price})" class="flex-1 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-[10px] text-zinc-300 cursor-pointer">
               Edit Price
             </button>
-            <button onclick="deleteProduct('${p.id}')" class="px-2 py-1 bg-red-950/40 border border-red-900/50 hover:bg-red-900/60 text-red-400 rounded text-[10px] cursor-pointer">
+            <button onclick="window.deleteProduct('${p.id}')" class="px-2 py-1 bg-red-950/40 border border-red-900/50 hover:bg-red-900/60 text-red-400 rounded text-[10px] cursor-pointer">
               Delete
             </button>
           </div>
         </div>
       `).join('');
-    }
+    };
 
     window.quickUpdatePrice = async function(id, currentPrice) {
       const newPrice = prompt('Enter new price in ₹:', currentPrice);
@@ -488,40 +473,40 @@
         .eq('id', id);
 
       if (error) return alert('Update failed: ' + error.message);
-      loadInventory();
+      window.loadInventory();
     };
 
     window.deleteProduct = async function(id) {
       if (!confirm('Permanently remove this garment from all storefronts?')) return;
       const { error } = await supabase.from('products').delete().eq('id', id);
       if (error) return alert('Delete failed: ' + error.message);
-      loadInventory();
+      window.loadInventory();
     };
 
     // 3. REVERSE VAULT CONTROLLER
-    async function loadVaultSettings() {
+    window.loadVaultSettings = async function() {
       const { data: auc } = await supabase.from('auctions').select('*').limit(1).single();
       if (!auc) return;
 
-      document.getElementById('v-start').value = auc.start_price;
-      document.getElementById('v-floor').value = auc.floor_price;
-      document.getElementById('v-step').value = auc.step_amount;
-      document.getElementById('v-sec').value = auc.step_seconds;
+      document.getElementById('v-start').value = auc.start_price;[cite: 1]
+      document.getElementById('v-floor').value = auc.floor_price;[cite: 1]
+      document.getElementById('v-step').value = auc.step_amount;[cite: 1]
+      document.getElementById('v-sec').value = auc.step_seconds;[cite: 1]
       document.getElementById('v-title').value = auc.title;
       document.getElementById('v-img').value = auc.image_url;
 
       document.getElementById('kpi-vault-status').innerText = auc.status;
       document.getElementById('kpi-vault-status').className = auc.status === 'locked' ? 'text-xl font-bold text-amber-400 mt-1 uppercase' : 'text-xl font-bold text-rose-400 mt-1 uppercase';
-    }
+    };
 
     window.saveVaultClock = async function() {
       const payload = {
         title: document.getElementById('v-title').value.trim(),
         image_url: document.getElementById('v-img').value.trim(),
-        start_price: Number(document.getElementById('v-start').value),
-        floor_price: Number(document.getElementById('v-floor').value),
-        step_amount: Number(document.getElementById('v-step').value),
-        step_seconds: Number(document.getElementById('v-sec').value),
+        start_price: Number(document.getElementById('v-start').value),[cite: 1]
+        floor_price: Number(document.getElementById('v-floor').value),[cite: 1]
+        step_amount: Number(document.getElementById('v-step').value),[cite: 1]
+        step_seconds: Number(document.getElementById('v-sec').value),[cite: 1]
         starts_at: new Date().toISOString(),
         status: 'live',
         locked_by: null,
@@ -532,8 +517,8 @@
       const { error } = await supabase.from('auctions').update(payload).eq('id', 'vault-active');
       if (error) return alert('Failed to update: ' + error.message);
 
-      alert('✨ Vault specimen and reverse clock updated across all live clients!');
-      loadVaultSettings();
+      alert('✨ Vault specimen and reverse clock updated across all live clients!');[cite: 1]
+      window.loadVaultSettings();[cite: 1]
     };
 
     window.unlockVault = async function() {
@@ -546,7 +531,7 @@
 
       if (error) return alert('Failed to unlock: ' + error.message);
       alert('✨ Vault unlocked and resumed.');
-      loadVaultSettings();
+      window.loadVaultSettings();
     };
 
     // 4. MASTER PIN CHANGER
