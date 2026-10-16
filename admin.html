@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Private Owner Suite | BHAVDROP</title>
+  
+  <!-- Tailwind & Supabase CDN (No build tool or module import issues) -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -23,8 +27,7 @@
       <h2 class="font-cinzel text-xl text-white font-bold mb-1">OWNER SUITE</h2>
       <p class="text-xs text-zinc-500 mb-6">Database Secure Authentication</p>
       
-      <!-- Native submit handled directly in script -->
-      <form id="admin-auth-form">
+      <form id="admin-auth-form" onsubmit="event.preventDefault(); window.submitAdminAuth();">
         <input 
           type="password" 
           id="pin-input" 
@@ -247,21 +250,20 @@
 
   </div>
 
-  <!-- Central Logic Script -->
-  <script type="module">
-    let supabase = null;
+  <!-- Standard script (No module import bugs, runs immediately) -->
+  <script>
+    // -------------------------------------------------------------
+    // PASTE YOUR SUPABASE CREDENTIALS HERE
+    // -------------------------------------------------------------
+    const SUPABASE_URL = 'https://YOUR-PROJECT-ID.supabase.co';
+    const SUPABASE_ANON_KEY = 'YOUR-SUPABASE-ANON-PUBLIC-KEY';
+    // -------------------------------------------------------------
 
-    // Gracefully load Supabase client with immediate visual feedback if broken
-    try {
-      const module = await import('./supabase.js');
-      supabase = module.supabase;
-    } catch (importErr) {
-      console.error("Module import error:", importErr);
-      const errEl = document.getElementById('pin-error');
-      if (errEl) {
-        errEl.innerText = "Error loading supabase.js. If you opened this via file://, run through a local server (e.g. VS Code Live Server).";
-        errEl.classList.remove('hidden');
-      }
+    // Initialize Supabase Client from global CDN
+    const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+    if (!supabase) {
+      console.error("Supabase CDN failed to load.");
     }
 
     // Global unlock handler
@@ -277,9 +279,7 @@
     }
 
     // Direct Auth Verification
-    window.submitAdminAuth = async function(event) {
-      if (event) event.preventDefault();
-
+    window.submitAdminAuth = async function() {
       const input = document.getElementById('pin-input');
       const pinVal = input.value.trim();
       const errEl = document.getElementById('pin-error');
@@ -289,7 +289,7 @@
       if (!pinVal) return;
 
       if (!supabase) {
-        errEl.innerText = "Supabase client not initialized. Check supabase.js import.";
+        errEl.innerText = "Supabase SDK not loaded. Check internet or adblocker.";
         errEl.classList.remove('hidden');
         return;
       }
@@ -313,20 +313,14 @@
           input.focus();
         }
       } catch (err) {
-        console.error("Auth error:", err);
-        errEl.innerText = "Connection Error: " + (err.message || "Failed to reach DB");
+        console.error("Auth error details:", err);
+        errEl.innerText = "DB Error: " + (err.message || "Failed to reach DB");
         errEl.classList.remove('hidden');
       } finally {
         loadEl.classList.add('hidden');
         btn.disabled = false;
       }
     };
-
-    // Bind event listener directly to avoid timing errors
-    const formEl = document.getElementById('admin-auth-form');
-    if (formEl) {
-      formEl.addEventListener('submit', window.submitAdminAuth);
-    }
 
     window.logoutAdmin = function() {
       sessionStorage.removeItem('bd_admin_auth');
@@ -371,7 +365,7 @@
           </td>
           <td class="py-3 px-3 text-zinc-400 max-w-xs truncate" title="${o.address}">${o.address}</td>
           <td class="py-3 px-3 text-zinc-300">
-            ${Array.isArray(o.items) ? o.items.map(i => `${i.title} (${i.size \vert{}\vert{} 'Std'}) x${i.qty || 1}`).join(', ') : 'Vault Item'}
+            ${Array.isArray(o.items) ? o.items.map(i => `${i.title} (${i.size || 'Std'}) x${i.qty || 1}`).join(', ') : 'Vault Item'}
           </td>
           <td class="py-3 px-3 text-white font-bold">₹${Number(o.total).toLocaleString('en-IN')}</td>
           <td class="py-3 px-3">
@@ -381,215 +375,4 @@
             <span class="text-[10px] ${o.status && o.status.includes('DISPATCHED') ? 'text-blue-400' : 'text-amber-400'}">${o.status}</span>
           </td>
           <td class="py-3 px-3 text-right space-x-2">
-            <button onclick="window.updateOrderStatus('${o.id}', 'DISPATCHED - DELHIVERY AIR')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-zinc-300 rounded cursor-pointer">
-              Dispatch
-            </button>
-            <button onclick="window.updateOrderStatus('${o.id}', 'DELIVERED')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-emerald-400 rounded cursor-pointer">
-              Delivered
-            </button>
-          </td>
-        </tr>
-      `).join('');
-    };
-
-    window.updateOrderStatus = async function(orderId, newStatus) {
-      const { error } = await supabase
-        .from('orders')
-        .update({ status: newStatus })
-        .eq('id', orderId);
-
-      if (error) return alert('Failed to update status: ' + error.message);
-      window.loadOrders();
-    };
-
-    // 2. INVENTORY & PUBLISHING
-    window.publishProduct = async function() {
-      const btn = document.getElementById('pub-btn');
-      const id = document.getElementById('p-id').value.trim() || 'prod-' + Date.now();
-      const title = document.getElementById('p-title').value.trim();
-      const category = document.getElementById('p-cat').value;
-      const price = Number(document.getElementById('p-price').value);
-      const original_price = Number(document.getElementById('p-orig').value) || null;
-      const img = document.getElementById('p-img').value.trim();
-      const badge = document.getElementById('p-badge').value.trim() || null;
-      const description = document.getElementById('p-desc').value.trim() || '';
-
-      if (!title || isNaN(price) || price <= 0 || !img) {
-        return alert('Please fill in: Title, a valid Price, and Image URL.');
-      }
-
-      btn.disabled = true;
-      btn.innerText = "Publishing to Supabase...";
-
-      const { error } = await supabase.from('products').insert([{
-        id,
-        title,
-        category,
-        price,
-        original_price,
-        images: [img],
-        badge,
-        description
-      }]);
-
-      btn.disabled = false;
-      btn.innerText = "Publish Piece Across Stores";
-
-      if (error) {
-        console.error("Insert error:", error);
-        return alert('Database Insert Error: ' + error.message);
-      }
-
-      alert(`✨ Piece "${title}" successfully published to ${category}.html and new.html!`);
-      document.getElementById('p-id').value = '';
-      document.getElementById('p-title').value = '';
-      document.getElementById('p-price').value = '';
-      document.getElementById('p-orig').value = '';
-      document.getElementById('p-img').value = '';
-      document.getElementById('p-badge').value = '';
-      document.getElementById('p-desc').value = '';
-      window.loadInventory();
-    };
-
-    window.loadInventory = async function() {
-      const container = document.getElementById('inventory-grid');
-      const { data: prods, error } = await supabase
-        .from('products')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        container.innerHTML = `<div class="col-span-full py-4 text-rose-400 text-xs">Error loading catalog: ${error.message}</div>`;
-        return;
-      }
-
-      if (!prods || prods.length === 0) {
-        container.innerHTML = '<div class="col-span-full py-6 text-center text-zinc-600 text-xs">No active inventory found.</div>';
-        document.getElementById('kpi-products').innerText = '0';
-        return;
-      }
-
-      document.getElementById('kpi-products').innerText = prods.length;
-      container.innerHTML = prods.map(p => {
-        const primaryImage = (Array.isArray(p.images) && p.images[0]) ? p.images[0] : 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=300&q=80';
-        return `
-          <div class="bg-zinc-900/60 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between space-y-3 font-mono-num text-xs">
-            <div class="flex gap-3 items-center">
-              <img src="${primaryImage}" class="w-12 h-14 object-cover rounded border border-zinc-800" onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=300&q=80'">
-              <div class="overflow-hidden">
-                <span class="text-[9px] uppercase tracking-wider text-zinc-500">${p.category}</span>
-                <div class="text-white font-bold truncate">${p.title}</div>
-                <div class="text-emerald-400 font-bold">₹${Number(p.price).toLocaleString('en-IN')}</div>
-              </div>
-            </div>
-            <div class="flex gap-2 pt-2 border-t border-zinc-800">
-              <button onclick="window.quickUpdatePrice('${p.id}', ${p.price})" class="flex-1 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-[10px] text-zinc-300 cursor-pointer">
-                Edit Price
-              </button>
-              <button onclick="window.deleteProduct('${p.id}')" class="px-2 py-1 bg-red-950/40 border border-red-900/50 hover:bg-red-900/60 text-red-400 rounded text-[10px] cursor-pointer">
-                Delete
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    };
-
-    window.quickUpdatePrice = async function(id, currentPrice) {
-      const newPrice = prompt('Enter new price in ₹:', currentPrice);
-      if (!newPrice || isNaN(newPrice)) return;
-
-      const { error } = await supabase
-        .from('products')
-        .update({ price: Number(newPrice) })
-        .eq('id', id);
-
-      if (error) return alert('Update failed: ' + error.message);
-      window.loadInventory();
-    };
-
-    window.deleteProduct = async function(id) {
-      if (!confirm('Permanently remove this garment from all storefronts?')) return;
-      const { error } = await supabase.from('products').delete().eq('id', id);
-      if (error) return alert('Delete failed: ' + error.message);
-      window.loadInventory();
-    };
-
-    // 3. REVERSE VAULT CONTROLLER
-    window.loadVaultSettings = async function() {
-      const { data: auc } = await supabase.from('auctions').select('*').limit(1).single();
-      if (!auc) return;
-
-      document.getElementById('v-start').value = auc.start_price;
-      document.getElementById('v-floor').value = auc.floor_price;
-      document.getElementById('v-step').value = auc.step_amount;
-      document.getElementById('v-sec').value = auc.step_seconds;
-      document.getElementById('v-title').value = auc.title;
-      document.getElementById('v-img').value = auc.image_url;
-
-      document.getElementById('kpi-vault-status').innerText = auc.status;
-      document.getElementById('kpi-vault-status').className = auc.status === 'locked' ? 'text-xl font-bold text-amber-400 mt-1 uppercase' : 'text-xl font-bold text-rose-400 mt-1 uppercase';
-    };
-
-    window.saveVaultClock = async function() {
-      const payload = {
-        title: document.getElementById('v-title').value.trim(),
-        image_url: document.getElementById('v-img').value.trim(),
-        start_price: Number(document.getElementById('v-start').value),
-        floor_price: Number(document.getElementById('v-floor').value),
-        step_amount: Number(document.getElementById('v-step').value),
-        step_seconds: Number(document.getElementById('v-sec').value),
-        starts_at: new Date().toISOString(),
-        status: 'live',
-        locked_by: null,
-        locked_at: null,
-        locked_price: null
-      };
-
-      const { error } = await supabase.from('auctions').update(payload).eq('id', 'vault-active');
-      if (error) return alert('Failed to update: ' + error.message);
-
-      alert('✨ Vault specimen and reverse clock updated across all live clients!');
-      window.loadVaultSettings();
-    };
-
-    window.unlockVault = async function() {
-      const { error } = await supabase.from('auctions').update({
-        status: 'live',
-        locked_by: null,
-        locked_at: null,
-        locked_price: null
-      }).eq('id', 'vault-active');
-
-      if (error) return alert('Failed to unlock: ' + error.message);
-      alert('✨ Vault unlocked and resumed.');
-      window.loadVaultSettings();
-    };
-
-    // 4. MASTER PIN CHANGER
-    window.updateMasterPin = async function() {
-      const currentPin = document.getElementById('change-current-pin').value.trim();
-      const newPin = document.getElementById('change-new-pin').value.trim();
-
-      if (!currentPin || !newPin) {
-        return alert('Please enter both current and new PIN.');
-      }
-
-      const { data, error } = await supabase.rpc('update_admin_pin', {
-        current_pin: currentPin,
-        new_pin: newPin
-      });
-
-      if (error) return alert('Error updating PIN: ' + error.message);
-
-      if (data && data.success) {
-        alert('✨ ' + data.message);
-        document.getElementById('change-current-pin').value = '';
-        document.getElementById('change-new-pin').value = '';
-      } else {
-        alert(data ? data.message : 'Update failed');
-      }
-    };
-  </script>
-</body>
-</html>
+            <button onclick="window.updateOrderStatus('${o.id}', 'DISPATCHED - DELHIVERY AIR')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-zinc-300
