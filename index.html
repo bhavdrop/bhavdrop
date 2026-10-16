@@ -3,276 +3,307 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BHAVDROP | Luxury Streetwear, Corsetry & Fine Heirlooms</title>
+  <title>BHAVDROP | Modern Luxury Atelier & Live Reverse Drops</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Editorial Google Fonts -->
+  <!-- Editorial Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #faf8f5;
-      color: #1a1a1a;
+      background-color: #ffffff;
+      color: #111111;
     }
+    .font-serif-luxury { font-family: 'Playfair Display', serif; }
     .font-cinzel { font-family: 'Cinzel', serif; }
-    .font-serif-luxury { font-family: 'Cormorant Garamond', serif; }
     .font-mono-num { font-family: 'JetBrains Mono', monospace; }
   </style>
 </head>
-<body class="selection:bg-[#c5a059] selection:text-white min-h-screen flex flex-col antialiased">
+<body class="selection:bg-black selection:text-white min-h-screen flex flex-col">
 
-  <!-- Top Announcement Bar -->
-  <div class="bg-[#1f1d1a] text-[#ede6d6] py-2.5 px-4 text-center text-[11px] tracking-[0.22em] uppercase font-medium flex items-center justify-center gap-3">
-    <span>✦ EXCLUSIVE DROP ATELIER</span>
-    <span class="w-1 h-1 rounded-full bg-[#c5a059]"></span>
-    <span>THE MIDNIGHT REVERSE VAULT DROPS SUNDAYS @ 8:00 PM IST</span>
-    <span class="w-1 h-1 rounded-full bg-[#c5a059]"></span>
-    <span>PREMIUM ALL-INDIA DISCREET COURIER ₹70</span>
+  <!-- Layer 1: Top Announcement Bar -->
+  <div class="bg-black text-white text-[11px] font-semibold tracking-widest uppercase py-2 px-4 text-center flex items-center justify-center gap-3">
+    <span>Free Express Shipping on Orders Above ₹1,499</span>
+    <span class="w-1 h-1 rounded-full bg-stone-400"></span>
+    <a href="collection.html" class="underline underline-offset-4 hover:text-stone-300">Shop Catalog</a>
   </div>
 
-  <!-- Global Header / Navigation -->
-  <header class="sticky top-0 z-40 bg-[#faf8f5]/90 backdrop-blur-md border-b border-[#e8e2d5]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
+  <!-- Layer 2: Main Brand & Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between gap-6">
       
-      <!-- Brand Logo -->
-      <a href="index.html" class="flex flex-col group">
-        <span class="font-cinzel text-2xl sm:text-3xl font-extrabold tracking-[0.22em] text-[#1a1a1a] group-hover:text-[#9e7d3b] transition-colors">
-          BHAV<span class="text-[#c5a059]">DROP</span>
+      <!-- Brand Identity -->
+      <a href="index.html" class="flex flex-col">
+        <span class="font-cinzel text-2xl sm:text-3xl font-black tracking-[0.2em] text-black">
+          BHAV<span class="text-stone-400">DROP</span>
         </span>
-        <span class="text-[8px] tracking-[0.38em] uppercase text-[#8c8270] -mt-1 font-semibold">Atelier of Desire</span>
+        <span class="text-[8px] font-mono-num uppercase tracking-[0.3em] text-stone-500 -mt-1 font-bold">Atelier • Live Drops</span>
       </a>
 
-      <!-- Navigation Tabs -->
-      <nav class="hidden md:flex items-center gap-8 text-[11px] tracking-[0.2em] uppercase font-semibold text-[#5a5345]">
-        <a href="vault.html" class="text-[#b3531b] hover:text-[#9e7d3b] transition flex items-center gap-2 font-bold">
-          <span class="w-2 h-2 rounded-full bg-[#e05d26] animate-ping"></span>
-          Live Vault
+      <!-- Desktop Department Navigation (City-Chic Style) -->
+      <nav class="hidden lg:flex items-center gap-7 text-xs font-bold uppercase tracking-widest text-stone-800">
+        <a href="collection.html?category=new" class="hover:text-black transition">New</a>
+        <a href="collection.html?category=her" class="hover:text-black transition">Corsets & Slips</a>
+        <a href="collection.html?category=him" class="hover:text-black transition">Tailoring & Shirts</a>
+        <a href="collection.html?category=jewels" class="hover:text-black transition">Fine Jewels</a>
+        
+        <!-- Live Reverse Auction Tab -->
+        <a href="vault.html" class="flex items-center gap-1.5 text-rose-600 hover:text-rose-700 transition">
+          <span class="w-2 h-2 rounded-full bg-rose-600 animate-pulse"></span>
+          Reverse Vault
         </a>
-        <a href="#catalog" onclick="filterCatalog('all')" class="hover:text-[#c5a059] transition">All Offerings</a>
-        <a href="#catalog" onclick="filterCatalog('her')" class="hover:text-[#c5a059] transition">Her Desire</a>
-        <a href="#catalog" onclick="filterCatalog('him')" class="hover:text-[#c5a059] transition">His Allure</a>
-        <a href="#catalog" onclick="filterCatalog('jewels')" class="hover:text-[#c5a059] transition">Heirlooms</a>
-        <a href="track.html" class="hover:text-[#c5a059] transition">Track Order</a>
+
+        <a href="collection.html?sale=true" class="text-stone-400 hover:text-stone-600 transition">Archives</a>
       </nav>
 
-      <!-- Cart Button with Live Counter Badge -->
-      <div class="flex items-center gap-4">
-        <a href="checkout.html" class="relative p-2.5 rounded-full bg-white border border-[#ded7c8] text-[#1a1a1a] hover:border-[#c5a059] hover:shadow-md transition flex items-center justify-center">
+      <!-- Utility Icons (Search, Tracking, Wishlist, Bag) -->
+      <div class="flex items-center gap-5 text-stone-900">
+        <!-- Parcel Lookup -->
+        <a href="track.html" title="Track Parcel" class="hidden sm:block hover:text-stone-500 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8h4l3 3v5a1 1 0 01-1 1h-1"/>
+          </svg>
+        </a>
+
+        <!-- Owner Suite Link -->
+        <a href="admin.html" title="Owner Administration" class="hover:text-stone-500 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+        </a>
+
+        <!-- Shopping Cart Bag -->
+        <a href="checkout.html" class="relative p-1 hover:text-stone-500 transition flex items-center justify-center">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
           </svg>
-          <span class="cart-badge-count absolute -top-1.5 -right-1.5 bg-[#c5a059] text-white font-mono-num font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow-sm">0</span>
+          <span class="cart-badge-count absolute -top-1 -right-1 bg-black text-white text-[10px] font-mono-num font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
         </a>
       </div>
 
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="relative min-h-[72vh] flex items-center justify-center border-b border-[#e8e2d5] px-4 py-20 text-center bg-gradient-to-b from-[#f5f0e6] via-[#faf8f5] to-[#faf8f5] overflow-hidden">
-    <div class="relative z-10 max-w-4xl mx-auto space-y-6">
+  <!-- Layer 3: Secondary Promotional Campaign Bar -->
+  <div class="bg-stone-100 border-b border-stone-200 py-2.5 px-4 text-center text-xs font-semibold tracking-wider text-stone-700">
+    <span>✦ LIVE COUNTDOWN DROP: CAPTURE YOUR PRICE & COMPLETE UPI PAYMENT WITHIN 3 MINUTES ➔</span>
+    <a href="vault.html" class="ml-2 font-bold text-black underline underline-offset-2">Enter The Vault</a>
+  </div>
+
+  <!-- Hero Section: Clean Editorial Dual Split Lookbook -->
+  <section class="relative bg-stone-50 border-b border-stone-200 overflow-hidden">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center min-h-[75vh]">
       
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#ded7c8] text-[#856b32] text-[11px] tracking-[0.2em] uppercase font-semibold shadow-sm">
-        <span class="w-2 h-2 rounded-full bg-[#c5a059]"></span>
-        Handcrafted Silk, Corsetry & 18K Vermeil
-      </div>
-
-      <h1 class="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#1a1a1a] leading-[1.12]">
-        SCULPTED FOR <br>
-        <span class="font-serif-luxury italic font-normal text-[#9e7d3b]">Pure Sophistication.</span>
-      </h1>
-
-      <p class="max-w-xl mx-auto text-sm sm:text-base text-[#615a4e] font-normal leading-relaxed">
-        Rare French silk velvet corsets, fluid Mulberry slips, and natural gemstone serpent collars. Capture everyday pieces or claim the dropping price in our live <strong>Reverse Auction Vault</strong>[cite: 4, 6].
-      </p>
-
-      <div class="pt-4 flex flex-wrap justify-center gap-4">
-        <a href="vault.html" class="px-8 py-4 rounded-full bg-[#1f1d1a] text-[#f7f3eb] font-cinzel font-bold text-xs tracking-[0.2em] uppercase hover:bg-[#c5a059] hover:text-black shadow-lg transition-all duration-200">
-          Enter The Live Vault ➔
-        </a>
-        <a href="#catalog" class="px-8 py-4 rounded-full bg-white border border-[#ded7c8] text-[#1a1a1a] hover:border-[#c5a059] font-cinzel text-xs tracking-[0.2em] uppercase transition shadow-sm">
-          Browse Catalog
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Reverse Dutch Vault Feature Card -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-8 -mt-10 relative z-20">
-    <div class="bg-white border border-[#e3dcd0] rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="space-y-1">
-        <div class="inline-flex items-center gap-2 text-[#b3531b] text-xs font-mono-num font-bold uppercase tracking-wider">
-          <span class="w-2 h-2 rounded-full bg-[#e05d26] animate-pulse"></span>
-          Reverse Countdown Drop
+      <!-- Text & Call to Action -->
+      <div class="p-8 sm:p-14 lg:p-20 space-y-6">
+        <div class="inline-block text-[11px] font-mono-num font-bold tracking-[0.25em] uppercase text-stone-500">
+          Atelier Collection 2026
         </div>
-        <h3 class="font-cinzel text-xl sm:text-2xl font-bold text-[#1a1a1a]">The Midnight Reverse Vault</h3>
-        <p class="text-xs text-[#6e6657] max-w-xl">Every second the bhav decreases automatically until someone claims it[cite: 6]. When captured, the price freezes for exactly 3 minutes to confirm via UPI QR[cite: 2, 6].</p>
+
+        <h1 class="font-serif-luxury text-4xl sm:text-6xl text-stone-900 leading-[1.1] font-normal">
+          Refined Silhouettes. <br>
+          <span class="italic font-normal text-stone-600">Uncompromising Fit.</span>
+        </h1>
+
+        <p class="text-sm text-stone-600 leading-relaxed max-w-md">
+          Structured steel-boned corsets, fluid pure Mulberry silk evening gowns, and tailored Italian velvet statements. Purchase directly or enter the reverse Dutch auction clock.
+        </p>
+
+        <div class="pt-4 flex flex-wrap gap-3">
+          <a href="collection.html" class="px-8 py-3.5 bg-black hover:bg-stone-800 text-white text-xs font-bold uppercase tracking-widest rounded-none transition">
+            Shop The Catalog
+          </a>
+          <a href="vault.html" class="px-8 py-3.5 border border-black hover:bg-black hover:text-white text-black text-xs font-bold uppercase tracking-widest rounded-none transition">
+            Live Reverse Clock ➔
+          </a>
+        </div>
       </div>
-      <a href="vault.html" class="px-7 py-3.5 rounded-2xl bg-[#c5a059] text-white hover:bg-[#ae8b47] font-cinzel text-xs tracking-widest uppercase font-bold transition shadow-md whitespace-nowrap">
-        Go To Live Clock ➔
-      </a>
+
+      <!-- Feature Image Display -->
+      <div class="relative h-[480px] md:h-full bg-stone-200">
+        <img 
+          src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80" 
+          alt="Luxury Garment Edit" 
+          class="w-full h-full object-cover object-center"
+        >
+        <div class="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm p-4 border border-stone-200 max-w-xs shadow-sm">
+          <div class="text-[10px] font-mono-num uppercase tracking-wider text-stone-500">Lot Specimen</div>
+          <div class="font-serif-luxury text-sm font-bold text-stone-900">The Velvet Boned Corset</div>
+          <div class="font-mono-num text-xs font-bold text-stone-800 mt-1">₹2,499</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Product Catalog Section -->
-  <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-8 py-20 flex-grow w-full">
-    
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 border-b border-[#e8e2d5] pb-6">
-      <div>
-        <span class="text-xs font-mono-num uppercase tracking-[0.2em] text-[#8c8270]">Curated Collection</span>
-        <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-[#1a1a1a] mt-1">ATELIER OFFERINGS</h2>
+  <!-- Live Reverse Vault Callout Section -->
+  <section class="border-b border-stone-200 bg-white py-12 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto bg-stone-100 border border-stone-300 p-8 sm:p-12 flex flex-col lg:flex-row items-center justify-between gap-8">
+      <div class="space-y-2 max-w-2xl">
+        <div class="flex items-center gap-2 text-rose-600 font-mono-num text-xs font-bold uppercase tracking-widest">
+          <span class="w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping"></span>
+          Interactive Live Dropping Bhav
+        </div>
+        <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-stone-900">The Midnight Reverse Auction</h2>
+        <p class="text-xs text-stone-600 leading-relaxed">
+          The price automatically decreases every few seconds until a collector clicks "Capture". Once claimed, that price freezes for precisely 180 seconds to approve via instant UPI QR before unlocking back to the live room.
+        </p>
       </div>
 
-      <!-- Filter Buttons -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-1">
-        <button onclick="filterCatalog('all')" id="btn-all" class="filter-btn px-4 py-2 rounded-full bg-[#1a1a1a] text-white text-xs uppercase tracking-wider font-semibold transition">All</button>
-        <button onclick="filterCatalog('her')" id="btn-her" class="filter-btn px-4 py-2 rounded-full bg-white border border-[#ded7c8] text-[#5a5345] hover:text-black text-xs uppercase tracking-wider transition">Her Desire</button>
-        <button onclick="filterCatalog('him')" id="btn-him" class="filter-btn px-4 py-2 rounded-full bg-white border border-[#ded7c8] text-[#5a5345] hover:text-black text-xs uppercase tracking-wider transition">His Allure</button>
-        <button onclick="filterCatalog('jewels')" id="btn-jewels" class="filter-btn px-4 py-2 rounded-full bg-white border border-[#ded7c8] text-[#5a5345] hover:text-black text-xs uppercase tracking-wider transition">Heirlooms</button>
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <a href="vault.html" class="w-full sm:w-auto px-8 py-4 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase tracking-widest text-center transition">
+          Enter Dropping Vault ➔
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curated Product Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 py-16 flex-grow w-full">
+    
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-stone-200 pb-5 mb-8 gap-4">
+      <div>
+        <span class="text-[10px] font-mono-num uppercase tracking-[0.2em] text-stone-400">Curated Wardrobe</span>
+        <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-stone-900">New Arrivals & Atelier Signatures</h2>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs uppercase tracking-wider font-semibold">
+        <button onclick="filterGrid('all')" id="btn-all" class="px-4 py-2 bg-black text-white rounded-none">All</button>
+        <button onclick="filterGrid('her')" id="btn-her" class="px-4 py-2 bg-stone-100 text-stone-700 hover:text-black">Corsetry</button>
+        <button onclick="filterGrid('him')" id="btn-him" class="px-4 py-2 bg-stone-100 text-stone-700 hover:text-black">Tailoring</button>
+        <button onclick="filterGrid('jewels')" id="btn-jewels" class="px-4 py-2 bg-stone-100 text-stone-700 hover:text-black">Heirlooms</button>
       </div>
     </div>
 
-    <!-- Product Grid -->
-    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- Injected by JavaScript -->
+    <!-- The Product Cards Container -->
+    <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Injected via JavaScript from data.js -->
     </div>
   </main>
 
-  <!-- Delivery & Security Highlights -->
-  <section class="border-t border-[#e8e2d5] bg-white py-12 px-4 text-center">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs text-[#5a5345] tracking-widest uppercase font-semibold">
-      <div class="flex items-center justify-center gap-3">
-        <span class="w-10 h-10 rounded-full bg-[#faf6ef] border border-[#e6decb] flex items-center justify-center text-base">📦</span>
-        <span>100% Discreet Packaging[cite: 3]</span>
+  <!-- Discreet Delivery & Verification Banner -->
+  <section class="border-t border-stone-200 bg-stone-50 py-12 px-4 text-center">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs font-semibold tracking-wider uppercase text-stone-700">
+      <div class="space-y-1">
+        <div class="text-base mb-1">📦</div>
+        <div>100% Discreet Packaging</div>
+        <div class="text-[10px] text-stone-500 font-normal">Unmarked matte exterior with sealed security strip</div>
       </div>
-      <div class="flex items-center justify-center gap-3">
-        <span class="w-10 h-10 rounded-full bg-[#faf6ef] border border-[#e6decb] flex items-center justify-center text-base">⚡</span>
-        <span>Instant UPI Dynamic QR</span>
+      <div class="space-y-1">
+        <div class="text-base mb-1">⚡</div>
+        <div>3-Minute UPI Capture</div>
+        <div class="text-[10px] text-stone-500 font-normal">Instant GPay, PhonePe, and Paytm dynamic QR generation</div>
       </div>
-      <div class="flex items-center justify-center gap-3">
-        <span class="w-10 h-10 rounded-full bg-[#faf6ef] border border-[#e6decb] flex items-center justify-center text-base">⏱️</span>
-        <span>Reverse Clock Price Capture</span>
+      <div class="space-y-1">
+        <div class="text-base mb-1">🚚</div>
+        <div>Express All-India Delivery</div>
+        <div class="text-[10px] text-stone-500 font-normal">Fast, trackable priority logistics dispatched via air</div>
       </div>
     </div>
   </section>
 
+  <!-- Support Bubble / Floating Concierge (Like City Chic) -->
+  <a 
+    href="https://wa.me/919999999999?text=Hello%20BhavDrop,%20I%20have%20an%20inquiry%20regarding%20an%20order" 
+    target="_blank" 
+    class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white border border-stone-300 shadow-xl px-4 py-2.5 rounded-full text-xs font-bold text-stone-900 hover:bg-stone-50 transition"
+  >
+    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+    <span>Concierge Help</span>
+  </a>
+
   <!-- Footer -->
-  <footer class="border-t border-[#e8e2d5] bg-[#faf8f5] py-8 text-center text-xs text-[#8c8270]">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p>© 2026 BhavDrop Luxury Atelier. All rights reserved.</p>
-      <div class="flex items-center gap-6">
-        <a href="track.html" class="hover:text-[#c5a059] transition">Track Parcel</a>
-        <a href="vault.html" class="hover:text-[#c5a059] transition">Live Vault</a>
-        <a href="admin.html" class="hover:text-[#c5a059] transition">Owner Suite[cite: 1]</a>
+  <footer class="border-t border-stone-200 bg-white py-10 px-4 text-center text-xs text-stone-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 BhavDrop Luxury Atelier. All rights reserved.</div>
+      <div class="flex items-center gap-6 font-semibold uppercase tracking-wider text-stone-700">
+        <a href="track.html" class="hover:text-black">Track Parcel</a>
+        <a href="vault.html" class="hover:text-black">Reverse Auction</a>
+        <a href="admin.html" class="hover:text-black">Owner Portal</a>
       </div>
     </div>
   </footer>
 
-  <!-- Central Store Engine -->
+  <!-- State & Scripts -->
   <script src="data.js"></script>
-
-  <!-- Dynamic Catalog Script -->
   <script>
-    let currentFilter = 'all';
+    let activeFilter = 'all';
 
-    function renderCatalog() {
-      const grid = document.getElementById('product-grid');
-      const products = typeof getProducts === 'function' ? getProducts() : [];[cite: 6]
+    function renderStoreGrid() {
+      const container = document.getElementById('product-container');
+      const products = typeof getProducts === 'function' ? getProducts() : [];
 
-      const filtered = currentFilter === 'all' 
+      const list = activeFilter === 'all' 
         ? products 
-        : products.filter(p => p.category === currentFilter);[cite: 6]
+        : products.filter(p => p.category === activeFilter);
 
-      if (filtered.length === 0) {
-        grid.innerHTML = '<div class="col-span-full py-16 text-center text-sm text-[#8c8270]">No pieces currently available in this category.</div>';
+      if (!list || list.length === 0) {
+        container.innerHTML = '<div class="col-span-full py-16 text-center text-xs text-stone-400">No pieces found in this category.</div>';
         return;
       }
 
-      grid.innerHTML = filtered.map(item => `
-        <div class="bg-white border border-[#e8e2d5] rounded-3xl overflow-hidden hover:border-[#c5a059] transition-all duration-300 hover:shadow-xl flex flex-col group">
-          
-          <!-- Image Wrapper -->
-          <div class="relative overflow-hidden aspect-[4/5] bg-[#f5f0e6]">
+      container.innerHTML = list.map(item => `
+        <div class="group flex flex-col justify-between border border-stone-200 bg-white p-3 hover:border-black transition">
+          <a href="product.html?id=${item.id}" class="aspect-[3/4] bg-stone-100 overflow-hidden block relative">
             <img 
-              src="${item.images && item.images[0] ? item.images[0] : (item.image || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80')}" 
+              src="${item.images ? item.images[0] : (item.img || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80')}" 
               alt="${item.title}" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
             />
-            ${item.badge ? `<span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm border border-[#ded7c8] text-[#1a1a1a] text-[10px] font-mono-num font-bold px-3 py-1 rounded-full uppercase tracking-wider">${item.badge}</span>` : ''}[cite: 6]
-          </div>
+            ${item.badge ? `<span class="absolute top-2 left-2 bg-black text-white text-[9px] font-mono-num font-bold px-2 py-0.5 uppercase">${item.badge}</span>` : ''}
+          </a>
 
-          <!-- Product Details -->
-          <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
+          <div class="pt-4 flex flex-col flex-grow justify-between space-y-3">
             <div>
-              <span class="text-[10px] uppercase font-mono-num tracking-widest text-[#8c8270]">${item.category} Collection</span>[cite: 6]
-              <h3 class="font-cinzel text-base font-bold text-[#1a1a1a] mt-1 group-hover:text-[#9e7d3b] transition-colors">${item.title}</h3>[cite: 6]
-              <p class="text-xs text-[#6e6657] line-clamp-2 mt-1.5 leading-relaxed">${item.tagline || item.desc || ''}</p>[cite: 6]
-            </div>
-
-            <div>
-              <div class="flex items-baseline gap-2 mb-4">
-                <span class="text-lg font-bold font-mono-num text-[#1a1a1a]">₹${Number(item.price).toLocaleString('en-IN')}</span>[cite: 6]
-                ${item.originalPrice ? `<span class="text-xs font-mono-num text-[#999] line-through">₹${Number(item.originalPrice).toLocaleString('en-IN')}</span>` : ''}[cite: 6]
+              <div class="text-[9px] font-mono-num uppercase tracking-widest text-stone-400">${item.category}</div>
+              <a href="product.html?id=${item.id}">
+                <h3 class="text-xs font-bold text-stone-900 mt-0.5 hover:underline truncate">${item.title}</h3>
+              </a>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="text-xs font-mono-num font-bold text-stone-900">₹${Number(item.price).toLocaleString('en-IN')}</span>
+                ${item.originalPrice ? `<span class="text-[11px] font-mono-num text-stone-400 line-through">₹${Number(item.originalPrice).toLocaleString('en-IN')}</span>` : ''}
               </div>
-
-              <button 
-                onclick="handleAddToCart('${item.id}')" 
-                class="w-full py-3 bg-[#faf8f5] hover:bg-[#1a1a1a] text-[#1a1a1a] hover:text-white border border-[#ded7c8] hover:border-[#1a1a1a] rounded-xl text-xs font-cinzel font-bold tracking-widest uppercase transition-all duration-200">
-                Add To Bag
-              </button>
             </div>
 
+            <button 
+              onclick="handleQuickAdd('${item.id}')" 
+              class="w-full py-2.5 bg-stone-100 hover:bg-black text-stone-900 hover:text-white text-[10px] font-bold uppercase tracking-wider transition">
+              Quick Add To Bag
+            </button>
           </div>
         </div>
       `).join('');
     }
 
-    function filterCatalog(category) {
-      currentFilter = category;
-      
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.className = 'filter-btn px-4 py-2 rounded-full bg-white border border-[#ded7c8] text-[#5a5345] hover:text-black text-xs uppercase tracking-wider transition';
+    function filterGrid(cat) {
+      activeFilter = cat;
+      ['all', 'her', 'him', 'jewels'].forEach(c => {
+        const btn = document.getElementById(`btn-${c}`);
+        if (!btn) return;
+        btn.className = c === cat 
+          ? 'px-4 py-2 bg-black text-white rounded-none' 
+          : 'px-4 py-2 bg-stone-100 text-stone-700 hover:text-black';
       });
-
-      const activeBtn = document.getElementById(`btn-${category}`);
-      if (activeBtn) {
-        activeBtn.className = 'filter-btn px-4 py-2 rounded-full bg-[#1a1a1a] text-white text-xs uppercase tracking-wider font-semibold transition';
-      }
-
-      renderCatalog();
+      renderStoreGrid();
     }
 
-    function handleAddToCart(productId) {
+    function handleQuickAdd(id) {
       if (typeof addToCart === 'function') {
-        addToCart(productId);[cite: 6]
-        showLightToast('Piece added to your shopping bag.');
+        addToCart(id);
       }
-    }
-
-    function showLightToast(msg) {
-      let toast = document.getElementById('light-toast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'light-toast';
-        toast.className = 'fixed bottom-6 right-6 z-50 bg-[#1a1a1a] text-white text-xs font-semibold px-5 py-3.5 rounded-2xl shadow-xl transition-all duration-300 transform translate-y-20 opacity-0';
-        document.body.appendChild(toast);
-      }
-      toast.innerText = msg;
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      setTimeout(() => {
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 2400);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      renderCatalog();
+      renderStoreGrid();
       if (typeof updateBadges === 'function') {
-        updateBadges();[cite: 6]
+        updateBadges();
       }
     });
   </script>
