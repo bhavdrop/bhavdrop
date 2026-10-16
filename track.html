@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Discreet Parcel | BHAVDROP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@400;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif-title { font-family: 'Cinzel', serif; }
+    .font-mono-num { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-[#050608] text-zinc-100 min-h-screen p-4 flex flex-col justify-center items-center selection:bg-[#d4af37] selection:text-black">
+
+  <div class="w-full max-w-md bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+    <div class="text-center mb-6">
+      <h1 class="font-serif-title text-xl font-bold text-[#d4af37]">DISCREET PARCEL TRACKING</h1>
+      <p class="text-xs text-zinc-500 mt-1">Real-time express dispatch lookup across India</p>
+    </div>
+
+    <!-- Search Input -->
+    <div class="flex gap-2 mb-6">
+      <input type="text" id="track-id-input" placeholder="Enter Order ID (e.g. BD-892412)" class="flex-grow px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-mono-num text-white uppercase outline-none focus:border-[#d4af37]">
+      <button onclick="lookupOrder()" class="px-5 py-3 bg-[#d4af37] text-black font-bold text-xs uppercase rounded-xl">Track</button>
+    </div>
+
+    <!-- Tracking Result Card -->
+    <div id="track-result" class="hidden bg-black/80 border border-zinc-800/80 rounded-2xl p-5 space-y-4">
+      <div class="flex justify-between items-center border-b border-zinc-900 pb-3">
+        <div>
+          <span class="text-[10px] font-mono-num text-zinc-500 uppercase">Waybill Ref</span>
+          <div id="res-id" class="text-sm font-bold font-mono-num text-[#d4af37]"></div>
+        </div>
+        <div id="res-status" class="px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-mono-num rounded-full font-bold"></div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="space-y-3 text-xs">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+          <span class="text-white">Payment Verified & Discreetly Boxed</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-zinc-300">Handed to Express Logistics (Delhivery / Blue Dart)</span>
+        </div>
+        <div class="flex items-center gap-3">To convert your single-file application into a modular, clean multi-page project on GitHub and Vercel, you need a shared data and state engine (`data.js`) along with dedicated pages for the **Midnight Vault** (`vault.html`), the **Checkout & UPI Gateway** (`checkout.html`), and the **Private Owner Admin Dashboard** (`admin.html`).
+
+Create these 4 files inside your GitHub repository alongside your `index.html`.
+
+---
+
+### File 1: `data.js` (The Central Shared Brain)
+*Create this file first. It manages products, cart, wishlist, orders, and vault state across all pages via `localStorage`.*
+
+```javascript
+// data.js - Central Store Engine for BhavDrop Midnight Luxury
+const DEFAULT_PRODUCTS = [
+  {
+    id: 'desire-1',
+    title: 'The Scarlet Temptation Steel-Boned Velvet Corset',
+    tagline: 'Sculpted Silhouette • 18 Heavy Spiral Bones',
+    category: 'her',
+    price: 1899,
+    originalPrice: 4499,
+    rating: 4.9,
+    reviews: 142,
+    badge: 'HEAVILY COVETED',
+    sizes: ['XS (22-24")', 'S (24-26")', 'M (26-28")', 'L (28-30")'],
+    materials: ['Italian Mulberry Velvet', 'Cotton Drill Lining', 'Stainless Spiral Steel'],
+    images: [
+      '[https://images.unsplash.com/photo-1583846783214-7229a91b20ed?auto=format&fit=crop&w=900&q=80](https://images.unsplash.com/photo-1583846783214-7229a91b20ed?auto=format&fit=crop&w=900&q=80)',
+      '[https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80](https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80)'
+    ],
+    desc: 'Constructed with 18 high-tensile spiral steel bones designed to sculpt an undeniable hourglass silhouette.'
+  },
+  {
+    id: 'desire-2',
+    title: 'Midnight Bordeaux Double-Breasted Silk Velvet Blazer',
+    tagline: 'Peak Satin Lapels • Tailored Sculpted Waist',
+    category: 'him',
+    price: 3499,
+    originalPrice: 7999,
+    rating: 5.0,
+    reviews: 98,
+    badge: 'SIGNATURE PIECE',
+    sizes: ['Slim 38', 'Tailored 40', 'Athletic 42', 'Regal 44'],
+    materials: ['700 GSM Cotton Velvet', '100% Cupro Satin Interior', 'Hand-Stitched Horn Buttons'],
+    images: [
+      '[https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80](https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80)',
+      '[https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=80](https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=80)'
+    ],
+    desc: 'Command any midnight gathering. Tailored with architectural roped shoulders and peak duchess-satin lapels.'
+  },
+  {
+    id: 'desire-3',
+    title: 'Cleopatra Coil 18K Vermeil Emerald Serpent Choker',
+    tagline: 'Natural Zambian Emerald Eyes • Articulated Scales',
+    category: 'jewels',
+    price: 2499,
+    originalPrice: 5999,
+    rating: 4.9,
+    reviews: 216,
+    badge: 'HEIRLOOM QUALITY',
+    sizes: ['Adjustable Choker (13-16")', 'Opera Drop (18-20")'],
+    materials: ['925 Sterling Silver Base', '3 Micron 18K Yellow Gold', 'Lab-Certified Zambian Emeralds'],
+    images: [
+      '[https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=80](https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=80)',
+      '[https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=900&q=80](https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=900&q=80)'
+    ],
+    desc: 'Coils seductively against the collarbone with fluid, interlocking reptilian scales.'
+  },
+  {
+    id: 'desire-4',
+    title: 'Liquid Champagne Silk Satin Backless Cowl Gown',
+    tagline: 'Bias Cut • Plunging Cross-Over Spun Silk',
+    category: 'her',
+    price: 2199,
+    originalPrice: 5499,
+    rating: 4.8,
+    reviews: 84,
+    badge: 'LIMITED DROP',
+    sizes: ['S (Bust 32-34)', 'M (Bust 34-36)', 'L (Bust 36-38)'],
+    materials: ['100% Pure Mulberry Silk', 'French Seams', 'Adjustable Micro Straps'],
+    images: [
+      '[https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80](https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80)'
+    ],
+    desc: 'Drapes across contours like liquid amber. Finished with a dramatic backless drop.'
+  }
+];
+
+const DEFAULT_VAULT = {
+  id: 'vault-1',
+  title: 'The Grand Serpent Emerald Sovereign Choker',
+  tagline: '18K Heavy Vermeil • Twin Teardrop Zambian Emeralds',
+  desc: 'Cast in heavy 925 sterling silver plated with 3.5 microns of royal yellow gold. Interlocking scales move naturally with your breath.',
+  img: '[https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=80](https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=80)',
+  startPrice: 4999,
+  floorPrice: 1499,
+  stepAmount: 35,
+  stepSeconds: 3,
+  status: 'live'
+};
+
+function initStore() {
+  if (!localStorage.getItem('bd_products')) {
+    localStorage.setItem('bd_products', JSON.stringify(DEFAULT_PRODUCTS));
+  }
+  if (!localStorage.getItem('bd_vault')) {
+    localStorage.setItem('bd_vault', JSON.stringify(DEFAULT_VAULT));
+  }
+  if (!localStorage.getItem('bd_cart')) {
+    localStorage.setItem('bd_cart', JSON.stringify([]));
+  }
+  if (!localStorage.getItem('bd_wishlist')) {
+    localStorage.setItem('bd_wishlist', JSON.stringify([]));
+  }
+  if (!localStorage.getItem('bd_orders')) {
+    localStorage.setItem('bd_orders', JSON.stringify([]));
+  }
+}
+initStore();
+
+function getProducts() { return JSON.parse(localStorage.getItem('bd_products') || '[]'); }
+function getVault() { return JSON.parse(localStorage.getItem('bd_vault') || '{}'); }
+function getCart() { return JSON.parse(localStorage.getItem('bd_cart') || '[]'); }
+function getWishlist() { return JSON.parse(localStorage.getItem('bd_wishlist') || '[]'); }
+function getOrders() { return JSON.parse(localStorage.getItem('bd_orders') || '[]'); }
+
+function addToCart(productId, size = null) {
+  const products = getProducts();
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+  const cart = getCart();
+  const selectedSize = size || product.sizes[0];
+  const existing = cart.find(item => item.id === productId && item.selectedSize === selectedSize);
+  
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ ...product, qty: 1, selectedSize });
+  }
+  localStorage.setItem('bd_cart', JSON.stringify(cart));
+  updateBadges();
+}
+
+function updateBadges() {
+  const cartCount = document.getElementById('nav-cart-count');
+  if (cartCount) cartCount.innerText = getCart().reduce((sum, i) => sum + i.qty, 0);
+  const wishCount = document.getElementById('nav-wish-count');
+  if (wishCount) wishCount.innerText = getWishlist().length;
+}
+document.addEventListener('DOMContentLoaded', updateBadges);
