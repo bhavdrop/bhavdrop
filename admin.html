@@ -3,179 +3,435 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Suite | BHAVDROP</title>
+  <title>Private Owner Suite | BHAVDROP</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0c0d0e; color: #ede8df; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #08090a; color: #ede8df; }
     .font-cinzel { font-family: 'Cinzel', serif; }
     .font-mono-num { font-family: 'JetBrains Mono', monospace; }
   </style>
 </head>
-<body class="p-6">
+<body class="selection:bg-white selection:text-black min-h-screen p-4 sm:p-8">
 
-  <!-- PIN Modal -->
-  <div id="pin-modal" class="fixed inset-0 bg-black flex items-center justify-center p-4 z-50">
-    <div class="bg-zinc-950 border border-zinc-800 p-8 rounded-2xl w-full max-w-sm text-center">
-      <h2 class="font-cinzel text-xl text-white font-bold mb-2">OWNER SUITE</h2>
-      <input type="password" id="pin-input" placeholder="Enter PIN (bhav2026)" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 text-center text-xs font-mono-num mb-4 outline-none focus:border-stone-400">
-      <button onclick="verifyAccess()" class="w-full py-3 bg-white text-black font-bold text-xs uppercase tracking-wider">Authorize</button>
+  <!-- Master PIN Gate -->
+  <div id="pin-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 z-50">
+    <div class="bg-zinc-950 border border-zinc-800 p-8 rounded-2xl w-full max-w-sm text-center shadow-2xl">
+      <div class="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center mx-auto mb-4 font-bold text-sm">✦</div>
+      <h2 class="font-cinzel text-xl text-white font-bold mb-1">OWNER SUITE</h2>
+      <p class="text-xs text-zinc-500 mb-6">Enter master authorization PIN</p>
+      <input type="password" id="pin-input" placeholder="Default: bhav2026" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-center text-sm font-mono-num mb-4 outline-none focus:border-white text-white">
+      <button onclick="authorizeAccess()" class="w-full py-3 bg-white hover:bg-stone-200 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition">Authorize Access</button>
     </div>
   </div>
 
-  <div id="admin-panel" class="hidden max-w-6xl mx-auto space-y-10">
-    <div class="flex justify-between items-center border-b border-zinc-800 pb-4">
+  <!-- Dashboard Workspace -->
+  <div id="dashboard" class="hidden max-w-7xl mx-auto space-y-8">
+    
+    <!-- Top Bar -->
+    <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800 pb-5 gap-4">
       <div>
-        <h1 class="font-cinzel text-2xl font-bold text-white">BHAVDROP CONTROL TOWER</h1>
-        <p class="text-xs text-zinc-500">Live order queue, inventory adjustments, and auction controller.</p>
+        <h1 class="font-cinzel text-2xl font-bold text-white tracking-widest">BHAV<span class="text-stone-400">DROP</span> CONTROL TOWER</h1>
+        <p class="text-xs text-zinc-400 mt-1">Live catalog controller, reverse vault tuner, and dispatch ledger.</p>
       </div>
-      <a href="index.html" class="text-xs text-zinc-400 hover:text-white">← Open Store Front</a>
+      <div class="flex items-center gap-4 text-xs font-mono-num">
+        <a href="index.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white rounded-lg transition">Store Front ↗</a>
+        <a href="vault.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-rose-400 hover:text-rose-300 rounded-lg transition">Live Vault ↗</a>
+        <button onclick="sessionStorage.removeItem('bd_admin_auth'); location.reload();" class="text-zinc-500 hover:text-red-400 transition">Logout</button>
+      </div>
+    </header>
+
+    <!-- KPI Summary Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 font-mono-num">
+      <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
+        <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Total Orders</span>
+        <div id="kpi-orders" class="text-3xl font-bold text-white mt-1">0</div>
+      </div>
+      <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
+        <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Gross Revenue</span>
+        <div id="kpi-revenue" class="text-3xl font-bold text-emerald-400 mt-1">₹0</div>
+      </div>
+      <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
+        <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Active Catalog Pieces</span>
+        <div id="kpi-products" class="text-3xl font-bold text-white mt-1">0</div>
+      </div>
+      <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
+        <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Vault Status</span>
+        <div id="kpi-vault-status" class="text-xl font-bold text-rose-400 mt-1 uppercase">SYNCED</div>
+      </div>
     </div>
 
-    <!-- Product Upload -->
-    <section class="bg-zinc-950 border border-zinc-900 p-6 rounded-2xl">
-      <h2 class="font-cinzel text-base font-bold text-white mb-4">Upload New Garment to Catalog</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono-num">
+    <!-- 1. Incoming Client Orders Queue & Waybill Updates -->
+    <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
+      <div class="flex justify-between items-center mb-4">
         <div>
-          <label class="text-zinc-500">Item ID</label>
-          <input type="text" id="p-id" placeholder="e.g. corset-05" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
+          <h2 class="font-cinzel text-base font-bold text-white">Client Orders & Payment Verification</h2>
+          <p class="text-xs text-zinc-500">Verify 12-digit UPI UTR numbers and update status for customer tracking.</p>
         </div>
-        <div>
-          <label class="text-zinc-500">Title</label>
-          <input type="text" id="p-title" placeholder="Corset Top" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800 font-sans">
-        </div>
-        <div>
-          <label class="text-zinc-500">Category</label>
-          <select id="p-cat" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
-            <option value="her">Her Desire</option>
-            <option value="him">His Allure</option>
-            <option value="jewels">Heirlooms</option>
-          </select>
-        </div>
-        <div>
-          <label class="text-zinc-500">Price (₹)</label>
-          <input type="number" id="p-price" placeholder="2499" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
-        </div>
-        <div>
-          <label class="text-zinc-500">Original Price (₹)</label>
-          <input type="number" id="p-orig" placeholder="4500" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
-        </div>
-        <div>
-          <label class="text-zinc-500">Image URL</label>
-          <input type="text" id="p-img" placeholder="https://..." class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
-        </div>
+        <button onclick="loadOrders()" class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded text-[11px] font-mono-num hover:text-white">Refresh Orders</button>
       </div>
-      <button onclick="saveProduct()" class="mt-4 px-6 py-2.5 bg-white text-black font-bold text-xs uppercase tracking-wider">Publish Garment</button>
-    </section>
 
-    <!-- Auction Clock Tuning -->
-    <section class="bg-zinc-950 border border-zinc-900 p-6 rounded-2xl">
-      <h2 class="font-cinzel text-base font-bold text-white mb-4">Reverse Vault Clock Tuning</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs font-mono-num">
-        <div>
-          <label class="text-zinc-500">Starting Price (₹)</label>
-          <input type="number" id="v-start" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
-        </div>
-        <div>
-          <label class="text-zinc-500">Floor Price (₹)</label>
-          <input type="number" id="v-floor" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
-        </div>
-        <div>
-          <label class="text-zinc-500">Drop Step (₹)</label>
-          <input type="number" id="v-step" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
-        </div>
-        <div>
-          <label class="text-zinc-500">Interval (Seconds)</label>
-          <input type="number" id="v-sec" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
-        </div>
-      </div>
-      <button onclick="updateVaultClock()" class="mt-4 px-6 py-2.5 bg-white text-black font-bold text-xs uppercase tracking-wider">Update Live Clock</button>
-    </section>
-
-    <!-- Orders Queue -->
-    <section class="bg-zinc-950 border border-zinc-900 p-6 rounded-2xl">
-      <h2 class="font-cinzel text-base font-bold text-white mb-4">Customer Orders & UTR Verification</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs font-mono-num">
           <thead class="border-b border-zinc-800 text-zinc-500">
             <tr>
-              <th class="py-3 px-4">Order ID</th>
-              <th class="py-3 px-4">Customer</th>
-              <th class="py-3 px-4">Shipping Destination</th>
-              <th class="py-3 px-4">Amount</th>
-              <th class="py-3 px-4">UTR Ref</th>
-              <th class="py-3 px-4">Status</th>
+              <th class="py-3 px-3">Order ID</th>
+              <th class="py-3 px-3">Client</th>
+              <th class="py-3 px-3">Address</th>
+              <th class="py-3 px-3">Items</th>
+              <th class="py-3 px-3">Amount</th>
+              <th class="py-3 px-3">UPI UTR Ref</th>
+              <th class="py-3 px-3">Status</th>
+              <th class="py-3 px-3 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody id="orders-list"></tbody>
+          <tbody id="orders-tbody" class="divide-y divide-zinc-900">
+            <tr><td colspan="8" class="py-6 text-center text-zinc-600">Loading orders...</td></tr>
+          </tbody>
         </table>
       </div>
     </section>
+
+    <!-- 2. Product Upload Studio (Pushes to new.html, her.html, him.html, jewels.html, sale.html) -->
+    <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
+      <h2 class="font-cinzel text-base font-bold text-white mb-1">Publish New Garment to Storefronts</h2>
+      <p class="text-xs text-zinc-500 mb-6">Uploaded pieces auto-route to their respective collection page based on category.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs font-mono-num">
+        <div class="sm:col-span-1">
+          <label class="text-zinc-400 block mb-1">Item ID</label>
+          <input type="text" id="p-id" placeholder="e.g. corset-05" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-zinc-400 block mb-1">Piece Title</label>
+          <input type="text" id="p-title" placeholder="Silk Velvet Corset" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white font-sans outline-none focus:border-white">
+        </div>
+        <div class="sm:col-span-1">
+          <label class="text-zinc-400 block mb-1">Target Page</label>
+          <select id="p-cat" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
+            <option value="her">Her Desire (her.html)</option>
+            <option value="him">His Allure (him.html)</option>
+            <option value="jewels">Fine Jewels (jewels.html)</option>
+          </select>
+        </div>
+        <div class="sm:col-span-1">
+          <label class="text-zinc-400 block mb-1">Selling Price (₹)</label>
+          <input type="number" id="p-price" placeholder="2499" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
+        </div>
+        <div class="sm:col-span-1">
+          <label class="text-zinc-400 block mb-1">Original Price (₹)</label>
+          <input type="number" id="p-orig" placeholder="4200 (for sale.html)" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
+        </div>
+        <div class="sm:col-span-3">
+          <label class="text-zinc-400 block mb-1">Image URL</label>
+          <input type="text" id="p-img" placeholder="https://images.unsplash.com/..." class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
+        </div>
+        <div class="sm:col-span-1">
+          <label class="text-zinc-400 block mb-1">Badge Tag</label>
+          <input type="text" id="p-badge" placeholder="NEW / LIMITED" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-zinc-400 block mb-1">Short Description</label>
+          <input type="text" id="p-desc" placeholder="Italian velvet with steel boning..." class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white font-sans outline-none focus:border-white">
+        </div>
+      </div>
+
+      <button onclick="publishProduct()" class="mt-4 px-6 py-2.5 bg-white hover:bg-stone-200 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition">
+        Publish Piece Across Stores
+      </button>
+    </section>
+
+    <!-- 3. Existing Inventory Manager (Edit/Delete Live Items) -->
+    <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
+      <h2 class="font-cinzel text-base font-bold text-white mb-1">Live Storefront Inventory</h2>
+      <p class="text-xs text-zinc-500 mb-4">Edit prices or remove out-of-stock items across all pages.</p>
+      
+      <div id="inventory-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Injected by Supabase -->
+      </div>
+    </section>
+
+    <!-- 4. The Live Reverse Auction Vault Controller -->
+    <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h2 class="font-cinzel text-base font-bold text-white">Reverse Vault Clock Tuning</h2>
+          <p class="text-xs text-zinc-500">Adjust the real-time dropping clock parameters running on `vault.html`.</p>
+        </div>
+        <span class="text-xs font-mono-num text-rose-500 font-bold">180s Auto-Lock Active</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono-num">
+        <div>
+          <label class="text-zinc-400 block mb-1">Starting Bhav (₹)</label>
+          <input type="number" id="v-start" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+        </div>
+        <div>
+          <label class="text-zinc-400 block mb-1">Floor Reserve (₹)</label>
+          <input type="number" id="v-floor" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+        </div>
+        <div>
+          <label class="text-zinc-400 block mb-1">Drop Step (₹)</label>
+          <input type="number" id="v-step" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+        </div>
+        <div>
+          <label class="text-zinc-400 block mb-1">Interval (Seconds)</label>
+          <input type="number" id="v-sec" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-zinc-400 block mb-1">Vault Item Title</label>
+          <input type="text" id="v-title" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white font-sans">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-zinc-400 block mb-1">Vault Item Image URL</label>
+          <input type="text" id="v-img" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3 mt-5">
+        <button onclick="saveVaultClock()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition">
+          Update & Reset Live Clock
+        </button>
+        <button onclick="unlockVault()" class="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono-num rounded-xl transition">
+          Force Unlock Reserved Item
+        </button>
+      </div>
+    </section>
+
   </div>
 
   <script type="module">
     import { supabase } from './supabase.js';
 
-    window.verifyAccess = () => {
-      if (document.getElementById('pin-input').value === 'bhav2026') {
+    // 1. Master PIN Authentication
+    window.authorizeAccess = () => {
+      const pin = document.getElementById('pin-input').value.trim();
+      if (pin === 'bhav2026') {
+        sessionStorage.setItem('bd_admin_auth', 'true');
         document.getElementById('pin-modal').classList.add('hidden');
-        document.getElementById('admin-panel').classList.remove('hidden');
-        loadData();
+        document.getElementById('dashboard').classList.remove('hidden');
+        loadAllAdminData();
       } else {
-        alert('Invalid master PIN.');
+        alert('Unauthorized PIN.');
       }
     };
 
-    async function loadData() {
-      const { data: auc } = await supabase.from('auctions').select('*').limit(1).single();
-      if (auc) {
-        document.getElementById('v-start').value = auc.start_price;
-        document.getElementById('v-floor').value = auc.floor_price;
-        document.getElementById('v-step').value = auc.step_amount;
-        document.getElementById('v-sec').value = auc.step_seconds;
+    if (sessionStorage.getItem('bd_admin_auth') === 'true') {
+      document.getElementById('pin-modal').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      loadAllAdminData();
+    }
+
+    async function loadAllAdminData() {
+      await Promise.all([loadOrders(), loadInventory(), loadVaultSettings()]);
+    }
+
+    // 2. Orders Management
+    window.loadOrders = async () => {
+      const { data: orders, error } = await supabase
+        .from('orders')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      const tbody = document.getElementById('orders-tbody');
+      if (error || !orders || orders.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-zinc-600">No client orders recorded yet.</td></tr>';
+        document.getElementById('kpi-orders').innerText = '0';
+        document.getElementById('kpi-revenue').innerText = '₹0';
+        return;
       }
 
-      const { data: orders } = await supabase.from('orders').select('*').order('created_at', { ascending: false });
-      document.getElementById('orders-list').innerHTML = (orders || []).map(o => `
-        <tr class="border-b border-zinc-900">
-          <td class="py-3 px-4 text-white">${o.id}</td>
-          <td class="py-3 px-4">${o.name}<br><span class="text-zinc-500">${o.phone}</span></td>
-          <td class="py-3 px-4 text-zinc-400 max-w-xs truncate">${o.address}</td>
-          <td class="py-3 px-4 text-white">₹${o.total}</td>
-          <td class="py-3 px-4 text-emerald-400 font-bold">${o.upi_ref || 'None'}</td>
-          <td class="py-3 px-4 text-stone-400">${o.status}</td>
+      document.getElementById('kpi-orders').innerText = orders.length;
+      const totalRev = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
+      document.getElementById('kpi-revenue').innerText = `₹${totalRev.toLocaleString('en-IN')}`;
+
+      tbody.innerHTML = orders.map(o => `
+        <tr class="hover:bg-zinc-900/50 transition">
+          <td class="py-3 px-3 text-white font-bold">${o.id}</td>
+          <td class="py-3 px-3">
+            <span class="text-white font-medium">${o.name}</span><br>
+            <span class="text-zinc-500">${o.phone}</span>
+          </td>
+          <td class="py-3 px-3 text-zinc-400 max-w-xs truncate" title="${o.address}">${o.address}</td>
+          <td class="py-3 px-3 text-zinc-300">
+            ${Array.isArray(o.items) ? o.items.map(i => `${i.title} (${i.size \vert{}\vert{} 'Std'}) x${i.qty || 1}`).join(', ') : 'Vault Item'}
+          </td>
+          <td class="py-3 px-3 text-white font-bold">₹${Number(o.total).toLocaleString('en-IN')}</td>
+          <td class="py-3 px-3">
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 font-bold">${o.upi_ref || 'None'}</span>
+          </td>
+          <td class="py-3 px-3">
+            <span class="text-[10px] ${o.status && o.status.includes('DISPATCHED') ? 'text-blue-400' : 'text-amber-400'}">${o.status}</span>
+          </td>
+          <td class="py-3 px-3 text-right space-x-2">
+            <button onclick="updateOrderStatus('${o.id}', 'DISPATCHED - DELHIVERY AIR')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-zinc-300 rounded">
+              Dispatch
+            </button>
+            <button onclick="updateOrderStatus('${o.id}', 'DELIVERED')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-emerald-400 rounded">
+              Delivered
+            </button>
+          </td>
         </tr>
+      `).join('');
+    };
+
+    window.updateOrderStatus = async (orderId, newStatus) => {
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: newStatus })
+        .eq('id', orderId);
+
+      if (error) return alert('Failed to update status: ' + error.message);
+      loadOrders();
+    };
+
+    // 3. Product Publishing & Inventory
+    window.publishProduct = async () => {
+      const id = document.getElementById('p-id').value.trim() || 'prod-' + Date.now();
+      const title = document.getElementById('p-title').value.trim();
+      const category = document.getElementById('p-cat').value;
+      const price = Number(document.getElementById('p-price').value);
+      const original_price = Number(document.getElementById('p-orig').value) || null;
+      const img = document.getElementById('p-img').value.trim();
+      const badge = document.getElementById('p-badge').value.trim() || null;
+      const description = document.getElementById('p-desc').value.trim() || '';
+
+      if (!title || !price || !img) {
+        return alert('Please enter at least a title, price, and image URL.');
+      }
+
+      const { error } = await supabase.from('products').insert([{
+        id,
+        title,
+        category,
+        price,
+        original_price,
+        images: [img],
+        badge,
+        description
+      }]);
+
+      if (error) return alert('Failed to publish: ' + error.message);
+
+      alert(`✨ Piece published to ${category}.html and new.html!`);
+      // Reset fields
+      document.getElementById('p-id').value = '';
+      document.getElementById('p-title').value = '';
+      document.getElementById('p-price').value = '';
+      document.getElementById('p-orig').value = '';
+      document.getElementById('p-img').value = '';
+      document.getElementById('p-badge').value = '';
+      document.getElementById('p-desc').value = '';
+      loadInventory();
+    };
+
+    async function loadInventory() {
+      const { data: prods, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      const container = document.getElementById('inventory-grid');
+      if (error || !prods || prods.length === 0) {
+        container.innerHTML = '<div class="col-span-full py-6 text-center text-zinc-600 text-xs">No active inventory found.</div>';
+        document.getElementById('kpi-products').innerText = '0';
+        return;
+      }
+
+      document.getElementById('kpi-products').innerText = prods.length;
+      container.innerHTML = prods.map(p => `
+        <div class="bg-zinc-900/60 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between space-y-3 font-mono-num text-xs">
+          <div class="flex gap-3 items-center">
+            <img src="${p.images[0]}" class="w-12 h-14 object-cover rounded border border-zinc-800">
+            <div class="overflow-hidden">
+              <span class="text-[9px] uppercase tracking-wider text-zinc-500">${p.category}</span>
+              <div class="text-white font-bold truncate">${p.title}</div>
+              <div class="text-emerald-400 font-bold">₹${Number(p.price).toLocaleString('en-IN')}</div>
+            </div>
+          </div>
+          <div class="flex gap-2 pt-2 border-t border-zinc-800">
+            <button onclick="quickUpdatePrice('${p.id}', ${p.price})" class="flex-1 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-[10px] text-zinc-300">
+              Edit Price
+            </button>
+            <button onclick="deleteProduct('${p.id}')" class="px-2 py-1 bg-red-950/40 border border-red-900/50 hover:bg-red-900/60 text-red-400 rounded text-[10px]">
+              Delete
+            </button>
+          </div>
+        </div>
       `).join('');
     }
 
-    window.saveProduct = async () => {
-      const payload = {
-        id: document.getElementById('p-id').value.trim() || 'prod-' + Date.now(),
-        title: document.getElementById('p-title').value.trim(),
-        category: document.getElementById('p-cat').value,
-        price: Number(document.getElementById('p-price').value),
-        original_price: Number(document.getElementById('p-orig').value) || null,
-        images: [document.getElementById('p-img').value.trim()]
-      };
+    window.quickUpdatePrice = async (id, currentPrice) => {
+      const newPrice = prompt('Enter new price in ₹:', currentPrice);
+      if (!newPrice || isNaN(newPrice)) return;
 
-      const { error } = await supabase.from('products').insert([payload]);
-      if (error) return alert('Failed to publish: ' + error.message);
-      alert('✨ Product published to store!');
+      const { error } = await supabase
+        .from('products')
+        .update({ price: Number(newPrice) })
+        .eq('id', id);
+
+      if (error) return alert('Update failed: ' + error.message);
+      loadInventory();
     };
 
-    window.updateVaultClock = async () => {
+    window.deleteProduct = async (id) => {
+      if (!confirm('Permanently remove this garment from all storefronts?')) return;
+      const { error } = await supabase.from('products').delete().eq('id', id);
+      if (error) return alert('Delete failed: ' + error.message);
+      loadInventory();
+    };
+
+    // 4. Vault Auction Controller
+    async function loadVaultSettings() {
+      const { data: auc } = await supabase.from('auctions').select('*').limit(1).single();
+      if (!auc) return;
+
+      document.getElementById('v-start').value = auc.start_price;
+      document.getElementById('v-floor').value = auc.floor_price;
+      document.getElementById('v-step').value = auc.step_amount;
+      document.getElementById('v-sec').value = auc.step_seconds;
+      document.getElementById('v-title').value = auc.title;
+      document.getElementById('v-img').value = auc.image_url;
+
+      document.getElementById('kpi-vault-status').innerText = auc.status;
+      document.getElementById('kpi-vault-status').className = auc.status === 'locked' ? 'text-xl font-bold text-amber-400 mt-1 uppercase' : 'text-xl font-bold text-rose-400 mt-1 uppercase';
+    }
+
+    window.saveVaultClock = async () => {
       const payload = {
+        title: document.getElementById('v-title').value.trim(),
+        image_url: document.getElementById('v-img').value.trim(),
         start_price: Number(document.getElementById('v-start').value),
         floor_price: Number(document.getElementById('v-floor').value),
         step_amount: Number(document.getElementById('v-step').value),
         step_seconds: Number(document.getElementById('v-sec').value),
         starts_at: new Date().toISOString(),
-        status: 'live'
+        status: 'live',
+        locked_by: null,
+        locked_at: null,
+        locked_price: null
       };
 
       const { error } = await supabase.from('auctions').update(payload).eq('id', 'vault-active');
-      if (error) return alert('Failed to update: ' + error.message);
-      alert('✨ Live clock updated across all viewers!');
+      if (error) return alert('Failed to tune vault clock: ' + error.message);
+
+      alert('✨ Vault specimen and reverse clock updated across all live clients!');
+      loadVaultSettings();
+    };
+
+    window.unlockVault = async () => {
+      const { error } = await supabase.from('auctions').update({
+        status: 'live',
+        locked_by: null,
+        locked_at: null,
+        locked_price: null
+      }).eq('id', 'vault-active');
+
+      if (error) return alert('Failed to unlock: ' + error.message);
+      alert('✨ Vault unlocked and resumed.');
+      loadVaultSettings();
     };
   </script>
 </body>
