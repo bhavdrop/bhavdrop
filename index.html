@@ -172,12 +172,28 @@
       </div>
 
       <!-- Category Filter Tabs -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs uppercase tracking-wider font-semibold">
-        <button onclick="filterGrid('all')" id="btn-all" class="px-4 py-2 bg-black text-white rounded-none">All</button>
-        <button onclick="filterGrid('her')" id="btn-her" class="px-4 py-2 bg-stone-100 text-stone-700 hover:text-black">Corsetry</button>
-        <button onclick="filterGrid('him')" id="btn-him" class="px-4 py-2 bg-stone-100 text-stone-700 hover:text-black">Tailoring</button>
-        <button onclick="filterGrid('jewels')" id="btn-jewels" class="px-4 py-2 bg-stone-100 text-stone-700 hover:text-black">Heirlooms</button>
+      <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wider font-semibold">
+        <button onclick="filterGrid('all')" id="btn-all" class="category-filter px-4 py-2 bg-black text-white rounded-full">All pieces</button>
+        <button onclick="filterGrid('her')" id="btn-her" class="category-filter px-4 py-2 bg-stone-100 text-stone-700 hover:text-black rounded-full">For her</button>
+        <button onclick="filterGrid('him')" id="btn-him" class="category-filter px-4 py-2 bg-stone-100 text-stone-700 hover:text-black rounded-full">For him</button>
+        <button onclick="filterGrid('jewels')" id="btn-jewels" class="category-filter px-4 py-2 bg-stone-100 text-stone-700 hover:text-black rounded-full">Jewellery</button>
+        <button onclick="filterGrid('wishlist')" id="btn-wishlist" class="category-filter px-4 py-2 bg-stone-100 text-stone-700 hover:text-black rounded-full">♡ Wishlist <span id="wishlist-count">0</span></button>
       </div>
+    </div>
+
+    <!-- Search and sorting -->
+    <div class="mb-6 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+      <label class="relative block w-full sm:max-w-md">
+        <span class="sr-only">Search products</span>
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" aria-hidden="true">⌕</span>
+        <input id="product-search" type="search" placeholder="Search pieces, styles and jewellery…" class="w-full rounded-full border border-stone-200 bg-stone-50 py-3 pl-10 pr-4 text-sm outline-none focus:border-stone-500 focus:bg-white" />
+      </label>
+      <label class="flex items-center gap-3 text-xs uppercase tracking-wider text-stone-500">
+        <span>Sort by</span>
+        <select id="product-sort" class="rounded-full border border-stone-200 bg-white px-4 py-3 text-xs text-stone-800 outline-none focus:border-stone-500">
+          <option value="featured">Featured</option><option value="newest">Newest</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option>
+        </select>
+      </label>
     </div>
 
     <!-- The Product Cards Container -->
@@ -207,14 +223,9 @@
     </div>
   </section>
 
-  <!-- Support Bubble / Floating Concierge (Like City Chic) -->
-  <a 
-    href="https://wa.me/919999999999?text=Hello%20BhavDrop,%20I%20have%20an%20inquiry%20regarding%20an%20order" 
-    target="_blank" 
-    class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white border border-stone-300 shadow-xl px-4 py-2.5 rounded-full text-xs font-bold text-stone-900 hover:bg-stone-50 transition"
-  >
-    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-    <span>Concierge Help</span>
+  <!-- Floating shortcut. Add a verified support channel before advertising live support. -->
+  <a href="track.html" class="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full border border-stone-300 bg-white px-4 py-3 text-xs font-bold text-stone-900 shadow-xl transition hover:bg-stone-50">
+    <span aria-hidden="true">↗</span><span>Track an order</span>
   </a>
 
   <!-- Footer -->
@@ -230,82 +241,100 @@
     </div>
   </footer>
 
-  <!-- State & Scripts -->
-  <!-- Inside index.html, replace the script block with: -->
-<script src="data.js"></script>
-<script type="module">
-  import { supabase } from './supabase.js';
+  <!-- Storefront behaviour -->
+  <script src="data.js"></script>
+  <script type="module">
+    import { supabase } from './supabase.js';
 
-  let allProducts = [];
-  let activeFilter = 'all';
-
-  async function initCatalog() {
-    const { data, error } = await supabase.from('products').select('*');
-    allProducts = (!error && data) ? data : [];
-    renderCards();
-  }
-
-  function renderCards() {
     const container = document.getElementById('product-container');
-    const filtered = activeFilter === 'all' 
-      ? allProducts 
-      : allProducts.filter(p => p.category === activeFilter);
+    const searchInput = document.getElementById('product-search');
+    const sortSelect = document.getElementById('product-sort');
+    let allProducts = [];
+    let activeFilter = 'all';
+    const wishlistKey = 'bhavdrop_wishlist';
+    const money = value => '₹' + Number(value || 0).toLocaleString('en-IN');
+    const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const getWishlist = () => { try { const v = JSON.parse(localStorage.getItem(wishlistKey) || '[]'); return Array.isArray(v) ? v.map(String) : []; } catch { return []; } };
+    const setWishlist = ids => { localStorage.setItem(wishlistKey, JSON.stringify(ids)); updateWishlistCount(); };
+    function updateWishlistCount() { const el = document.getElementById('wishlist-count'); if (el) el.textContent = String(getWishlist().length); }
 
-    if (filtered.length === 0) {
-      container.innerHTML = '<div class="col-span-full py-16 text-center text-xs text-stone-400">No pieces found in this category.</div>';
-      return;
+    async function initCatalog() {
+      container.innerHTML = '<div class="col-span-full py-16 text-center text-sm text-stone-500">Loading the collection…</div>';
+      try {
+        const { data, error } = await supabase.from('products').select('*');
+        if (error) throw error;
+        allProducts = Array.isArray(data) ? data : [];
+        renderCards();
+      } catch (error) {
+        console.error('BhavDrop catalogue failed to load:', error);
+        container.innerHTML = '<div class="col-span-full rounded-2xl border border-stone-200 bg-stone-50 p-8 text-center"><p class="font-semibold">The collection could not load right now.</p><p class="mt-2 text-sm text-stone-500">Please refresh in a moment.</p></div>';
+      }
     }
 
-    container.innerHTML = filtered.map(item => `
-      <div class="group flex flex-col justify-between border border-stone-200 bg-white p-3 hover:border-black transition">
-        <div class="aspect-[3/4] bg-stone-100 overflow-hidden relative">
-          <img 
-            src="${(Array.isArray(item.images) && item.images[0]) || item.image || ''}" 
-            alt="${item.title}" 
-            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-          />
-          ${item.badge ? `<span class="absolute top-2 left-2 bg-black text-white text-[9px] font-mono-num font-bold px-2 py-0.5 uppercase">${item.badge}</span>` : ''}
-        </div>
-
-        <div class="pt-4 flex flex-col flex-grow justify-between space-y-3">
-          <div>
-            <div class="text-[9px] font-mono-num uppercase tracking-widest text-stone-400">${item.category}</div>
-            <h3 class="text-xs font-bold text-stone-900 mt-0.5 truncate">${item.title}</h3>
-            <div class="flex items-center gap-2 mt-1">
-              <span class="text-xs font-mono-num font-bold text-stone-900">₹${Number(item.price).toLocaleString('en-IN')}</span>
-              ${(item.original_price ?? item.originalPrice) ? `<span class="text-[11px] font-mono-num text-stone-400 line-through">₹${Number(item.original_price ?? item.originalPrice).toLocaleString('en-IN')}</span>` : ''}
-            </div>
+    function renderCards() {
+      const query = (searchInput.value || '').trim().toLowerCase();
+      let filtered = allProducts.filter(item => {
+        const matchesCategory = activeFilter === 'all' || (activeFilter === 'wishlist' ? getWishlist().includes(String(item.id)) : item.category === activeFilter);
+        const searchable = [item.title, item.subtitle, item.description, item.category, item.badge].filter(Boolean).join(' ').toLowerCase();
+        return matchesCategory && searchable.includes(query);
+      });
+      const sort = sortSelect.value;
+      if (sort === 'price-low') filtered.sort((a,b) => Number(a.price)-Number(b.price));
+      else if (sort === 'price-high') filtered.sort((a,b) => Number(b.price)-Number(a.price));
+      else if (sort === 'newest') filtered.sort((a,b) => new Date(b.created_at || 0)-new Date(a.created_at || 0));
+      else filtered.sort((a,b) => new Date(b.created_at || 0)-new Date(a.created_at || 0));
+      updateWishlistCount();
+      if (!filtered.length) {
+        container.innerHTML = `<div class="col-span-full py-16 text-center"><p class="font-serif-luxury text-xl text-stone-800">Nothing found just yet</p><p class="mt-2 text-sm text-stone-500">Try another search or category.</p><button id="clear-filters" class="mt-4 rounded-full border border-stone-300 px-5 py-2 text-xs font-semibold uppercase tracking-wider hover:bg-black hover:text-white">Clear filters</button></div>`;
+        document.getElementById('clear-filters')?.addEventListener('click', () => { searchInput.value=''; activeFilter='all'; filterGrid('all'); });
+        return;
+      }
+      const wishlist = getWishlist();
+      container.innerHTML = filtered.map(item => {
+        const image = (Array.isArray(item.images) && item.images[0]) || item.image || '';
+        const isSaved = wishlist.includes(String(item.id));
+        const original = item.original_price ?? item.originalPrice;
+        const discount = original && Number(original) > Number(item.price) ? Math.round((1 - Number(item.price)/Number(original))*100) : 0;
+        return `<article class="group relative flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white p-3 transition duration-300 hover:-translate-y-1 hover:border-stone-400 hover:shadow-xl">
+          <div class="relative aspect-[3/4] overflow-hidden rounded-xl bg-stone-100">
+            <a href="product.html?id=${encodeURIComponent(String(item.id))}" aria-label="View ${escapeHtml(item.title)}"><img src="${escapeHtml(image)}" alt="${escapeHtml(item.title)}" loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-105" onerror="this.style.opacity='.25'"></a>
+            ${item.badge ? `<span class="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-stone-800 shadow-sm">${escapeHtml(item.badge)}</span>` : ''}
+            ${discount ? `<span class="absolute bottom-3 left-3 rounded-full bg-stone-900 px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white">${discount}% off</span>` : ''}
+            <button type="button" data-wishlist="${escapeHtml(item.id)}" aria-label="${isSaved?'Remove from':'Add to'} wishlist" aria-pressed="${isSaved}" class="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-stone-200 bg-white/95 text-lg shadow-sm transition hover:scale-105">${isSaved?'♥':'♡'}</button>
           </div>
+          <div class="flex flex-1 flex-col justify-between gap-4 px-1 pb-1 pt-4">
+            <div><p class="text-[9px] font-semibold uppercase tracking-[.22em] text-stone-400">${escapeHtml(item.category || 'collection')}</p><a href="product.html?id=${encodeURIComponent(String(item.id))}"><h3 class="mt-1 line-clamp-2 text-sm font-semibold text-stone-900 hover:underline">${escapeHtml(item.title)}</h3></a>
+            <div class="mt-2 flex flex-wrap items-baseline gap-2"><span class="font-mono-num text-sm font-bold">${money(item.price)}</span>${original && Number(original)>Number(item.price) ? `<span class="font-mono-num text-xs text-stone-400 line-through">${money(original)}</span>` : ''}</div></div>
+            <button type="button" data-add="${escapeHtml(item.id)}" class="w-full rounded-full bg-stone-900 px-4 py-3 text-[10px] font-bold uppercase tracking-[.15em] text-white transition hover:bg-stone-700">Add to bag <span aria-hidden="true">↗</span></button>
+          </div>
+        </article>`;
+      }).join('');
+      container.querySelectorAll('[data-add]').forEach(button => button.addEventListener('click', () => {
+        const product = allProducts.find(p => String(p.id) === button.dataset.add);
+        if (product && typeof window.addToCart === 'function') window.addToCart(product);
+        else window.showToast?.('Please refresh the page and try again.');
+      }));
+      container.querySelectorAll('[data-wishlist]').forEach(button => button.addEventListener('click', () => {
+        const id = String(button.dataset.wishlist); const ids = getWishlist();
+        setWishlist(ids.includes(id) ? ids.filter(x => x !== id) : [...ids, id]); renderCards();
+      }));
+    }
 
-          <button 
-            data-product="${encodeURIComponent(JSON.stringify(item))}" onclick="addToCart(JSON.parse(decodeURIComponent(this.dataset.product)))" 
-            class="w-full py-2.5 bg-stone-100 hover:bg-black text-stone-900 hover:text-white text-[10px] font-bold uppercase tracking-wider transition">
-            Quick Add To Bag
-          </button>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  window.filterGrid = (cat) => {
-    activeFilter = cat;
-    ['all', 'her', 'him', 'jewels'].forEach(c => {
-      const btn = document.getElementById(`btn-${c}`);
-      if (!btn) return;
-      btn.className = c === cat 
-        ? 'px-4 py-2 bg-black text-white rounded-none' 
-        : 'px-4 py-2 bg-stone-100 text-stone-700 hover:text-black';
-    });
-    renderCards();
-  };
-
-  initCatalog();
-</script>
-    });
+    window.filterGrid = category => {
+      activeFilter = category;
+      document.querySelectorAll('.category-filter').forEach(button => {
+        const active = button.id === `btn-${category}`;
+        button.className = `category-filter rounded-full px-4 py-2 ${active ? 'bg-black text-white' : 'bg-stone-100 text-stone-700 hover:text-black'}`;
+      });
+      renderCards();
+    };
+    searchInput.addEventListener('input', renderCards);
+    sortSelect.addEventListener('change', renderCards);
+    initCatalog();
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="site-control.js"></script>
+  <script src="site-sections.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="site-control.js"></script>
-<script src="site-sections.js"></script>
 </body>
 </html>
