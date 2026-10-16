@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BhavDrop | Private Owner Suite</title>
+  <title>Private Owner Suite | BHAVDROP</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,30 +16,31 @@
 </head>
 <body class="selection:bg-white selection:text-black min-h-screen p-4 sm:p-8">
 
-  <!-- PIN Modal Gate -->
+  <!-- Database-Backed Authentication Modal -->
   <div id="pin-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 z-50">
     <div class="bg-zinc-950 border border-zinc-800 p-8 rounded-2xl w-full max-w-sm text-center shadow-2xl">
-      <div class="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center mx-auto mb-4 font-bold text-sm">✦</div>
+      <div class="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center mx-auto mb-4 font-bold text-sm">🔒</div>
       <h2 class="font-cinzel text-xl text-white font-bold mb-1">OWNER SUITE</h2>
-      <p class="text-xs text-zinc-500 mb-6">Enter master authorization PIN</p>
+      <p class="text-xs text-zinc-500 mb-6">Database Secure Authentication</p>
       
-      <form onsubmit="handleAuthSubmit(event)">
+      <form id="auth-form">
         <input 
           type="password" 
           id="pin-input" 
-          placeholder="PIN: bhav2026" 
+          placeholder="Enter Master PIN" 
           autofocus
           class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-center text-sm font-mono-num mb-4 outline-none focus:border-white text-white"
         >
         <button 
           type="submit" 
-          id="auth-btn"
-          class="w-full py-3 bg-white hover:bg-stone-200 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer"
+          id="auth-submit-btn"
+          class="w-full py-3 bg-white hover:bg-stone-200 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer flex items-center justify-center gap-2"
         >
-          Authorize Access
+          <span>Verify & Authorize</span>
         </button>
       </form>
       <p id="pin-error" class="text-xs text-rose-500 font-mono-num mt-3 hidden">Incorrect master PIN</p>
+      <p id="pin-loading" class="text-xs text-zinc-400 font-mono-num mt-3 hidden">Checking database...</p>
     </div>
   </div>
 
@@ -49,11 +50,11 @@
     <!-- Header -->
     <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800 pb-5 gap-4">
       <div>
-        <h1 class="font-cinzel text-2xl font-bold text-white tracking-widest">BHAV<span class="text-stone-400">DROP</span> CONTROL TOWER</h1>
-        <p class="text-xs text-zinc-400 mt-1">Live order dispatch ledger, catalog manager, and reverse auction tuner.</p>
+        <h1 class="font-cinzel text-2xl font-bold text-white tracking-widest">BHAV<span class="text-stone-400">DROP</span> CONTROL TOWER</h1>[cite: 1]
+        <p class="text-xs text-zinc-400 mt-1">Live order dispatch ledger, catalog manager, and reverse auction tuner.</p>[cite: 1]
       </div>
       <div class="flex items-center gap-4 text-xs font-mono-num">
-        <a href="index.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white rounded-lg transition">Store Front ↗</a>
+        <a href="index.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white rounded-lg transition">Store Front ↗</a>[cite: 1]
         <a href="vault.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-rose-400 hover:text-rose-300 rounded-lg transition">Live Vault ↗</a>
         <button onclick="logoutAdmin()" class="text-zinc-500 hover:text-red-400 transition cursor-pointer">Logout</button>
       </div>
@@ -63,11 +64,11 @@
     <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 font-mono-num">
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
         <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Total Orders</span>
-        <div id="kpi-orders" class="text-3xl font-bold text-white mt-1">0</div>
+        <div id="kpi-orders" class="text-3xl font-bold text-white mt-1">0</div>[cite: 1]
       </div>
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
         <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Gross Revenue</span>
-        <div id="kpi-revenue" class="text-3xl font-bold text-emerald-400 mt-1">₹0</div>
+        <div id="kpi-revenue" class="text-3xl font-bold text-emerald-400 mt-1">₹0</div>[cite: 1]
       </div>
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
         <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Catalog Count</span>
@@ -83,7 +84,7 @@
     <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h2 class="font-cinzel text-base font-bold text-white">Customer Orders & Payment Verification</h2>
+          <h2 class="font-cinzel text-base font-bold text-white">Customer Orders & Payment Verification</h2>[cite: 1]
           <p class="text-xs text-zinc-500">Inspect 12-digit UPI UTR numbers and update transit status for tracking.</p>
         </div>
         <button onclick="window.loadOrders && window.loadOrders()" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded text-[11px] font-mono-num hover:text-white cursor-pointer">
@@ -95,18 +96,18 @@
         <table class="w-full text-left text-xs font-mono-num">
           <thead class="border-b border-zinc-800 text-zinc-500">
             <tr>
-              <th class="py-3 px-3">Order Ref</th>
-              <th class="py-3 px-3">Client</th>
-              <th class="py-3 px-3">Shipping Destination</th>
+              <th class="py-3 px-3">Order Ref</th>[cite: 1]
+              <th class="py-3 px-3">Client</th>[cite: 1]
+              <th class="py-3 px-3">Shipping Destination</th>[cite: 1]
               <th class="py-3 px-3">Items</th>
-              <th class="py-3 px-3">Total Amount</th>
+              <th class="py-3 px-3">Total Amount</th>[cite: 1]
               <th class="py-3 px-3">UPI UTR Ref</th>
-              <th class="py-3 px-3">Status</th>
-              <th class="py-3 px-3 text-right">Actions</th>
+              <th class="py-3 px-3">Status</th>[cite: 1]
+              <th class="py-3 px-3 text-right">Actions</th>[cite: 1]
             </tr>
           </thead>
           <tbody id="orders-tbody" class="divide-y divide-zinc-900">
-            <tr><td colspan="8" class="py-6 text-center text-zinc-600">Connecting to database...</td></tr>
+            <tr><td colspan="8" class="py-6 text-center text-zinc-600">Connecting to database...</td></tr>[cite: 1]
           </tbody>
         </table>
       </div>
@@ -175,7 +176,7 @@
     <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h2 class="font-cinzel text-base font-bold text-white">Reverse Vault Clock Controller</h2>
+          <h2 class="font-cinzel text-base font-bold text-white">Reverse Vault Clock Controller</h2>[cite: 1]
           <p class="text-xs text-zinc-500">Fine-tune the live countdown auction running on `vault.html`.</p>
         </div>
         <span class="text-xs font-mono-num text-rose-500 font-bold">180s Reservation Window</span>
@@ -183,20 +184,20 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono-num">
         <div>
-          <label class="text-zinc-400 block mb-1">Starting Price (₹)</label>
-          <input type="number" id="v-start" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Starting Price (₹)</label>[cite: 1]
+          <input type="number" id="v-start" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div>
-          <label class="text-zinc-400 block mb-1">Floor Reserve (₹)</label>
-          <input type="number" id="v-floor" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Floor Reserve (₹)</label>[cite: 1]
+          <input type="number" id="v-floor" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div>
-          <label class="text-zinc-400 block mb-1">Drop Step (₹)</label>
-          <input type="number" id="v-step" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Drop Step (₹)</label>[cite: 1]
+          <input type="number" id="v-step" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div>
-          <label class="text-zinc-400 block mb-1">Interval (Seconds)</label>
-          <input type="number" id="v-sec" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Interval (Seconds)</label>[cite: 1]
+          <input type="number" id="v-sec" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div class="sm:col-span-2">
           <label class="text-zinc-400 block mb-1">Vault Item Title</label>
@@ -218,54 +219,97 @@
       </div>
     </section>
 
+    <!-- Section 5: Database Master Password Settings -->
+    <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
+      <h2 class="font-cinzel text-base font-bold text-white mb-1">Master Password Security</h2>
+      <p class="text-xs text-zinc-500 mb-4">Change the master PIN stored securely inside your Supabase `admin_config` table.</p>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg text-xs font-mono-num">
+        <div>
+          <label class="text-zinc-400 block mb-1">Current PIN</label>
+          <input type="password" id="change-current-pin" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
+        </div>
+        <div>
+          <label class="text-zinc-400 block mb-1">New PIN</label>
+          <input type="password" id="change-new-pin" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
+        </div>
+      </div>
+      <button onclick="window.updateMasterPin && window.updateMasterPin()" class="mt-4 px-5 py-2 bg-zinc-800 hover:bg-zinc-700 text-white font-mono-num text-xs rounded-xl transition cursor-pointer">
+        Update Database PIN
+      </button>
+    </section>
+
   </div>
 
-  <!-- Standard Script: Fast Authentication Gate (Cannot be blocked by modules) -->
-  <script>
-    function unlockPanel() {
-      document.getElementById('pin-modal').classList.add('hidden');
-      document.getElementById('dashboard').classList.remove('hidden');
-      if (window.initSupabaseAdmin) {
-        window.initSupabaseAdmin();
-      }
-    }
+  <!-- Supabase Integration & Direct DB Authentication -->
+  <script type="module">
+    import { supabase } from './supabase.js';
 
-    function handleAuthSubmit(e) {
-      if (e) e.preventDefault();
-      const pin = document.getElementById('pin-input').value.trim();
-      if (pin === 'bhav2026') {
-        sessionStorage.setItem('bd_admin_auth', 'true');
-        document.getElementById('pin-error').classList.add('hidden');
-        unlockPanel();
-      } else {
-        document.getElementById('pin-error').classList.remove('hidden');
-        document.getElementById('pin-input').value = '';
-        document.getElementById('pin-input').focus();
-      }
-    }
-
-    function logoutAdmin() {
-      sessionStorage.removeItem('bd_admin_auth');
-      location.reload();
+    function unlockDashboard() {
+      document.getElementById('pin-modal').classList.add('hidden');[cite: 1]
+      document.getElementById('dashboard').classList.remove('hidden');[cite: 1]
+      loadAllData();
     }
 
     // Auto-login if previously verified in session
     if (sessionStorage.getItem('bd_admin_auth') === 'true') {
-      unlockPanel();
+      unlockDashboard();
     }
-  </script>
 
-  <!-- Module Script: Supabase Data Connectivity -->
-  <script type="module">
-    import { supabase } from './supabase.js';
+    // Handle Form Submit to Verify PIN Against Supabase RPC
+    const authForm = document.getElementById('auth-form');
+    authForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('pin-input');
+      const pinVal = input.value.trim();
+      const errEl = document.getElementById('pin-error');
+      const loadEl = document.getElementById('pin-loading');
+      const btn = document.getElementById('auth-submit-btn');
 
-    window.initSupabaseAdmin = async function() {
+      if (!pinVal) return;
+
+      errEl.classList.add('hidden');
+      loadEl.classList.remove('hidden');
+      btn.disabled = true;
+
+      try {
+        const { data, error } = await supabase.rpc('verify_admin_pin', { input_pin: pinVal });
+
+        if (error) {
+          throw error;
+        }
+
+        if (data === true) {
+          sessionStorage.setItem('bd_admin_auth', 'true');
+          unlockDashboard();
+        } else {
+          errEl.innerText = "Incorrect master PIN";
+          errEl.classList.remove('hidden');
+          input.value = '';
+          input.focus();
+        }
+      } catch (err) {
+        console.error("Auth error:", err);
+        errEl.innerText = "Verification failed: " + (err.message || "Network error");
+        errEl.classList.remove('hidden');
+      } finally {
+        loadEl.classList.add('hidden');
+        btn.disabled = false;
+      }
+    });
+
+    window.logoutAdmin = () => {
+      sessionStorage.removeItem('bd_admin_auth');
+      location.reload();
+    };
+
+    async function loadAllData() {
       try {
         await Promise.all([loadOrders(), loadInventory(), loadVaultSettings()]);
       } catch (err) {
-        console.error("Admin initialization error:", err);
+        console.error("Dashboard initialization error:", err);
       }
-    };
+    }
 
     // 1. ORDERS
     window.loadOrders = async function() {
@@ -281,33 +325,33 @@
       }
 
       if (!orders || orders.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-zinc-600">No client orders recorded yet.</td></tr>';
-        document.getElementById('kpi-orders').innerText = '0';
-        document.getElementById('kpi-revenue').innerText = '₹0';
+        tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-zinc-600">No client orders recorded yet.</td></tr>';[cite: 1]
+        document.getElementById('kpi-orders').innerText = '0';[cite: 1]
+        document.getElementById('kpi-revenue').innerText = '₹0';[cite: 1]
         return;
       }
 
-      document.getElementById('kpi-orders').innerText = orders.length;
-      const totalRev = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
+      document.getElementById('kpi-orders').innerText = orders.length;[cite: 1]
+      const totalRev = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);[cite: 1]
       document.getElementById('kpi-revenue').innerText = `₹${totalRev.toLocaleString('en-IN')}`;
 
       tbody.innerHTML = orders.map(o => `
         <tr class="hover:bg-zinc-900/50 transition">
-          <td class="py-3 px-3 text-white font-bold">${o.id}</td>
+          <td class="py-3 px-3 text-white font-bold">${o.id}</td>[cite: 1]
           <td class="py-3 px-3">
-            <span class="text-white font-medium">${o.name}</span><br>
-            <span class="text-zinc-500">${o.phone}</span>
+            <span class="text-white font-medium">${o.name}</span><br>[cite: 1]
+            <span class="text-zinc-500">${o.phone}</span>[cite: 1]
           </td>
-          <td class="py-3 px-3 text-zinc-400 max-w-xs truncate" title="${o.address}">${o.address}</td>
+          <td class="py-3 px-3 text-zinc-400 max-w-xs truncate" title="${o.address}">${o.address}</td>[cite: 1]
           <td class="py-3 px-3 text-zinc-300">
-            ${Array.isArray(o.items) ? o.items.map(i => `${i.title} (${i.size \vert{}\vert{} 'Std'}) x${i.qty || 1}`).join(', ') : 'Vault Lot'}
+            ${Array.isArray(o.items) ? o.items.map(i => `${i.title} (${i.size \vert{}\vert{} 'Std'}) x${i.qty || 1}`).join(', ') : 'Vault Lot'}[cite: 1]
           </td>
-          <td class="py-3 px-3 text-white font-bold">₹${Number(o.total).toLocaleString('en-IN')}</td>
+          <td class="py-3 px-3 text-white font-bold">₹${Number(o.total).toLocaleString('en-IN')}</td>[cite: 1]
           <td class="py-3 px-3">
             <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 font-bold">${o.upi_ref || 'None'}</span>
           </td>
           <td class="py-3 px-3">
-            <span class="text-[10px] ${o.status && o.status.includes('DISPATCHED') ? 'text-blue-400' : 'text-amber-400'}">${o.status}</span>
+            <span class="text-[10px] ${o.status && o.status.includes('DISPATCHED') ? 'text-blue-400' : 'text-amber-400'}">${o.status}</span>[cite: 1]
           </td>
           <td class="py-3 px-3 text-right space-x-2">
             <button onclick="updateOrderStatus('${o.id}', 'DISPATCHED - DELHIVERY AIR')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-zinc-300 rounded cursor-pointer">
@@ -436,10 +480,10 @@
       const { data: auc } = await supabase.from('auctions').select('*').limit(1).single();
       if (!auc) return;
 
-      document.getElementById('v-start').value = auc.start_price;
-      document.getElementById('v-floor').value = auc.floor_price;
-      document.getElementById('v-step').value = auc.step_amount;
-      document.getElementById('v-sec').value = auc.step_seconds;
+      document.getElementById('v-start').value = auc.start_price;[cite: 1]
+      document.getElementById('v-floor').value = auc.floor_price;[cite: 1]
+      document.getElementById('v-step').value = auc.step_amount;[cite: 1]
+      document.getElementById('v-sec').value = auc.step_seconds;[cite: 1]
       document.getElementById('v-title').value = auc.title;
       document.getElementById('v-img').value = auc.image_url;
 
@@ -451,10 +495,10 @@
       const payload = {
         title: document.getElementById('v-title').value.trim(),
         image_url: document.getElementById('v-img').value.trim(),
-        start_price: Number(document.getElementById('v-start').value),
-        floor_price: Number(document.getElementById('v-floor').value),
-        step_amount: Number(document.getElementById('v-step').value),
-        step_seconds: Number(document.getElementById('v-sec').value),
+        start_price: Number(document.getElementById('v-start').value),[cite: 1]
+        floor_price: Number(document.getElementById('v-floor').value),[cite: 1]
+        step_amount: Number(document.getElementById('v-step').value),[cite: 1]
+        step_seconds: Number(document.getElementById('v-sec').value),[cite: 1]
         starts_at: new Date().toISOString(),
         status: 'live',
         locked_by: null,
@@ -465,8 +509,8 @@
       const { error } = await supabase.from('auctions').update(payload).eq('id', 'vault-active');
       if (error) return alert('Failed to update: ' + error.message);
 
-      alert('✨ Vault specimen and reverse clock updated across all live clients!');
-      loadVaultSettings();
+      alert('✨ Vault specimen and reverse clock updated across all live clients!');[cite: 1]
+      loadVaultSettings();[cite: 1]
     };
 
     window.unlockVault = async function() {
@@ -482,10 +526,30 @@
       loadVaultSettings();
     };
 
-    // If already authorized when the module finishes loading, run fetch
-    if (sessionStorage.getItem('bd_admin_auth') === 'true') {
-      window.initSupabaseAdmin();
-    }
+    // 4. CHANGE MASTER PIN IN SUPABASE
+    window.updateMasterPin = async function() {
+      const currentPin = document.getElementById('change-current-pin').value.trim();
+      const newPin = document.getElementById('change-new-pin').value.trim();
+
+      if (!currentPin || !newPin) {
+        return alert('Please fill in both current and new PIN.');
+      }
+
+      const { data, error } = await supabase.rpc('update_admin_pin', {
+        current_pin: currentPin,
+        new_pin: newPin
+      });
+
+      if (error) return alert('Error updating PIN: ' + error.message);
+
+      if (data && data.success) {
+        alert('✨ ' + data.message);
+        document.getElementById('change-current-pin').value = '';
+        document.getElementById('change-new-pin').value = '';
+      } else {
+        alert(data ? data.message : 'Update failed');
+      }
+    };
   </script>
 </body>
 </html>
