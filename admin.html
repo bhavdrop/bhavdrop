@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Studio | BHAVDROP</title>
+  <title>Admin Suite | BHAVDROP</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
@@ -12,101 +12,102 @@
     .font-mono-num { font-family: 'JetBrains Mono', monospace; }
   </style>
 </head>
-<body class="p-6 selection:bg-[#d4af37] selection:text-black">
+<body class="p-6">
 
+  <!-- PIN Modal -->
   <div id="pin-modal" class="fixed inset-0 bg-black flex items-center justify-center p-4 z-50">
-    <div class="bg-zinc-950 border border-zinc-800 p-8 rounded-3xl w-full max-w-sm text-center">
-      <h2 class="font-cinzel text-xl text-[#d4af37] font-bold mb-2">OWNER SUITE[cite: 1]</h2>
-      <input type="password" id="pin-input" placeholder="Master PIN (bhav2026)" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-center text-xs font-mono-num mb-4 outline-none focus:border-[#d4af37]">[cite: 1]
-      <button onclick="authPin()" class="w-full py-3 bg-[#d4af37] text-black font-bold text-xs uppercase rounded-xl">Authorize Access[cite: 1]</button>
+    <div class="bg-zinc-950 border border-zinc-800 p-8 rounded-2xl w-full max-w-sm text-center">
+      <h2 class="font-cinzel text-xl text-white font-bold mb-2">OWNER SUITE</h2>
+      <input type="password" id="pin-input" placeholder="Enter PIN (bhav2026)" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 text-center text-xs font-mono-num mb-4 outline-none focus:border-stone-400">
+      <button onclick="verifyAccess()" class="w-full py-3 bg-white text-black font-bold text-xs uppercase tracking-wider">Authorize</button>
     </div>
   </div>
 
   <div id="admin-panel" class="hidden max-w-6xl mx-auto space-y-10">
     <div class="flex justify-between items-center border-b border-zinc-800 pb-4">
       <div>
-        <h1 class="font-cinzel text-2xl font-bold text-[#d4af37]">BHAVDROP CONTROL TOWER[cite: 1]</h1>
-        <p class="text-xs text-zinc-500">Live order queue, inventory adjustments, and auction controller[cite: 1].</p>
+        <h1 class="font-cinzel text-2xl font-bold text-white">BHAVDROP CONTROL TOWER</h1>
+        <p class="text-xs text-zinc-500">Live order queue, inventory adjustments, and auction controller.</p>
       </div>
-      <a href="index.html" class="text-xs text-zinc-400 hover:text-white">← Open Store Front[cite: 1]</a>
+      <a href="index.html" class="text-xs text-zinc-400 hover:text-white">← Open Store Front</a>
     </div>
 
-    <!-- Product Upload Studio -->
-    <section class="bg-zinc-950 border border-zinc-900 rounded-3xl p-6">
-      <h2 class="font-cinzel text-lg font-bold text-white mb-4">Upload New Atelier Garment</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <!-- Product Upload -->
+    <section class="bg-zinc-950 border border-zinc-900 p-6 rounded-2xl">
+      <h2 class="font-cinzel text-base font-bold text-white mb-4">Upload New Garment to Catalog</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono-num">
         <div>
-          <label class="text-[10px] font-mono-num text-zinc-400">Garment ID</label>
-          <input type="text" id="p-id" placeholder="e.g. silk-robe-01" class="w-full mt-1 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-mono-num">
+          <label class="text-zinc-500">Item ID</label>
+          <input type="text" id="p-id" placeholder="e.g. corset-05" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
         </div>
         <div>
-          <label class="text-[10px] font-mono-num text-zinc-400">Title</label>
-          <input type="text" id="p-title" placeholder="e.g. Mulberry Silk Cowl Gown" class="w-full mt-1 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs">
+          <label class="text-zinc-500">Title</label>
+          <input type="text" id="p-title" placeholder="Corset Top" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800 font-sans">
         </div>
         <div>
-          <label class="text-[10px] font-mono-num text-zinc-400">Category</label>
-          <select id="p-cat" class="w-full mt-1 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs">
+          <label class="text-zinc-500">Category</label>
+          <select id="p-cat" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
             <option value="her">Her Desire</option>
             <option value="him">His Allure</option>
             <option value="jewels">Heirlooms</option>
           </select>
         </div>
         <div>
-          <label class="text-[10px] font-mono-num text-zinc-400">Price (₹)</label>
-          <input type="number" id="p-price" placeholder="2499" class="w-full mt-1 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-mono-num">
+          <label class="text-zinc-500">Price (₹)</label>
+          <input type="number" id="p-price" placeholder="2499" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
         </div>
         <div>
-          <label class="text-[10px] font-mono-num text-zinc-400">Image URL</label>
-          <input type="text" id="p-img" placeholder="https://..." class="w-full mt-1 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs">
+          <label class="text-zinc-500">Original Price (₹)</label>
+          <input type="number" id="p-orig" placeholder="4500" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
         </div>
         <div>
-          <label class="text-[10px] font-mono-num text-zinc-400">Sizes (Comma-separated)</label>
-          <input type="text" id="p-sizes" placeholder="XS, S, M, L" class="w-full mt-1 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-mono-num">
+          <label class="text-zinc-500">Image URL</label>
+          <input type="text" id="p-img" placeholder="https://..." class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
         </div>
       </div>
-      <button onclick="publishProduct()" class="mt-4 px-6 py-2.5 bg-[#d4af37] text-black font-bold text-xs uppercase rounded-xl">Publish to Live Catalog</button>
+      <button onclick="saveProduct()" class="mt-4 px-6 py-2.5 bg-white text-black font-bold text-xs uppercase tracking-wider">Publish Garment</button>
     </section>
 
-    <!-- Reverse Auction Tuning -->
-    <section class="bg-zinc-950 border border-zinc-900 rounded-3xl p-6">
-      <h2 class="font-cinzel text-lg font-bold text-white mb-4">Reverse Vault Clock Parameters[cite: 1]</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+    <!-- Auction Clock Tuning -->
+    <section class="bg-zinc-950 border border-zinc-900 p-6 rounded-2xl">
+      <h2 class="font-cinzel text-base font-bold text-white mb-4">Reverse Vault Clock Tuning</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs font-mono-num">
         <div>
-          <label class="text-[10px] font-mono-num text-zinc-400">Starting Price (₹)[cite: 1]</label>
-          <input type="number" id="v-start" class="w-full mt-1 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-mono-num">[cite: 1]
+          <label class="text-zinc-500">Starting Price (₹)</label>
+          <input type="number" id="v-start" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
         </div>
         <div>
-          <label class="text-[10px] font-mono-num text-zinc-400">Floor Reserve (₹)[cite: 1]</label>
-          <input type="number" id="v-floor" class="w-full mt-1 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-mono-num">[cite: 1]
+          <label class="text-zinc-500">Floor Price (₹)</label>
+          <input type="number" id="v-floor" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
         </div>
         <div>
-          <label class="text-[10px] font-mono-num text-zinc-400">Drop Step (₹)[cite: 1]</label>
-          <input type="number" id="v-step" class="w-full mt-1 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-mono-num">[cite: 1]
+          <label class="text-zinc-500">Drop Step (₹)</label>
+          <input type="number" id="v-step" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
         </div>
         <div>
-          <label class="text-[10px] font-mono-num text-zinc-400">Interval (Seconds)[cite: 1]</label>
-          <input type="number" id="v-sec" class="w-full mt-1 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-mono-num">[cite: 1]
+          <label class="text-zinc-500">Interval (Seconds)</label>
+          <input type="number" id="v-sec" class="w-full mt-1 p-2.5 bg-zinc-900 border border-zinc-800">
         </div>
       </div>
-      <button onclick="saveAuctionRules()" class="mt-4 px-6 py-2.5 bg-[#d4af37] text-black font-bold text-xs uppercase rounded-xl">Save & Reset Clock</button>
+      <button onclick="updateVaultClock()" class="mt-4 px-6 py-2.5 bg-white text-black font-bold text-xs uppercase tracking-wider">Update Live Clock</button>
     </section>
 
-    <!-- Orders Queue with UTR Verification -->
-    <section class="bg-zinc-950 border border-zinc-900 rounded-3xl p-6">
-      <h2 class="font-cinzel text-lg font-bold text-white mb-4">Incoming Client Orders & UPI Verifications[cite: 1]</h2>
+    <!-- Orders Queue -->
+    <section class="bg-zinc-950 border border-zinc-900 p-6 rounded-2xl">
+      <h2 class="font-cinzel text-base font-bold text-white mb-4">Customer Orders & UTR Verification</h2>
       <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs">
-          <thead class="border-b border-zinc-800 text-zinc-500 font-mono-num">
+        <table class="w-full text-left text-xs font-mono-num">
+          <thead class="border-b border-zinc-800 text-zinc-500">
             <tr>
-              <th class="py-3 px-4">Order Ref[cite: 1]</th>
-              <th class="py-3 px-4">Client[cite: 1]</th>
-              <th class="py-3 px-4">Address[cite: 1]</th>
-              <th class="py-3 px-4">Total[cite: 1]</th>
-              <th class="py-3 px-4">UPI UTR Ref</th>
-              <th class="py-3 px-4">Status[cite: 1]</th>
+              <th class="py-3 px-4">Order ID</th>
+              <th class="py-3 px-4">Customer</th>
+              <th class="py-3 px-4">Shipping Destination</th>
+              <th class="py-3 px-4">Amount</th>
+              <th class="py-3 px-4">UTR Ref</th>
+              <th class="py-3 px-4">Status</th>
             </tr>
           </thead>
-          <tbody id="orders-tbody"></tbody>
+          <tbody id="orders-list"></tbody>
         </table>
       </div>
     </section>
@@ -115,18 +116,17 @@
   <script type="module">
     import { supabase } from './supabase.js';
 
-    window.authPin = () => {
-      if (document.getElementById('pin-input').value === 'bhav2026') {[cite: 1]
-        document.getElementById('pin-modal').classList.add('hidden');[cite: 1]
-        document.getElementById('admin-panel').classList.remove('hidden');[cite: 1]
-        loadAdminData();
+    window.verifyAccess = () => {
+      if (document.getElementById('pin-input').value === 'bhav2026') {
+        document.getElementById('pin-modal').classList.add('hidden');
+        document.getElementById('admin-panel').classList.remove('hidden');
+        loadData();
       } else {
-        alert('Unauthorized PIN.');[cite: 1]
+        alert('Invalid master PIN.');
       }
     };
 
-    async function loadAdminData() {
-      // Load Auction
+    async function loadData() {
       const { data: auc } = await supabase.from('auctions').select('*').limit(1).single();
       if (auc) {
         document.getElementById('v-start').value = auc.start_price;
@@ -135,37 +135,35 @@
         document.getElementById('v-sec').value = auc.step_seconds;
       }
 
-      // Load Orders
       const { data: orders } = await supabase.from('orders').select('*').order('created_at', { ascending: false });
-      const tbody = document.getElementById('orders-tbody');
-      tbody.innerHTML = (orders || []).map(o => `
-        <tr class="border-b border-zinc-900 font-mono-num">
-          <td class="py-3 px-4 text-[#d4af37]">${o.id}</td>
-          <td class="py-3 px-4"><strong class="text-white">${o.name}</strong><br><span class="text-zinc-500">${o.phone}</span></td>
+      document.getElementById('orders-list').innerHTML = (orders || []).map(o => `
+        <tr class="border-b border-zinc-900">
+          <td class="py-3 px-4 text-white">${o.id}</td>
+          <td class="py-3 px-4">${o.name}<br><span class="text-zinc-500">${o.phone}</span></td>
           <td class="py-3 px-4 text-zinc-400 max-w-xs truncate">${o.address}</td>
           <td class="py-3 px-4 text-white">₹${o.total}</td>
-          <td class="py-3 px-4 text-emerald-400 font-bold">${o.upi_ref || 'N/A'}</td>
-          <td class="py-3 px-4 text-xs text-zinc-300">${o.status}</td>
+          <td class="py-3 px-4 text-emerald-400 font-bold">${o.upi_ref || 'None'}</td>
+          <td class="py-3 px-4 text-stone-400">${o.status}</td>
         </tr>
       `).join('');
     }
 
-    window.publishProduct = async () => {
+    window.saveProduct = async () => {
       const payload = {
         id: document.getElementById('p-id').value.trim() || 'prod-' + Date.now(),
         title: document.getElementById('p-title').value.trim(),
         category: document.getElementById('p-cat').value,
         price: Number(document.getElementById('p-price').value),
-        images: [document.getElementById('p-img').value.trim()],
-        sizes: document.getElementById('p-sizes').value.split(',').map(s => s.trim())
+        original_price: Number(document.getElementById('p-orig').value) || null,
+        images: [document.getElementById('p-img').value.trim()]
       };
 
       const { error } = await supabase.from('products').insert([payload]);
-      if (error) return alert('Failed to publish product: ' + error.message);
-      alert('✨ Garment successfully added to live catalog!');
+      if (error) return alert('Failed to publish: ' + error.message);
+      alert('✨ Product published to store!');
     };
 
-    window.saveAuctionRules = async () => {
+    window.updateVaultClock = async () => {
       const payload = {
         start_price: Number(document.getElementById('v-start').value),
         floor_price: Number(document.getElementById('v-floor').value),
@@ -177,7 +175,7 @@
 
       const { error } = await supabase.from('auctions').update(payload).eq('id', 'vault-active');
       if (error) return alert('Failed to update: ' + error.message);
-      alert('✨ Vault clock updated and reset across all live clients!');
+      alert('✨ Live clock updated across all viewers!');
     };
   </script>
 </body>
