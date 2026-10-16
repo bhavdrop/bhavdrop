@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Private Owner Suite | BHAVDROP</title>
+  <title>BhavDrop | Private Owner Suite</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,34 +16,50 @@
 </head>
 <body class="selection:bg-white selection:text-black min-h-screen p-4 sm:p-8">
 
-  <!-- Master PIN Gate -->
+  <!-- PIN Modal Gate -->
   <div id="pin-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 z-50">
     <div class="bg-zinc-950 border border-zinc-800 p-8 rounded-2xl w-full max-w-sm text-center shadow-2xl">
       <div class="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center mx-auto mb-4 font-bold text-sm">✦</div>
       <h2 class="font-cinzel text-xl text-white font-bold mb-1">OWNER SUITE</h2>
       <p class="text-xs text-zinc-500 mb-6">Enter master authorization PIN</p>
-      <input type="password" id="pin-input" placeholder="Default: bhav2026" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-center text-sm font-mono-num mb-4 outline-none focus:border-white text-white">
-      <button onclick="authorizeAccess()" class="w-full py-3 bg-white hover:bg-stone-200 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition">Authorize Access</button>
+      
+      <form onsubmit="handleAuthSubmit(event)">
+        <input 
+          type="password" 
+          id="pin-input" 
+          placeholder="PIN: bhav2026" 
+          autofocus
+          class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-center text-sm font-mono-num mb-4 outline-none focus:border-white text-white"
+        >
+        <button 
+          type="submit" 
+          id="auth-btn"
+          class="w-full py-3 bg-white hover:bg-stone-200 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer"
+        >
+          Authorize Access
+        </button>
+      </form>
+      <p id="pin-error" class="text-xs text-rose-500 font-mono-num mt-3 hidden">Incorrect master PIN</p>
     </div>
   </div>
 
   <!-- Dashboard Workspace -->
   <div id="dashboard" class="hidden max-w-7xl mx-auto space-y-8">
     
-    <!-- Top Bar -->
+    <!-- Header -->
     <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800 pb-5 gap-4">
       <div>
         <h1 class="font-cinzel text-2xl font-bold text-white tracking-widest">BHAV<span class="text-stone-400">DROP</span> CONTROL TOWER</h1>
-        <p class="text-xs text-zinc-400 mt-1">Live catalog controller, reverse vault tuner, and dispatch ledger.</p>
+        <p class="text-xs text-zinc-400 mt-1">Live order dispatch ledger, catalog manager, and reverse auction tuner.</p>
       </div>
       <div class="flex items-center gap-4 text-xs font-mono-num">
         <a href="index.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white rounded-lg transition">Store Front ↗</a>
         <a href="vault.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-rose-400 hover:text-rose-300 rounded-lg transition">Live Vault ↗</a>
-        <button onclick="sessionStorage.removeItem('bd_admin_auth'); location.reload();" class="text-zinc-500 hover:text-red-400 transition">Logout</button>
+        <button onclick="logoutAdmin()" class="text-zinc-500 hover:text-red-400 transition cursor-pointer">Logout</button>
       </div>
     </header>
 
-    <!-- KPI Summary Grid -->
+    <!-- Top KPI Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 font-mono-num">
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
         <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Total Orders</span>
@@ -54,7 +70,7 @@
         <div id="kpi-revenue" class="text-3xl font-bold text-emerald-400 mt-1">₹0</div>
       </div>
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
-        <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Active Catalog Pieces</span>
+        <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Catalog Count</span>
         <div id="kpi-products" class="text-3xl font-bold text-white mt-1">0</div>
       </div>
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
@@ -63,50 +79,52 @@
       </div>
     </div>
 
-    <!-- 1. Incoming Client Orders Queue & Waybill Updates -->
+    <!-- Section 1: Customer Orders & Verification Queue -->
     <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h2 class="font-cinzel text-base font-bold text-white">Client Orders & Payment Verification</h2>
-          <p class="text-xs text-zinc-500">Verify 12-digit UPI UTR numbers and update status for customer tracking.</p>
+          <h2 class="font-cinzel text-base font-bold text-white">Customer Orders & Payment Verification</h2>
+          <p class="text-xs text-zinc-500">Inspect 12-digit UPI UTR numbers and update transit status for tracking.</p>
         </div>
-        <button onclick="loadOrders()" class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded text-[11px] font-mono-num hover:text-white">Refresh Orders</button>
+        <button onclick="window.loadOrders && window.loadOrders()" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded text-[11px] font-mono-num hover:text-white cursor-pointer">
+          Refresh Orders
+        </button>
       </div>
 
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs font-mono-num">
           <thead class="border-b border-zinc-800 text-zinc-500">
             <tr>
-              <th class="py-3 px-3">Order ID</th>
+              <th class="py-3 px-3">Order Ref</th>
               <th class="py-3 px-3">Client</th>
-              <th class="py-3 px-3">Address</th>
+              <th class="py-3 px-3">Shipping Destination</th>
               <th class="py-3 px-3">Items</th>
-              <th class="py-3 px-3">Amount</th>
+              <th class="py-3 px-3">Total Amount</th>
               <th class="py-3 px-3">UPI UTR Ref</th>
               <th class="py-3 px-3">Status</th>
               <th class="py-3 px-3 text-right">Actions</th>
             </tr>
           </thead>
           <tbody id="orders-tbody" class="divide-y divide-zinc-900">
-            <tr><td colspan="8" class="py-6 text-center text-zinc-600">Loading orders...</td></tr>
+            <tr><td colspan="8" class="py-6 text-center text-zinc-600">Connecting to database...</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- 2. Product Upload Studio (Pushes to new.html, her.html, him.html, jewels.html, sale.html) -->
+    <!-- Section 2: Product Upload Studio -->
     <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
-      <h2 class="font-cinzel text-base font-bold text-white mb-1">Publish New Garment to Storefronts</h2>
+      <h2 class="font-cinzel text-base font-bold text-white mb-1">Publish New Garment / Heirloom</h2>
       <p class="text-xs text-zinc-500 mb-6">Uploaded pieces auto-route to their respective collection page based on category.</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs font-mono-num">
         <div class="sm:col-span-1">
-          <label class="text-zinc-400 block mb-1">Item ID</label>
+          <label class="text-zinc-400 block mb-1">Garment ID</label>
           <input type="text" id="p-id" placeholder="e.g. corset-05" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
         </div>
         <div class="sm:col-span-2">
           <label class="text-zinc-400 block mb-1">Piece Title</label>
-          <input type="text" id="p-title" placeholder="Silk Velvet Corset" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white font-sans outline-none focus:border-white">
+          <input type="text" id="p-title" placeholder="Silk Velvet Boned Corset" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white font-sans outline-none focus:border-white">
         </div>
         <div class="sm:col-span-1">
           <label class="text-zinc-400 block mb-1">Target Page</label>
@@ -133,39 +151,39 @@
           <input type="text" id="p-badge" placeholder="NEW / LIMITED" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white outline-none focus:border-white">
         </div>
         <div class="sm:col-span-2">
-          <label class="text-zinc-400 block mb-1">Short Description</label>
-          <input type="text" id="p-desc" placeholder="Italian velvet with steel boning..." class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white font-sans outline-none focus:border-white">
+          <label class="text-zinc-400 block mb-1">Description</label>
+          <input type="text" id="p-desc" placeholder="Fabric, boning, and fit specs..." class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white font-sans outline-none focus:border-white">
         </div>
       </div>
 
-      <button onclick="publishProduct()" class="mt-4 px-6 py-2.5 bg-white hover:bg-stone-200 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition">
+      <button onclick="window.publishProduct && window.publishProduct()" class="mt-5 px-6 py-2.5 bg-white hover:bg-stone-200 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer">
         Publish Piece Across Stores
       </button>
     </section>
 
-    <!-- 3. Existing Inventory Manager (Edit/Delete Live Items) -->
+    <!-- Section 3: Live Storefront Inventory Manager -->
     <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
       <h2 class="font-cinzel text-base font-bold text-white mb-1">Live Storefront Inventory</h2>
-      <p class="text-xs text-zinc-500 mb-4">Edit prices or remove out-of-stock items across all pages.</p>
+      <p class="text-xs text-zinc-500 mb-4">Edit prices or remove items across all pages.</p>
       
       <div id="inventory-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Injected by Supabase -->
+        <!-- Injected by JS -->
       </div>
     </section>
 
-    <!-- 4. The Live Reverse Auction Vault Controller -->
+    <!-- Section 4: Reverse Vault Clock Tuning -->
     <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h2 class="font-cinzel text-base font-bold text-white">Reverse Vault Clock Tuning</h2>
-          <p class="text-xs text-zinc-500">Adjust the real-time dropping clock parameters running on `vault.html`.</p>
+          <h2 class="font-cinzel text-base font-bold text-white">Reverse Vault Clock Controller</h2>
+          <p class="text-xs text-zinc-500">Fine-tune the live countdown auction running on `vault.html`.</p>
         </div>
-        <span class="text-xs font-mono-num text-rose-500 font-bold">180s Auto-Lock Active</span>
+        <span class="text-xs font-mono-num text-rose-500 font-bold">180s Reservation Window</span>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono-num">
         <div>
-          <label class="text-zinc-400 block mb-1">Starting Bhav (₹)</label>
+          <label class="text-zinc-400 block mb-1">Starting Price (₹)</label>
           <input type="number" id="v-start" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
         </div>
         <div>
@@ -185,66 +203,84 @@
           <input type="text" id="v-title" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white font-sans">
         </div>
         <div class="sm:col-span-2">
-          <label class="text-zinc-400 block mb-1">Vault Item Image URL</label>
+          <label class="text-zinc-400 block mb-1">Vault Image URL</label>
           <input type="text" id="v-img" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
         </div>
       </div>
 
       <div class="flex flex-wrap gap-3 mt-5">
-        <button onclick="saveVaultClock()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition">
+        <button onclick="window.saveVaultClock && window.saveVaultClock()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer">
           Update & Reset Live Clock
         </button>
-        <button onclick="unlockVault()" class="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono-num rounded-xl transition">
-          Force Unlock Reserved Item
+        <button onclick="window.unlockVault && window.unlockVault()" class="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono-num rounded-xl transition cursor-pointer">
+          Force Unlock Item
         </button>
       </div>
     </section>
 
   </div>
 
+  <!-- Standard Script: Fast Authentication Gate (Cannot be blocked by modules) -->
+  <script>
+    function unlockPanel() {
+      document.getElementById('pin-modal').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      if (window.initSupabaseAdmin) {
+        window.initSupabaseAdmin();
+      }
+    }
+
+    function handleAuthSubmit(e) {
+      if (e) e.preventDefault();
+      const pin = document.getElementById('pin-input').value.trim();
+      if (pin === 'bhav2026') {
+        sessionStorage.setItem('bd_admin_auth', 'true');
+        document.getElementById('pin-error').classList.add('hidden');
+        unlockPanel();
+      } else {
+        document.getElementById('pin-error').classList.remove('hidden');
+        document.getElementById('pin-input').value = '';
+        document.getElementById('pin-input').focus();
+      }
+    }
+
+    function logoutAdmin() {
+      sessionStorage.removeItem('bd_admin_auth');
+      location.reload();
+    }
+
+    // Auto-login if previously verified in session
+    if (sessionStorage.getItem('bd_admin_auth') === 'true') {
+      unlockPanel();
+    }
+  </script>
+
+  <!-- Module Script: Supabase Data Connectivity -->
   <script type="module">
     import { supabase } from './supabase.js';
 
-    // 1. Master PIN Authentication
-
-  // Attach to window so HTML onclick="authorizeAccess()" can access it
-  window.authorizeAccess = () => {
-    const pinInput = document.getElementById('pin-input');
-    const pin = pinInput ? pinInput.value.trim() : '';
-
-    if (pin === 'bhav2026') {
-      sessionStorage.setItem('bd_admin_auth', 'true');
-      document.getElementById('pin-modal').classList.add('hidden');
-      document.getElementById('dashboard').classList.remove('hidden');
-      
-      if (typeof loadAllAdminData === 'function') {
-        loadAllAdminData();
+    window.initSupabaseAdmin = async function() {
+      try {
+        await Promise.all([loadOrders(), loadInventory(), loadVaultSettings()]);
+      } catch (err) {
+        console.error("Admin initialization error:", err);
       }
-    } else {
-      alert('Unauthorized PIN. Please use: bhav2026');
-    }
-  };
+    };
 
-  // Auto-unlock if authorized in the current session
-  if (sessionStorage.getItem('bd_admin_auth') === 'true') {
-    const modal = document.getElementById('pin-modal');
-    const dash = document.getElementById('dashboard');
-    if (modal) modal.classList.add('hidden');
-    if (dash) dash.classList.remove('hidden');
-    if (typeof loadAllAdminData === 'function') {
-      loadAllAdminData();
-    }
-  }
-
-    // 2. Orders Management
-    window.loadOrders = async () => {
+    // 1. ORDERS
+    window.loadOrders = async function() {
+      const tbody = document.getElementById('orders-tbody');
       const { data: orders, error } = await supabase
         .from('orders')
         .select('*')
         .order('created_at', { ascending: false });
 
-      const tbody = document.getElementById('orders-tbody');
-      if (error || !orders || orders.length === 0) {
+      if (error) {
+        tbody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-rose-400">Database Error: ${error.message}</td></tr>`;
+        return;
+      }
+
+      if (!orders || orders.length === 0) {
         tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-zinc-600">No client orders recorded yet.</td></tr>';
         document.getElementById('kpi-orders').innerText = '0';
         document.getElementById('kpi-revenue').innerText = '₹0';
@@ -264,7 +300,7 @@
           </td>
           <td class="py-3 px-3 text-zinc-400 max-w-xs truncate" title="${o.address}">${o.address}</td>
           <td class="py-3 px-3 text-zinc-300">
-            ${Array.isArray(o.items) ? o.items.map(i => `${i.title} (${i.size \vert{}\vert{} 'Std'}) x${i.qty || 1}`).join(', ') : 'Vault Item'}
+            ${Array.isArray(o.items) ? o.items.map(i => `${i.title} (${i.size \vert{}\vert{} 'Std'}) x${i.qty || 1}`).join(', ') : 'Vault Lot'}
           </td>
           <td class="py-3 px-3 text-white font-bold">₹${Number(o.total).toLocaleString('en-IN')}</td>
           <td class="py-3 px-3">
@@ -274,10 +310,10 @@
             <span class="text-[10px] ${o.status && o.status.includes('DISPATCHED') ? 'text-blue-400' : 'text-amber-400'}">${o.status}</span>
           </td>
           <td class="py-3 px-3 text-right space-x-2">
-            <button onclick="updateOrderStatus('${o.id}', 'DISPATCHED - DELHIVERY AIR')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-zinc-300 rounded">
+            <button onclick="updateOrderStatus('${o.id}', 'DISPATCHED - DELHIVERY AIR')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-zinc-300 rounded cursor-pointer">
               Dispatch
             </button>
-            <button onclick="updateOrderStatus('${o.id}', 'DELIVERED')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-emerald-400 rounded">
+            <button onclick="updateOrderStatus('${o.id}', 'DELIVERED')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-emerald-400 rounded cursor-pointer">
               Delivered
             </button>
           </td>
@@ -285,18 +321,18 @@
       `).join('');
     };
 
-    window.updateOrderStatus = async (orderId, newStatus) => {
+    window.updateOrderStatus = async function(orderId, newStatus) {
       const { error } = await supabase
         .from('orders')
         .update({ status: newStatus })
         .eq('id', orderId);
 
       if (error) return alert('Failed to update status: ' + error.message);
-      loadOrders();
+      window.loadOrders();
     };
 
-    // 3. Product Publishing & Inventory
-    window.publishProduct = async () => {
+    // 2. INVENTORY & PUBLISHING
+    window.publishProduct = async function() {
       const id = document.getElementById('p-id').value.trim() || 'prod-' + Date.now();
       const title = document.getElementById('p-title').value.trim();
       const category = document.getElementById('p-cat').value;
@@ -307,7 +343,7 @@
       const description = document.getElementById('p-desc').value.trim() || '';
 
       if (!title || !price || !img) {
-        return alert('Please enter at least a title, price, and image URL.');
+        return alert('Please enter at least a title, selling price, and image URL.');
       }
 
       const { error } = await supabase.from('products').insert([{
@@ -323,8 +359,7 @@
 
       if (error) return alert('Failed to publish: ' + error.message);
 
-      alert(`✨ Piece published to ${category}.html and new.html!`);
-      // Reset fields
+      alert(`✨ Piece published successfully to ${category}.html and new.html!`);
       document.getElementById('p-id').value = '';
       document.getElementById('p-title').value = '';
       document.getElementById('p-price').value = '';
@@ -336,13 +371,18 @@
     };
 
     async function loadInventory() {
+      const container = document.getElementById('inventory-grid');
       const { data: prods, error } = await supabase
         .from('products')
         .select('*')
         .order('created_at', { ascending: false });
 
-      const container = document.getElementById('inventory-grid');
-      if (error || !prods || prods.length === 0) {
+      if (error) {
+        container.innerHTML = `<div class="col-span-full py-4 text-rose-400 text-xs">Error loading catalog: ${error.message}</div>`;
+        return;
+      }
+
+      if (!prods || prods.length === 0) {
         container.innerHTML = '<div class="col-span-full py-6 text-center text-zinc-600 text-xs">No active inventory found.</div>';
         document.getElementById('kpi-products').innerText = '0';
         return;
@@ -360,10 +400,10 @@
             </div>
           </div>
           <div class="flex gap-2 pt-2 border-t border-zinc-800">
-            <button onclick="quickUpdatePrice('${p.id}', ${p.price})" class="flex-1 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-[10px] text-zinc-300">
+            <button onclick="quickUpdatePrice('${p.id}', ${p.price})" class="flex-1 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-[10px] text-zinc-300 cursor-pointer">
               Edit Price
             </button>
-            <button onclick="deleteProduct('${p.id}')" class="px-2 py-1 bg-red-950/40 border border-red-900/50 hover:bg-red-900/60 text-red-400 rounded text-[10px]">
+            <button onclick="deleteProduct('${p.id}')" class="px-2 py-1 bg-red-950/40 border border-red-900/50 hover:bg-red-900/60 text-red-400 rounded text-[10px] cursor-pointer">
               Delete
             </button>
           </div>
@@ -371,7 +411,7 @@
       `).join('');
     }
 
-    window.quickUpdatePrice = async (id, currentPrice) => {
+    window.quickUpdatePrice = async function(id, currentPrice) {
       const newPrice = prompt('Enter new price in ₹:', currentPrice);
       if (!newPrice || isNaN(newPrice)) return;
 
@@ -384,14 +424,14 @@
       loadInventory();
     };
 
-    window.deleteProduct = async (id) => {
+    window.deleteProduct = async function(id) {
       if (!confirm('Permanently remove this garment from all storefronts?')) return;
       const { error } = await supabase.from('products').delete().eq('id', id);
       if (error) return alert('Delete failed: ' + error.message);
       loadInventory();
     };
 
-    // 4. Vault Auction Controller
+    // 3. REVERSE VAULT CONTROLLER
     async function loadVaultSettings() {
       const { data: auc } = await supabase.from('auctions').select('*').limit(1).single();
       if (!auc) return;
@@ -407,7 +447,7 @@
       document.getElementById('kpi-vault-status').className = auc.status === 'locked' ? 'text-xl font-bold text-amber-400 mt-1 uppercase' : 'text-xl font-bold text-rose-400 mt-1 uppercase';
     }
 
-    window.saveVaultClock = async () => {
+    window.saveVaultClock = async function() {
       const payload = {
         title: document.getElementById('v-title').value.trim(),
         image_url: document.getElementById('v-img').value.trim(),
@@ -423,13 +463,13 @@
       };
 
       const { error } = await supabase.from('auctions').update(payload).eq('id', 'vault-active');
-      if (error) return alert('Failed to tune vault clock: ' + error.message);
+      if (error) return alert('Failed to update: ' + error.message);
 
       alert('✨ Vault specimen and reverse clock updated across all live clients!');
       loadVaultSettings();
     };
 
-    window.unlockVault = async () => {
+    window.unlockVault = async function() {
       const { error } = await supabase.from('auctions').update({
         status: 'live',
         locked_by: null,
@@ -441,6 +481,11 @@
       alert('✨ Vault unlocked and resumed.');
       loadVaultSettings();
     };
+
+    // If already authorized when the module finishes loading, run fetch
+    if (sessionStorage.getItem('bd_admin_auth') === 'true') {
+      window.initSupabaseAdmin();
+    }
   </script>
 </body>
 </html>
