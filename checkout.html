@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | BHAVDROP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&family=Cinzel:wght@700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; color: #111111; }
+    .font-serif-luxury { font-family: 'Playfair Display', serif; }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-mono-num { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="min-h-screen p-4 sm:p-8 flex items-center justify-center bg-stone-50">
+
+  <div class="w-full max-w-xl bg-white border border-stone-300 p-6 sm:p-10 shadow-sm">
+    <div class="flex justify-between items-center border-b border-stone-200 pb-4">
+      <div>
+        <h1 class="font-cinzel text-xl font-bold tracking-wider">DISCREET CHECKOUT</h1>
+        <p class="text-[11px] text-stone-500 uppercase tracking-widest">Unmarked Luxury Parcel</p>
+      </div>
+      <a href="index.html" class="text-xs font-bold uppercase tracking-wider text-stone-400 hover:text-black">Cancel</a>
+    </div>
+
+    <!-- Items In Order -->
+    <div id="checkout-items" class="py-4 space-y-3 border-b border-stone-200 max-h-52 overflow-y-auto"></div>
+
+    <!-- Calculation Breakdown -->
+    <div class="py-4 space-y-2 border-b border-stone-200 text-xs font-medium">
+      <div class="flex justify-between text-stone-500">
+        <span>Delivery Courier:</span>
+        <span id="co-shipping" class="font-mono-num text-black">₹70</span>
+      </div>
+      <div class="flex justify-between text-base font-bold text-stone-900 pt-2 border-t border-stone-100">
+        <span>Total Payable:</span>
+        <span id="co-total" class="font-mono-num text-stone-900">₹0</span>
+      </div>
+    </div>
+
+    <!-- Delivery Form -->
+    <form onsubmit="initiatePayment(event)" class="mt-6 space-y-3">
+      <div class="grid grid-cols-2 gap-3">
+        <input type="text" id="cust-name" required placeholder="Full Name" class="px-3 py-2.5 bg-stone-50 border border-stone-300 text-xs outline-none focus:border-black">
+        <input type="tel" id="cust-phone" required placeholder="WhatsApp Number" class="px-3 py-2.5 bg-stone-50 border border-stone-300 text-xs outline-none focus:border-black">
+      </div>
+      <textarea id="cust-address" required placeholder="Complete Shipping Address (Flat, Street, Landmark, PIN Code)" rows="2" class="w-full px-3 py-2.5 bg-stone-50 border border-stone-300 text-xs outline-none focus:border-black"></textarea>
+      
+      <button type="submit" class="w-full py-4 bg-black hover:bg-stone-800 text-white font-bold text-xs uppercase tracking-widest transition">
+        Place Order (Payment Setup Later)
+      </button>
+    </form>
+  </div>
+
+
+  <script src="data.js"></script>
+  <script type="module">
+    import { supabase } from './supabase.js';
+
+    const isVault = new URLSearchParams(window.location.search).get('type') === 'vault';
+    let items = [];
+    let grandTotal = 0;
+    let timer = null;
+    let timeLeft = 180;
+
+    function renderCheckout() {
+      if (isVault) {
+        try { const v = JSON.parse(sessionStorage.getItem('bd_vault_order') || 'null'); if (v) items.push(v); } catch (_) { items = []; }
+      } else {
+        items = getCart();
+      }
+
+      const container = document.getElementById('checkout-items');
+      if (items.length === 0) {
+        container.innerHTML = '<div class="text-center py-4 text-xs text-stone-400">Your bag is empty.</div>';
+        return;
+      }
+
+      const subtotal = items.reduce((sum, i) => sum + (Number(i.price) * Number(i.qty ?? i.quantity ?? 1)), 0);
+      const shipping = isVault || subtotal > 1499 ? 0 : 70;
+      grandTotal = subtotal + shipping;
+
+      document.getElementById('co-shipping').innerText = shipping === 0 ? 'FREE' : '₹70';
+      document.getElementById('co-total').innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
+
+      container.replaceChildren();
+      for (const item of items) {
+        const row = document.createElement('div'); row.className = 'flex items-center justify-between text-xs';
+        const left = document.createElement('div'); left.className = 'flex items-center gap-3';
+        const img = document.createElement('img'); img.src = item.img || item.image || ''; img.alt = ''; img.className = 'w-10 h-10 object-cover border border-stone-200';
+        const details = document.createElement('div'); const title = document.createElement('div'); title.className = 'font-semibold text-stone-900'; title.textContent = item.title || 'Product';
+        const variant = document.createElement('div'); variant.className = 'text-[10px] text-stone-400'; variant.textContent = `${item.size || 'Standard'} x ${Number(item.qty ?? item.quantity ?? 1)}`;
+        details.append(title, variant); left.append(img, details); const price = document.createElement('span'); price.className = 'font-mono-num font-bold'; price.textContent = '₹' + Number(item.price || 0).toLocaleString('en-IN'); row.append(left, price); container.appendChild(row);
+      }
+    }
+
+    window.initiatePayment = async (e) => {
+      e.preventDefault();
+      if (!items.length) return alert('Your bag is empty.');
+      const name = document.getElementById('cust-name').value.trim();
+      const phone = document.getElementById('cust-phone').value.trim();
+      const address = document.getElementById('cust-address').value.trim();
+      if (!name || !phone || !address) return alert('Please complete your name, phone number, and shipping address.');
+      if (!Number.isFinite(grandTotal) || grandTotal <= 0) return alert('Your order total is invalid. Please reload the page.');
+
+      const button = e.submitter || document.querySelector('form button[type="submit"]');
+      if (button) { button.disabled = true; button.textContent = 'Submitting order…'; }
+      const orderId = 'BD-' + crypto.randomUUID().replaceAll('-', '').slice(0, 12).toUpperCase();
+      const payload = {
+        id: orderId,
+        name,
+        phone,
+        address,
+        items,
+        total: grandTotal,
+        status: 'PENDING_PAYMENT_VERIFICATION',
+        upi_ref: null
+      };
+      try {
+        const { error } = await supabase.from('orders').insert([payload]);
+        if (error) throw error;
+        clearInterval(timer);
+        if (isVault) sessionStorage.removeItem('bd_vault_order');
+        else { localStorage.removeItem('bd_cart'); localStorage.removeItem('bd_cart_items'); }
+        alert(`Order ${orderId} submitted. Payment setup is not enabled yet. The order remains pending; do not treat it as paid.`);
+        window.location.href = `track.html?orderId=${encodeURIComponent(orderId)}`;
+      } catch (error) {
+        alert('Could not submit your order: ' + (error?.message || 'Unknown error'));
+      } finally {
+        if (button) { button.disabled = false; button.textContent = 'Place Order (Payment Setup Later)'; }
+      }
+    };
+
+    renderCheckout();
+  </script>
+</body>
+</html>

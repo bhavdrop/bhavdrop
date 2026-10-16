@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>BhavDrop | Admin</title><script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Cinzel:wght@700&display=swap" rel="stylesheet"><style>body{font-family:monospace;background:#060709;color:#ede8df}.font-cinzel{font-family:Cinzel,serif}</style></head>
+<body class="min-h-screen p-4 sm:p-8">
+<main class="max-w-6xl mx-auto">
+<section id="auth-box" class="max-w-md mx-auto mt-12 bg-zinc-950 border border-zinc-800 p-6 sm:p-8 rounded-3xl">
+<h1 class="font-cinzel text-xl text-white text-center">BHAVDROP ADMIN</h1><p class="text-xs text-zinc-400 text-center mt-2">Sign in with an authorized administrator account.</p>
+<form id="login-form" class="space-y-4 mt-6"><label class="block text-xs text-zinc-400">Email<input id="email" type="email" autocomplete="username" required class="w-full mt-1 px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white"></label><label class="block text-xs text-zinc-400">Password<input id="password" type="password" autocomplete="current-password" required class="w-full mt-1 px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white"></label><button id="login-btn" class="w-full py-3 bg-amber-400 text-black font-bold rounded-xl" type="submit">Sign in</button></form><p id="message" role="status" class="text-xs mt-4 text-rose-300"></p>
+</section>
+<section id="dashboard" class="hidden space-y-6"><header class="flex flex-wrap justify-between gap-3 items-center border-b border-zinc-800 pb-4"><div><h1 class="font-cinzel text-2xl text-amber-400">BHAVDROP ADMIN</h1><p id="admin-email" class="text-xs text-zinc-400 mt-1"></p></div><button id="logout-btn" class="px-4 py-2 bg-zinc-800 rounded-lg text-sm">Sign out</button></header>
+<div id="dashboard-error" class="hidden p-4 border border-rose-700 text-rose-200 rounded-xl text-sm"></div><div class="grid grid-cols-1 sm:grid-cols-3 gap-4"><div class="bg-zinc-950 border border-zinc-800 p-5 rounded-2xl"><span class="text-xs text-zinc-500 uppercase">Orders</span><div id="stat-orders" class="text-3xl mt-1">—</div></div><div class="bg-zinc-950 border border-zinc-800 p-5 rounded-2xl"><span class="text-xs text-zinc-500 uppercase">Revenue (paid/verified only)</span><div id="stat-revenue" class="text-3xl text-emerald-400 mt-1">—</div></div><div class="bg-zinc-950 border border-zinc-800 p-5 rounded-2xl"><span class="text-xs text-zinc-500 uppercase">Products</span><div id="stat-products" class="text-3xl text-amber-400 mt-1">—</div></div></div>
+<div class="bg-zinc-950 border border-zinc-800 p-4 sm:p-6 rounded-2xl"><h2 class="font-bold mb-4">Orders</h2><div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead class="text-zinc-500 border-b border-zinc-800"><tr><th class="p-2">Order ID</th><th class="p-2">Customer</th><th class="p-2">Phone</th><th class="p-2">Total</th><th class="p-2">Status</th><th class="p-2">Created</th></tr></thead><tbody id="orders-list"><tr><td colspan="6" class="p-4 text-zinc-500">Sign in to load orders.</td></tr></tbody></table></div></div></section>
+</main>
+<script>
+(() => {
+ const SUPABASE_URL='https://yrfjqpzqmhddlxbwmsgb.supabase.co';
+ const SUPABASE_ANON_KEY='sb_publishable_so1k3P8YeQNeydSvFF9PpQ_vscf0rz9';
+ const message=document.getElementById('message');
+ if(!window.supabase?.createClient){message.textContent='Supabase library did not load. Check your connection or CDN access.';return;}
+ const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+ const $=id=>document.getElementById(id);
+ function showError(text){$('dashboard-error').textContent=text;$('dashboard-error').classList.remove('hidden');}
+ function cell(tr,value){const td=document.createElement('td');td.className='p-2 border-b border-zinc-900';td.textContent=value==null?'—':String(value);tr.appendChild(td);}
+ async function showDashboard(user){
+   // app_metadata is server-managed; user_metadata is intentionally not trusted.
+   if(user?.app_metadata?.role!=='admin') { await client.auth.signOut(); throw new Error('This account is not authorized as an administrator. Ask the project owner to assign app_metadata.role = admin securely.'); }
+   $('auth-box').classList.add('hidden');$('dashboard').classList.remove('hidden');$('admin-email').textContent=user.email||'Authorized administrator';
+   await loadDashboard();
+ }
+ async function loadDashboard(){
+   $('dashboard-error').classList.add('hidden');
+   const [productsResult,ordersResult]=await Promise.all([
+    client.from('products').select('*',{count:'exact',head:true}),
+    client.from('orders').select('id,name,phone,total,status,created_at').order('created_at',{ascending:false}).limit(200)
+   ]);
+   const errors=[];if(productsResult.error)errors.push('Products: '+productsResult.error.message);if(ordersResult.error)errors.push('Orders: '+ordersResult.error.message);
+   if(errors.length){showError(errors.join(' | '));$('stat-products').textContent=productsResult.error?'Error':String(productsResult.count??0);$('stat-orders').textContent=ordersResult.error?'Error':'0';$('stat-revenue').textContent='—';return;}
+   const orders=ordersResult.data||[];$('stat-products').textContent=String(productsResult.count??0);$('stat-orders').textContent=String(orders.length);
+   const paidStatuses=new Set(['paid','paid_verified','dispatched','delivered','completed']);
+   const revenue=orders.reduce((sum,o)=>paidStatuses.has(String(o.status||'').toLowerCase())?sum+(Number(o.total)||0):sum,0);
+   $('stat-revenue').textContent='₹'+revenue.toLocaleString('en-IN');
+   const tbody=$('orders-list');tbody.replaceChildren();
+   if(!orders.length){const tr=document.createElement('tr');cell(tr,'No orders found.');tbody.appendChild(tr);return;}
+   for(const o of orders){const tr=document.createElement('tr');cell(tr,o.id);cell(tr,o.name);cell(tr,o.phone);cell(tr,'₹'+(Number(o.total)||0).toLocaleString('en-IN'));cell(tr,o.status);cell(tr,o.created_at?new Date(o.created_at).toLocaleString('en-IN'):'—');tbody.appendChild(tr);}
+ }
+ $('login-form').addEventListener('submit',async e=>{e.preventDefault();message.textContent='Signing in…';$('login-btn').disabled=true;try{const {data,error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;await showDashboard(data.user);}catch(err){message.textContent=err.message||'Sign-in failed.';}finally{$('login-btn').disabled=false;}});
+ $('logout-btn').addEventListener('click',async()=>{await client.auth.signOut();location.reload();});
+ client.auth.getSession().then(async({data,error})=>{if(error){message.textContent=error.message;return;}if(data.session){try{await showDashboard(data.session.user);}catch(err){message.textContent=err.message;}}});
+})();
+</script></body></html>

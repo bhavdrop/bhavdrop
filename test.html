@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>BhavDrop Read-only Database Check</title><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-zinc-950 text-zinc-100 p-5 sm:p-8 font-mono text-xs"><main class="max-w-3xl mx-auto space-y-5"><header class="border-b border-zinc-800 pb-4"><h1 class="text-xl font-bold text-amber-400">BHAVDROP DATABASE CHECK</h1><p class="text-zinc-400 mt-2">Read-only diagnostics. This page does not insert, update, or delete records and does not test or reveal any admin PIN.</p></header><button id="run" class="px-5 py-3 bg-amber-400 text-black font-bold rounded-lg">Run read-only checks</button><div id="summary" class="border border-zinc-800 rounded-xl p-4">Ready.</div><div id="logs" class="border border-zinc-800 rounded-xl p-4 space-y-1 min-h-64 overflow-auto"></div><p class="text-zinc-500">For best results, run this on a development project. A permission-denied result can be expected for private tables when logged out.</p></main>
+<script type="module">
+import { supabase } from './supabase.js';
+const $ = id => document.getElementById(id);
+function log(message, kind='info') { const row=document.createElement('p'); row.textContent=`[${new Date().toLocaleTimeString()}] ${message}`; row.className=kind==='ok'?'text-emerald-400':kind==='error'?'text-rose-400':kind==='warn'?'text-amber-300':'text-zinc-300'; $('logs').appendChild(row); }
+$('run').addEventListener('click', async () => {
+ $('logs').replaceChildren(); $('summary').textContent='Checking…'; $('run').disabled=true;
+ let failures=0;
+ try {
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError) { log(`Auth session check: ${sessionError.message}`, 'error'); failures++; }
+  else log(`Supabase client loaded. Authenticated: ${Boolean(sessionData.session)}.`, 'ok');
+  for (const table of ['products','orders','auctions']) {
+   const { data, error } = await supabase.from(table).select('*').limit(1);
+   if (error) { log(`${table}: ${error.message} (${error.code || 'no code'})`, 'error'); failures++; }
+   else log(`${table}: readable; sample rows returned: ${data.length}.`, 'ok');
+  }
+  // Do not invoke claim_auction_item here: it changes live auction state.
+  log('Mutating auction RPC was not called. Confirm claim_auction_item exists and is secured in SQL Editor.', 'warn');
+  log('Order tracking RPC was not called. Confirm track_order exists after applying the setup SQL.', 'warn');
+ } catch (e) { log(`Unexpected error: ${e.message}`, 'error'); failures++; }
+ $('summary').textContent=failures===0?'Checks finished. Review warnings and verify database policies manually.':`Checks finished with ${failures} issue(s). Read the errors above.`;
+ $('run').disabled=false;
+});
+</script></body></html>
