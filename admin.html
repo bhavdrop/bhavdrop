@@ -4,11 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Private Owner Suite | BHAVDROP</title>
-  
-  <!-- Tailwind & Supabase CDN (No build tool or module import issues) -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -55,15 +51,15 @@
     <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800 pb-5 gap-4">
       <div>
         <div class="flex items-center gap-3">
-          <h1 class="font-cinzel text-2xl font-bold text-white tracking-widest">BHAV<span class="text-stone-400">DROP</span> CONTROL TOWER</h1>
+          <h1 class="font-cinzel text-2xl font-bold text-white tracking-widest">BHAV<span class="text-stone-400">DROP</span> CONTROL TOWER</h1>[cite: 1]
           <span id="db-indicator" class="px-2 py-0.5 rounded text-[10px] font-mono-num bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
             Live
           </span>
         </div>
-        <p class="text-xs text-zinc-400 mt-1">Live order dispatch ledger, catalog manager, and reverse auction tuner.</p>
+        <p class="text-xs text-zinc-400 mt-1">Live order dispatch ledger, catalog manager, and reverse auction tuner.</p>[cite: 1]
       </div>
       <div class="flex items-center gap-4 text-xs font-mono-num">
-        <a href="index.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white rounded-lg transition">Store Front ↗</a>
+        <a href="index.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white rounded-lg transition">Store Front ↗</a>[cite: 1]
         <a href="vault.html" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-rose-400 hover:text-rose-300 rounded-lg transition">Live Vault ↗</a>
         <button onclick="window.logoutAdmin()" class="text-zinc-500 hover:text-red-400 transition cursor-pointer">Logout</button>
       </div>
@@ -73,11 +69,11 @@
     <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 font-mono-num">
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
         <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Total Orders</span>
-        <div id="kpi-orders" class="text-3xl font-bold text-white mt-1">0</div>
+        <div id="kpi-orders" class="text-3xl font-bold text-white mt-1">0</div>[cite: 1]
       </div>
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
         <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Gross Revenue</span>
-        <div id="kpi-revenue" class="text-3xl font-bold text-emerald-400 mt-1">₹0</div>
+        <div id="kpi-revenue" class="text-3xl font-bold text-emerald-400 mt-1">₹0</div>[cite: 1]
       </div>
       <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl">
         <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Catalog Count</span>
@@ -93,7 +89,7 @@
     <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h2 class="font-cinzel text-base font-bold text-white">Customer Orders & Payment Verification</h2>
+          <h2 class="font-cinzel text-base font-bold text-white">Customer Orders & Payment Verification</h2>[cite: 1]
           <p class="text-xs text-zinc-500">Inspect 12-digit UPI UTR numbers and update transit status for tracking.</p>
         </div>
         <button onclick="window.loadOrders()" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded text-[11px] font-mono-num hover:text-white cursor-pointer">
@@ -105,18 +101,18 @@
         <table class="w-full text-left text-xs font-mono-num">
           <thead class="border-b border-zinc-800 text-zinc-500">
             <tr>
-              <th class="py-3 px-3">Order Ref</th>
-              <th class="py-3 px-3">Client</th>
-              <th class="py-3 px-3">Shipping Destination</th>
+              <th class="py-3 px-3">Order Ref</th>[cite: 1]
+              <th class="py-3 px-3">Client</th>[cite: 1]
+              <th class="py-3 px-3">Shipping Destination</th>[cite: 1]
               <th class="py-3 px-3">Items</th>
-              <th class="py-3 px-3">Total Amount</th>
+              <th class="py-3 px-3">Total Amount</th>[cite: 1]
               <th class="py-3 px-3">UPI UTR Ref</th>
-              <th class="py-3 px-3">Status</th>
-              <th class="py-3 px-3 text-right">Actions</th>
+              <th class="py-3 px-3">Status</th>[cite: 1]
+              <th class="py-3 px-3 text-right">Actions</th>[cite: 1]
             </tr>
           </thead>
           <tbody id="orders-tbody" class="divide-y divide-zinc-900">
-            <tr><td colspan="8" class="py-6 text-center text-zinc-600">Connecting to database...</td></tr>
+            <tr><td colspan="8" class="py-6 text-center text-zinc-600">Connecting to database...</td></tr>[cite: 1]
           </tbody>
         </table>
       </div>
@@ -185,7 +181,7 @@
     <section class="bg-zinc-950 border border-zinc-900 rounded-2xl p-6">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h2 class="font-cinzel text-base font-bold text-white">Reverse Vault Clock Controller</h2>
+          <h2 class="font-cinzel text-base font-bold text-white">Reverse Vault Clock Controller</h2>[cite: 1]
           <p class="text-xs text-zinc-500">Fine-tune the live countdown auction running on `vault.html`.</p>
         </div>
         <span class="text-xs font-mono-num text-rose-500 font-bold">180s Reservation Window</span>
@@ -193,20 +189,20 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono-num">
         <div>
-          <label class="text-zinc-400 block mb-1">Starting Price (₹)</label>
-          <input type="number" id="v-start" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Starting Price (₹)</label>[cite: 1]
+          <input type="number" id="v-start" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div>
-          <label class="text-zinc-400 block mb-1">Floor Reserve (₹)</label>
-          <input type="number" id="v-floor" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Floor Reserve (₹)</label>[cite: 1]
+          <input type="number" id="v-floor" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div>
-          <label class="text-zinc-400 block mb-1">Drop Step (₹)</label>
-          <input type="number" id="v-step" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Drop Step (₹)</label>[cite: 1]
+          <input type="number" id="v-step" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div>
-          <label class="text-zinc-400 block mb-1">Interval (Seconds)</label>
-          <input type="number" id="v-sec" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">
+          <label class="text-zinc-400 block mb-1">Interval (Seconds)</label>[cite: 1]
+          <input type="number" id="v-sec" class="w-full p-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-white">[cite: 1]
         </div>
         <div class="sm:col-span-2">
           <label class="text-zinc-400 block mb-1">Vault Item Title</label>
@@ -250,26 +246,14 @@
 
   </div>
 
-  <!-- Standard script (No module import bugs, runs immediately) -->
-  <script>
-    // -------------------------------------------------------------
-    // PASTE YOUR SUPABASE CREDENTIALS HERE
-    // -------------------------------------------------------------
-    const SUPABASE_URL = 'https://YOUR-PROJECT-ID.supabase.co';
-    const SUPABASE_ANON_KEY = 'YOUR-SUPABASE-ANON-PUBLIC-KEY';
-    // -------------------------------------------------------------
-
-    // Initialize Supabase Client from global CDN
-    const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
-
-    if (!supabase) {
-      console.error("Supabase CDN failed to load.");
-    }
+  <!-- Central Logic Script -->
+  <script type="module">
+    import { supabase } from './supabase.js';
 
     // Global unlock handler
     window.unlockDashboard = function() {
-      document.getElementById('pin-modal').classList.add('hidden');
-      document.getElementById('dashboard').classList.remove('hidden');
+      document.getElementById('pin-modal').classList.add('hidden');[cite: 1]
+      document.getElementById('dashboard').classList.remove('hidden');[cite: 1]
       window.loadAllData();
     };
 
@@ -287,12 +271,6 @@
       const btn = document.getElementById('auth-submit-btn');
 
       if (!pinVal) return;
-
-      if (!supabase) {
-        errEl.innerText = "Supabase SDK not loaded. Check internet or adblocker.";
-        errEl.classList.remove('hidden');
-        return;
-      }
 
       errEl.classList.add('hidden');
       loadEl.classList.remove('hidden');
@@ -313,8 +291,8 @@
           input.focus();
         }
       } catch (err) {
-        console.error("Auth error details:", err);
-        errEl.innerText = "DB Error: " + (err.message || "Failed to reach DB");
+        console.error("Auth error:", err);
+        errEl.innerText = "Connection Error: " + (err.message || "Failed to reach DB");
         errEl.classList.remove('hidden');
       } finally {
         loadEl.classList.add('hidden');
@@ -328,7 +306,6 @@
     };
 
     window.loadAllData = async function() {
-      if (!supabase) return;
       await Promise.all([window.loadOrders(), window.loadInventory(), window.loadVaultSettings()]);
     };
 
@@ -346,33 +323,241 @@
       }
 
       if (!orders || orders.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-zinc-600">No client orders recorded yet.</td></tr>';
-        document.getElementById('kpi-orders').innerText = '0';
-        document.getElementById('kpi-revenue').innerText = '₹0';
+        tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-zinc-600">No client orders recorded yet.</td></tr>';[cite: 1]
+        document.getElementById('kpi-orders').innerText = '0';[cite: 1]
+        document.getElementById('kpi-revenue').innerText = '₹0';[cite: 1]
         return;
       }
 
-      document.getElementById('kpi-orders').innerText = orders.length;
-      const totalRev = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
+      document.getElementById('kpi-orders').innerText = orders.length;[cite: 1]
+      const totalRev = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);[cite: 1]
       document.getElementById('kpi-revenue').innerText = `₹${totalRev.toLocaleString('en-IN')}`;
 
       tbody.innerHTML = orders.map(o => `
         <tr class="hover:bg-zinc-900/50 transition">
-          <td class="py-3 px-3 text-white font-bold">${o.id}</td>
+          <td class="py-3 px-3 text-white font-bold">${o.id}</td>[cite: 1]
           <td class="py-3 px-3">
-            <span class="text-white font-medium">${o.name}</span><br>
-            <span class="text-zinc-500">${o.phone}</span>
+            <span class="text-white font-medium">${o.name}</span><br>[cite: 1]
+            <span class="text-zinc-500">${o.phone}</span>[cite: 1]
           </td>
-          <td class="py-3 px-3 text-zinc-400 max-w-xs truncate" title="${o.address}">${o.address}</td>
+          <td class="py-3 px-3 text-zinc-400 max-w-xs truncate" title="${o.address}">${o.address}</td>[cite: 1]
           <td class="py-3 px-3 text-zinc-300">
-            ${Array.isArray(o.items) ? o.items.map(i => `${i.title} (${i.size || 'Std'}) x${i.qty || 1}`).join(', ') : 'Vault Item'}
+            ${Array.isArray(o.items) ? o.items.map(i => `${i.title} (${i.size \vert{}\vert{} 'Std'}) x${i.qty || 1}`).join(', ') : 'Vault Item'}
           </td>
-          <td class="py-3 px-3 text-white font-bold">₹${Number(o.total).toLocaleString('en-IN')}</td>
+          <td class="py-3 px-3 text-white font-bold">₹${Number(o.total).toLocaleString('en-IN')}</td>[cite: 1]
           <td class="py-3 px-3">
             <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 font-bold">${o.upi_ref || 'None'}</span>
           </td>
           <td class="py-3 px-3">
-            <span class="text-[10px] ${o.status && o.status.includes('DISPATCHED') ? 'text-blue-400' : 'text-amber-400'}">${o.status}</span>
+            <span class="text-[10px] ${o.status && o.status.includes('DISPATCHED') ? 'text-blue-400' : 'text-amber-400'}">${o.status}</span>[cite: 1]
           </td>
           <td class="py-3 px-3 text-right space-x-2">
-            <button onclick="window.updateOrderStatus('${o.id}', 'DISPATCHED - DELHIVERY AIR')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-zinc-300
+            <button onclick="window.updateOrderStatus('${o.id}', 'DISPATCHED - DELHIVERY AIR')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-zinc-300 rounded cursor-pointer">
+              Dispatch
+            </button>
+            <button onclick="window.updateOrderStatus('${o.id}', 'DELIVERED')" class="px-2 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-emerald-400 rounded cursor-pointer">
+              Delivered
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    window.updateOrderStatus = async function(orderId, newStatus) {
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: newStatus })
+        .eq('id', orderId);
+
+      if (error) return alert('Failed to update status: ' + error.message);
+      window.loadOrders();
+    };
+
+    // 2. INVENTORY & PUBLISHING
+    window.publishProduct = async function() {
+      const btn = document.getElementById('pub-btn');
+      const id = document.getElementById('p-id').value.trim() || 'prod-' + Date.now();
+      const title = document.getElementById('p-title').value.trim();
+      const category = document.getElementById('p-cat').value;
+      const price = Number(document.getElementById('p-price').value);
+      const original_price = Number(document.getElementById('p-orig').value) || null;
+      const img = document.getElementById('p-img').value.trim();
+      const badge = document.getElementById('p-badge').value.trim() || null;
+      const description = document.getElementById('p-desc').value.trim() || '';
+
+      if (!title || isNaN(price) || price <= 0 || !img) {
+        return alert('Please fill in: Title, a valid Price, and Image URL.');
+      }
+
+      btn.disabled = true;
+      btn.innerText = "Publishing to Supabase...";
+
+      const { error } = await supabase.from('products').insert([{
+        id,
+        title,
+        category,
+        price,
+        original_price,
+        images: [img],
+        badge,
+        description
+      }]);
+
+      btn.disabled = false;
+      btn.innerText = "Publish Piece Across Stores";
+
+      if (error) {
+        console.error("Insert error:", error);
+        return alert('Database Insert Error: ' + error.message);
+      }
+
+      alert(`✨ Piece "${title}" successfully published to ${category}.html and new.html!`);
+      document.getElementById('p-id').value = '';
+      document.getElementById('p-title').value = '';
+      document.getElementById('p-price').value = '';
+      document.getElementById('p-orig').value = '';
+      document.getElementById('p-img').value = '';
+      document.getElementById('p-badge').value = '';
+      document.getElementById('p-desc').value = '';
+      window.loadInventory();
+    };
+
+    window.loadInventory = async function() {
+      const container = document.getElementById('inventory-grid');
+      const { data: prods, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        container.innerHTML = `<div class="col-span-full py-4 text-rose-400 text-xs">Error loading catalog: ${error.message}</div>`;
+        return;
+      }
+
+      if (!prods || prods.length === 0) {
+        container.innerHTML = '<div class="col-span-full py-6 text-center text-zinc-600 text-xs">No active inventory found.</div>';
+        document.getElementById('kpi-products').innerText = '0';
+        return;
+      }
+
+      document.getElementById('kpi-products').innerText = prods.length;
+      container.innerHTML = prods.map(p => `
+        <div class="bg-zinc-900/60 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between space-y-3 font-mono-num text-xs">
+          <div class="flex gap-3 items-center">
+            <img src="${p.images[0]}" class="w-12 h-14 object-cover rounded border border-zinc-800" onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=300&q=80'">
+            <div class="overflow-hidden">
+              <span class="text-[9px] uppercase tracking-wider text-zinc-500">${p.category}</span>
+              <div class="text-white font-bold truncate">${p.title}</div>
+              <div class="text-emerald-400 font-bold">₹${Number(p.price).toLocaleString('en-IN')}</div>
+            </div>
+          </div>
+          <div class="flex gap-2 pt-2 border-t border-zinc-800">
+            <button onclick="window.quickUpdatePrice('${p.id}', ${p.price})" class="flex-1 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-[10px] text-zinc-300 cursor-pointer">
+              Edit Price
+            </button>
+            <button onclick="window.deleteProduct('${p.id}')" class="px-2 py-1 bg-red-950/40 border border-red-900/50 hover:bg-red-900/60 text-red-400 rounded text-[10px] cursor-pointer">
+              Delete
+            </button>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    window.quickUpdatePrice = async function(id, currentPrice) {
+      const newPrice = prompt('Enter new price in ₹:', currentPrice);
+      if (!newPrice || isNaN(newPrice)) return;
+
+      const { error } = await supabase
+        .from('products')
+        .update({ price: Number(newPrice) })
+        .eq('id', id);
+
+      if (error) return alert('Update failed: ' + error.message);
+      window.loadInventory();
+    };
+
+    window.deleteProduct = async function(id) {
+      if (!confirm('Permanently remove this garment from all storefronts?')) return;
+      const { error } = await supabase.from('products').delete().eq('id', id);
+      if (error) return alert('Delete failed: ' + error.message);
+      window.loadInventory();
+    };
+
+    // 3. REVERSE VAULT CONTROLLER
+    window.loadVaultSettings = async function() {
+      const { data: auc } = await supabase.from('auctions').select('*').limit(1).single();
+      if (!auc) return;
+
+      document.getElementById('v-start').value = auc.start_price;[cite: 1]
+      document.getElementById('v-floor').value = auc.floor_price;[cite: 1]
+      document.getElementById('v-step').value = auc.step_amount;[cite: 1]
+      document.getElementById('v-sec').value = auc.step_seconds;[cite: 1]
+      document.getElementById('v-title').value = auc.title;
+      document.getElementById('v-img').value = auc.image_url;
+
+      document.getElementById('kpi-vault-status').innerText = auc.status;
+      document.getElementById('kpi-vault-status').className = auc.status === 'locked' ? 'text-xl font-bold text-amber-400 mt-1 uppercase' : 'text-xl font-bold text-rose-400 mt-1 uppercase';
+    };
+
+    window.saveVaultClock = async function() {
+      const payload = {
+        title: document.getElementById('v-title').value.trim(),
+        image_url: document.getElementById('v-img').value.trim(),
+        start_price: Number(document.getElementById('v-start').value),[cite: 1]
+        floor_price: Number(document.getElementById('v-floor').value),[cite: 1]
+        step_amount: Number(document.getElementById('v-step').value),[cite: 1]
+        step_seconds: Number(document.getElementById('v-sec').value),[cite: 1]
+        starts_at: new Date().toISOString(),
+        status: 'live',
+        locked_by: null,
+        locked_at: null,
+        locked_price: null
+      };
+
+      const { error } = await supabase.from('auctions').update(payload).eq('id', 'vault-active');
+      if (error) return alert('Failed to update: ' + error.message);
+
+      alert('✨ Vault specimen and reverse clock updated across all live clients!');[cite: 1]
+      window.loadVaultSettings();[cite: 1]
+    };
+
+    window.unlockVault = async function() {
+      const { error } = await supabase.from('auctions').update({
+        status: 'live',
+        locked_by: null,
+        locked_at: null,
+        locked_price: null
+      }).eq('id', 'vault-active');
+
+      if (error) return alert('Failed to unlock: ' + error.message);
+      alert('✨ Vault unlocked and resumed.');
+      window.loadVaultSettings();
+    };
+
+    // 4. MASTER PIN CHANGER
+    window.updateMasterPin = async function() {
+      const currentPin = document.getElementById('change-current-pin').value.trim();
+      const newPin = document.getElementById('change-new-pin').value.trim();
+
+      if (!currentPin || !newPin) {
+        return alert('Please enter both current and new PIN.');
+      }
+
+      const { data, error } = await supabase.rpc('update_admin_pin', {
+        current_pin: currentPin,
+        new_pin: newPin
+      });
+
+      if (error) return alert('Error updating PIN: ' + error.message);
+
+      if (data && data.success) {
+        alert('✨ ' + data.message);
+        document.getElementById('change-current-pin').value = '';
+        document.getElementById('change-new-pin').value = '';
+      } else {
+        alert(data ? data.message : 'Update failed');
+      }
+    };
+  </script>
+</body>
+</html>
