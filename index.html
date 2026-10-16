@@ -4,56 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BHAVDROP | Luxury Streetwear, Corsetry & Fine Heirlooms</title>
+  
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Editorial Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #060709; color: #ede8df; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #faf8f5;
+      color: #1a1a1a;
+    }
     .font-cinzel { font-family: 'Cinzel', serif; }
-    .font-playfair { font-family: 'Playfair Display', serif; }
+    .font-serif-luxury { font-family: 'Cormorant Garamond', serif; }
+    .font-mono-num { font-family: 'JetBrains Mono', monospace; }
   </style>
 </head>
-<body class="selection:bg-[#d4af37] selection:text-black min-h-screen flex flex-col">
+<body class="selection:bg-[#c5a059] selection:text-white min-h-screen flex flex-col antialiased">
 
-  <!-- Private Drop Ticker -->
-  <div class="bg-gradient-to-r from-[#2a060d] via-[#610d1f] to-[#2a060d] border-b border-[#d4af37]/20 py-2 px-4 text-center text-[11px] tracking-[0.2em] uppercase text-[#f3e5ab] font-medium flex items-center justify-center gap-3">
-    <span>✦ PRIVATE DESIRE ATELIER</span>
-    <span class="w-1 h-1 rounded-full bg-[#d4af37]"></span>
-    <span>THE MIDNIGHT VAULT UNLOCKS SUNDAYS @ 8:00 PM IST</span>
-    <span class="w-1 h-1 rounded-full bg-[#d4af37]"></span>
-    <span>DISCREET ALL-INDIA COURIER ₹70</span>
+  <!-- Top Announcement Bar -->
+  <div class="bg-[#1f1d1a] text-[#ede6d6] py-2.5 px-4 text-center text-[11px] tracking-[0.22em] uppercase font-medium flex items-center justify-center gap-3">
+    <span>✦ EXCLUSIVE DROP ATELIER</span>
+    <span class="w-1 h-1 rounded-full bg-[#c5a059]"></span>
+    <span>THE MIDNIGHT REVERSE VAULT DROPS SUNDAYS @ 8:00 PM IST</span>
+    <span class="w-1 h-1 rounded-full bg-[#c5a059]"></span>
+    <span>PREMIUM ALL-INDIA DISCREET COURIER ₹70</span>
   </div>
 
-  <!-- Global Luxury Navbar -->
-  <header class="sticky top-0 z-40 bg-[#060709]/90 backdrop-blur-md border-b border-[#1f2530]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+  <!-- Global Header / Navigation -->
+  <header class="sticky top-0 z-40 bg-[#faf8f5]/90 backdrop-blur-md border-b border-[#e8e2d5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
       
       <!-- Brand Logo -->
-      <a href="index.html" class="flex flex-col">
-        <span class="font-cinzel text-2xl sm:text-3xl font-extrabold tracking-[0.25em] text-[#ede8df]">
-          BHAV<span class="text-[#d4af37]">DROP</span>
+      <a href="index.html" class="flex flex-col group">
+        <span class="font-cinzel text-2xl sm:text-3xl font-extrabold tracking-[0.22em] text-[#1a1a1a] group-hover:text-[#9e7d3b] transition-colors">
+          BHAV<span class="text-[#c5a059]">DROP</span>
         </span>
-        <span class="text-[8px] tracking-[0.4em] uppercase text-[#a5893a] -mt-1 font-semibold">Atelier of Desire</span>
+        <span class="text-[8px] tracking-[0.38em] uppercase text-[#8c8270] -mt-1 font-semibold">Atelier of Desire</span>
       </a>
 
       <!-- Navigation Tabs -->
-      <nav class="hidden md:flex items-center gap-8 text-xs tracking-[0.18em] uppercase font-medium text-[#c4bdae]">
-        <a href="vault.html" class="text-[#f59e0b] hover:text-[#d4af37] transition flex items-center gap-2 font-bold">
-          <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-          Sunday Vault
+      <nav class="hidden md:flex items-center gap-8 text-[11px] tracking-[0.2em] uppercase font-semibold text-[#5a5345]">
+        <a href="vault.html" class="text-[#b3531b] hover:text-[#9e7d3b] transition flex items-center gap-2 font-bold">
+          <span class="w-2 h-2 rounded-full bg-[#e05d26] animate-ping"></span>
+          Live Vault
         </a>
-        <a href="#collection-her" class="hover:text-[#d4af37] transition">Her Desire</a>
-        <a href="#collection-him" class="hover:text-[#d4af37] transition">His Allure</a>
-        <a href="#collection-jewels" class="hover:text-[#d4af37] transition">Heirlooms</a>
-        <a href="tracking.html" class="hover:text-[#d4af37] transition">Track Order</a>
+        <a href="#catalog" onclick="filterCatalog('all')" class="hover:text-[#c5a059] transition">All Offerings</a>
+        <a href="#catalog" onclick="filterCatalog('her')" class="hover:text-[#c5a059] transition">Her Desire</a>
+        <a href="#catalog" onclick="filterCatalog('him')" class="hover:text-[#c5a059] transition">His Allure</a>
+        <a href="#catalog" onclick="filterCatalog('jewels')" class="hover:text-[#c5a059] transition">Heirlooms</a>
+        <a href="track.html" class="hover:text-[#c5a059] transition">Track Order</a>
       </nav>
 
-      <!-- Right Action Icons -->
+      <!-- Cart Button with Live Counter Badge -->
       <div class="flex items-center gap-4">
-        <a href="checkout.html" class="relative p-2.5 rounded-full bg-[#0e1218] border border-[#2b3342] text-[#f3e5ab] hover:border-[#d4af37] transition flex items-center justify-center">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-          <span class="cart-badge-count absolute -top-1 -right-1 bg-[#d4af37] text-black font-extrabold text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+        <a href="checkout.html" class="relative p-2.5 rounded-full bg-white border border-[#ded7c8] text-[#1a1a1a] hover:border-[#c5a059] hover:shadow-md transition flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span class="cart-badge-count absolute -top-1.5 -right-1.5 bg-[#c5a059] text-white font-mono-num font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow-sm">0</span>
         </a>
       </div>
 
@@ -61,50 +74,66 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative min-h-[75vh] flex items-center justify-center overflow-hidden border-b border-[#1f2530] px-4 py-20 text-center">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(114,18,38,0.25)_0%,transparent_70%)] pointer-events-none"></div>
-    
+  <section class="relative min-h-[72vh] flex items-center justify-center border-b border-[#e8e2d5] px-4 py-20 text-center bg-gradient-to-b from-[#f5f0e6] via-[#faf8f5] to-[#faf8f5] overflow-hidden">
     <div class="relative z-10 max-w-4xl mx-auto space-y-6">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#161a22] border border-[#d4af37]/30 text-[#f3e5ab] text-[11px] tracking-[0.2em] uppercase font-semibold">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span>
-        Private Atelier • Luxury Nightwear & Fine Jewels
+      
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#ded7c8] text-[#856b32] text-[11px] tracking-[0.2em] uppercase font-semibold shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-[#c5a059]"></span>
+        Handcrafted Silk, Corsetry & 18K Vermeil
       </div>
 
-      <h1 class="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#fdfbf7] leading-[1.1]">
-        SURRENDER TO <br>
-        <span class="font-playfair italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-[#f7e7b4] to-[#a5893a]">Pure Intoxication.</span>
+      <h1 class="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#1a1a1a] leading-[1.12]">
+        SCULPTED FOR <br>
+        <span class="font-serif-luxury italic font-normal text-[#9e7d3b]">Pure Sophistication.</span>
       </h1>
 
-      <p class="max-w-xl mx-auto text-sm sm:text-base text-[#a8a192] font-light leading-relaxed">
-        Sculpted silk corsetry, midnight Italian velvet tailoring, and 18K serpent heirlooms. Shop everyday collections or experience the live <strong>Sunday Vault</strong> drop.
+      <p class="max-w-xl mx-auto text-sm sm:text-base text-[#615a4e] font-normal leading-relaxed">
+        Rare French silk velvet corsets, fluid Mulberry slips, and natural gemstone serpent collars. Capture everyday pieces or claim the dropping price in our live <strong>Reverse Auction Vault</strong>[cite: 4, 6].
       </p>
 
       <div class="pt-4 flex flex-wrap justify-center gap-4">
-        <a href="vault.html" class="px-8 py-4 rounded-full bg-gradient-to-r from-[#d4af37] to-[#aa8323] text-black font-cinzel font-bold text-xs tracking-[0.2em] uppercase hover:brightness-110 shadow-xl shadow-[#d4af37]/15 transition">
-          Enter The Sunday Vault ➔
+        <a href="vault.html" class="px-8 py-4 rounded-full bg-[#1f1d1a] text-[#f7f3eb] font-cinzel font-bold text-xs tracking-[0.2em] uppercase hover:bg-[#c5a059] hover:text-black shadow-lg transition-all duration-200">
+          Enter The Live Vault ➔
         </a>
-        <a href="#catalog" class="px-8 py-4 rounded-full bg-[#0d1017] border border-[#2e3747] text-[#ede8df] hover:border-[#d4af37] font-cinzel text-xs tracking-[0.2em] uppercase transition">
-          View Collections
+        <a href="#catalog" class="px-8 py-4 rounded-full bg-white border border-[#ded7c8] text-[#1a1a1a] hover:border-[#c5a059] font-cinzel text-xs tracking-[0.2em] uppercase transition shadow-sm">
+          Browse Catalog
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Product Catalog -->
-  <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 py-20 flex-grow w-full">
+  <!-- Reverse Dutch Vault Feature Card -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-8 -mt-10 relative z-20">
+    <div class="bg-white border border-[#e3dcd0] rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-1">
+        <div class="inline-flex items-center gap-2 text-[#b3531b] text-xs font-mono-num font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-[#e05d26] animate-pulse"></span>
+          Reverse Countdown Drop
+        </div>
+        <h3 class="font-cinzel text-xl sm:text-2xl font-bold text-[#1a1a1a]">The Midnight Reverse Vault</h3>
+        <p class="text-xs text-[#6e6657] max-w-xl">Every second the bhav decreases automatically until someone claims it[cite: 6]. When captured, the price freezes for exactly 3 minutes to confirm via UPI QR[cite: 2, 6].</p>
+      </div>
+      <a href="vault.html" class="px-7 py-3.5 rounded-2xl bg-[#c5a059] text-white hover:bg-[#ae8b47] font-cinzel text-xs tracking-widest uppercase font-bold transition shadow-md whitespace-nowrap">
+        Go To Live Clock ➔
+      </a>
+    </div>
+  </section>
+
+  <!-- Product Catalog Section -->
+  <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-8 py-20 flex-grow w-full">
     
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 border-b border-[#1f2530] pb-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 border-b border-[#e8e2d5] pb-6">
       <div>
-        <span class="text-xs font-mono uppercase tracking-[0.2em] text-[#a5893a]">Curated Atelier</span>
-        <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white mt-1">AVAILABLE OFFERINGS</h2>
+        <span class="text-xs font-mono-num uppercase tracking-[0.2em] text-[#8c8270]">Curated Collection</span>
+        <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-[#1a1a1a] mt-1">ATELIER OFFERINGS</h2>
       </div>
 
       <!-- Filter Buttons -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-2">
-        <button onclick="filterCatalog('all')" class="filter-btn active px-4 py-2 rounded-full bg-[#181e29] border border-[#d4af37]/50 text-[#f3e5ab] text-xs uppercase tracking-wider font-semibold">All</button>
-        <button onclick="filterCatalog('her')" class="filter-btn px-4 py-2 rounded-full bg-[#0e1218] border border-[#232a38] text-[#8e98a8] hover:text-white text-xs uppercase tracking-wider">Her Desire</button>
-        <button onclick="filterCatalog('him')" class="filter-btn px-4 py-2 rounded-full bg-[#0e1218] border border-[#232a38] text-[#8e98a8] hover:text-white text-xs uppercase tracking-wider">His Allure</button>
-        <button onclick="filterCatalog('jewels')" class="filter-btn px-4 py-2 rounded-full bg-[#0e1218] border border-[#232a38] text-[#8e98a8] hover:text-white text-xs uppercase tracking-wider">Heirlooms</button>
+      <div class="flex items-center gap-2 overflow-x-auto pb-1">
+        <button onclick="filterCatalog('all')" id="btn-all" class="filter-btn px-4 py-2 rounded-full bg-[#1a1a1a] text-white text-xs uppercase tracking-wider font-semibold transition">All</button>
+        <button onclick="filterCatalog('her')" id="btn-her" class="filter-btn px-4 py-2 rounded-full bg-white border border-[#ded7c8] text-[#5a5345] hover:text-black text-xs uppercase tracking-wider transition">Her Desire</button>
+        <button onclick="filterCatalog('him')" id="btn-him" class="filter-btn px-4 py-2 rounded-full bg-white border border-[#ded7c8] text-[#5a5345] hover:text-black text-xs uppercase tracking-wider transition">His Allure</button>
+        <button onclick="filterCatalog('jewels')" id="btn-jewels" class="filter-btn px-4 py-2 rounded-full bg-white border border-[#ded7c8] text-[#5a5345] hover:text-black text-xs uppercase tracking-wider transition">Heirlooms</button>
       </div>
     </div>
 
@@ -114,29 +143,138 @@
     </div>
   </main>
 
-  <!-- Discreet Delivery Banner -->
-  <section class="border-t border-[#1f2530] bg-[#090b10] py-12 px-4 text-center">
-    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-around gap-6 text-xs text-[#9aa4b5] tracking-widest uppercase font-medium">
-      <div class="flex items-center gap-3">
-        <span class="w-8 h-8 rounded-full bg-[#161c26] flex items-center justify-center text-[#d4af37]">🔒</span>
-        <span>100% Discreet Matte-Black Packaging</span>
+  <!-- Delivery & Security Highlights -->
+  <section class="border-t border-[#e8e2d5] bg-white py-12 px-4 text-center">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs text-[#5a5345] tracking-widest uppercase font-semibold">
+      <div class="flex items-center justify-center gap-3">
+        <span class="w-10 h-10 rounded-full bg-[#faf6ef] border border-[#e6decb] flex items-center justify-center text-base">📦</span>
+        <span>100% Discreet Packaging[cite: 3]</span>
       </div>
-      <div class="flex items-center gap-3">
-        <span class="w-8 h-8 rounded-full bg-[#161c26] flex items-center justify-center text-[#d4af37]">🚚</span>
-        <span>₹70 Express All-India Doorstep Dispatch</span>
+      <div class="flex items-center justify-center gap-3">
+        <span class="w-10 h-10 rounded-full bg-[#faf6ef] border border-[#e6decb] flex items-center justify-center text-base">⚡</span>
+        <span>Instant UPI Dynamic QR</span>
       </div>
-      <div class="flex items-center gap-3">
-        <span class="w-8 h-8 rounded-full bg-[#161c26] flex items-center justify-center text-[#d4af37]">⚡</span>
-        <span>Instant UPI Payment Capture</span>
+      <div class="flex items-center justify-center gap-3">
+        <span class="w-10 h-10 rounded-full bg-[#faf6ef] border border-[#e6decb] flex items-center justify-center text-base">⏱️</span>
+        <span>Reverse Clock Price Capture</span>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="border-t border-[#1a1f29] bg-[#040507] py-8 text-center text-xs text-[#555f70]">
+  <footer class="border-t border-[#e8e2d5] bg-[#faf8f5] py-8 text-center text-xs text-[#8c8270]">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
       <p>© 2026 BhavDrop Luxury Atelier. All rights reserved.</p>
       <div class="flex items-center gap-6">
-        <a href="tracking.html" class="hover:text-[#d4af37] transition">Tracking</a>
-        <a href="vault.html" class="hover:text-[#d4af37] transition">The Vault</a>
-        <a href="admin.html" class="hover:text-[#d4af37] transition">Owner
+        <a href="track.html" class="hover:text-[#c5a059] transition">Track Parcel</a>
+        <a href="vault.html" class="hover:text-[#c5a059] transition">Live Vault</a>
+        <a href="admin.html" class="hover:text-[#c5a059] transition">Owner Suite[cite: 1]</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Central Store Engine -->
+  <script src="data.js"></script>
+
+  <!-- Dynamic Catalog Script -->
+  <script>
+    let currentFilter = 'all';
+
+    function renderCatalog() {
+      const grid = document.getElementById('product-grid');
+      const products = typeof getProducts === 'function' ? getProducts() : [];[cite: 6]
+
+      const filtered = currentFilter === 'all' 
+        ? products 
+        : products.filter(p => p.category === currentFilter);[cite: 6]
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '<div class="col-span-full py-16 text-center text-sm text-[#8c8270]">No pieces currently available in this category.</div>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="bg-white border border-[#e8e2d5] rounded-3xl overflow-hidden hover:border-[#c5a059] transition-all duration-300 hover:shadow-xl flex flex-col group">
+          
+          <!-- Image Wrapper -->
+          <div class="relative overflow-hidden aspect-[4/5] bg-[#f5f0e6]">
+            <img 
+              src="${item.images && item.images[0] ? item.images[0] : (item.image || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80')}" 
+              alt="${item.title}" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            ${item.badge ? `<span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm border border-[#ded7c8] text-[#1a1a1a] text-[10px] font-mono-num font-bold px-3 py-1 rounded-full uppercase tracking-wider">${item.badge}</span>` : ''}[cite: 6]
+          </div>
+
+          <!-- Product Details -->
+          <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
+            <div>
+              <span class="text-[10px] uppercase font-mono-num tracking-widest text-[#8c8270]">${item.category} Collection</span>[cite: 6]
+              <h3 class="font-cinzel text-base font-bold text-[#1a1a1a] mt-1 group-hover:text-[#9e7d3b] transition-colors">${item.title}</h3>[cite: 6]
+              <p class="text-xs text-[#6e6657] line-clamp-2 mt-1.5 leading-relaxed">${item.tagline || item.desc || ''}</p>[cite: 6]
+            </div>
+
+            <div>
+              <div class="flex items-baseline gap-2 mb-4">
+                <span class="text-lg font-bold font-mono-num text-[#1a1a1a]">₹${Number(item.price).toLocaleString('en-IN')}</span>[cite: 6]
+                ${item.originalPrice ? `<span class="text-xs font-mono-num text-[#999] line-through">₹${Number(item.originalPrice).toLocaleString('en-IN')}</span>` : ''}[cite: 6]
+              </div>
+
+              <button 
+                onclick="handleAddToCart('${item.id}')" 
+                class="w-full py-3 bg-[#faf8f5] hover:bg-[#1a1a1a] text-[#1a1a1a] hover:text-white border border-[#ded7c8] hover:border-[#1a1a1a] rounded-xl text-xs font-cinzel font-bold tracking-widest uppercase transition-all duration-200">
+                Add To Bag
+              </button>
+            </div>
+
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterCatalog(category) {
+      currentFilter = category;
+      
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.className = 'filter-btn px-4 py-2 rounded-full bg-white border border-[#ded7c8] text-[#5a5345] hover:text-black text-xs uppercase tracking-wider transition';
+      });
+
+      const activeBtn = document.getElementById(`btn-${category}`);
+      if (activeBtn) {
+        activeBtn.className = 'filter-btn px-4 py-2 rounded-full bg-[#1a1a1a] text-white text-xs uppercase tracking-wider font-semibold transition';
+      }
+
+      renderCatalog();
+    }
+
+    function handleAddToCart(productId) {
+      if (typeof addToCart === 'function') {
+        addToCart(productId);[cite: 6]
+        showLightToast('Piece added to your shopping bag.');
+      }
+    }
+
+    function showLightToast(msg) {
+      let toast = document.getElementById('light-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'light-toast';
+        toast.className = 'fixed bottom-6 right-6 z-50 bg-[#1a1a1a] text-white text-xs font-semibold px-5 py-3.5 rounded-2xl shadow-xl transition-all duration-300 transform translate-y-20 opacity-0';
+        document.body.appendChild(toast);
+      }
+      toast.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2400);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCatalog();
+      if (typeof updateBadges === 'function') {
+        updateBadges();[cite: 6]
+      }
+    });
+  </script>
+</body>
+</html>
