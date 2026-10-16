@@ -23,7 +23,8 @@
       <h2 class="font-cinzel text-xl text-white font-bold mb-1">OWNER SUITE</h2>
       <p class="text-xs text-zinc-500 mb-6">Database Secure Authentication</p>
       
-      <form id="admin-auth-form" onsubmit="event.preventDefault(); window.submitAdminAuth();">
+      <!-- Native submit handled directly in script -->
+      <form id="admin-auth-form">
         <input 
           type="password" 
           id="pin-input" 
@@ -248,7 +249,20 @@
 
   <!-- Central Logic Script -->
   <script type="module">
-    import { supabase } from './supabase.js';
+    let supabase = null;
+
+    // Gracefully load Supabase client with immediate visual feedback if broken
+    try {
+      const module = await import('./supabase.js');
+      supabase = module.supabase;
+    } catch (importErr) {
+      console.error("Module import error:", importErr);
+      const errEl = document.getElementById('pin-error');
+      if (errEl) {
+        errEl.innerText = "Error loading supabase.js. If you opened this via file://, run through a local server (e.g. VS Code Live Server).";
+        errEl.classList.remove('hidden');
+      }
+    }
 
     // Global unlock handler
     window.unlockDashboard = function() {
@@ -263,7 +277,9 @@
     }
 
     // Direct Auth Verification
-    window.submitAdminAuth = async function() {
+    window.submitAdminAuth = async function(event) {
+      if (event) event.preventDefault();
+
       const input = document.getElementById('pin-input');
       const pinVal = input.value.trim();
       const errEl = document.getElementById('pin-error');
@@ -271,6 +287,12 @@
       const btn = document.getElementById('auth-submit-btn');
 
       if (!pinVal) return;
+
+      if (!supabase) {
+        errEl.innerText = "Supabase client not initialized. Check supabase.js import.";
+        errEl.classList.remove('hidden');
+        return;
+      }
 
       errEl.classList.add('hidden');
       loadEl.classList.remove('hidden');
@@ -300,12 +322,19 @@
       }
     };
 
+    // Bind event listener directly to avoid timing errors
+    const formEl = document.getElementById('admin-auth-form');
+    if (formEl) {
+      formEl.addEventListener('submit', window.submitAdminAuth);
+    }
+
     window.logoutAdmin = function() {
       sessionStorage.removeItem('bd_admin_auth');
       location.reload();
     };
 
     window.loadAllData = async function() {
+      if (!supabase) return;
       await Promise.all([window.loadOrders(), window.loadInventory(), window.loadVaultSettings()]);
     };
 
