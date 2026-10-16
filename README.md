@@ -1,27 +1,28 @@
-# BhavDrop website bundle
+# BhavDrop storefront + owner console
 
-This bundle contains the existing BhavDrop storefront plus the owner console and a homepage usability update.
-
-## What's included
-- Premium, responsive homepage styling and category navigation.
-- Homepage product search and sorting (featured/newest, price low-high, price high-low).
-- Browser-local wishlist buttons and wishlist filter.
-- Product cards with clear prices, genuine computed discount labels when original prices are available, and Add to Bag actions.
-- Owner console in `admin.html`: site maintenance mode, product CRUD, homepage promotional sections, reverse auction configuration, and order status management.
-- `site-control.js` and `site-sections.js` for storefront maintenance display and homepage sections.
-- Supabase setup SQL and audit/reference documents.
+This static HTML/JavaScript package uses Supabase for products, orders, auctions, site settings, sections, coupons, verified review submissions and aggregate analytics.
 
 ## Deploy
-1. Back up the current GitHub repository and keep your existing Supabase project.
-2. Upload the contents of the `bhavdrop-main` folder to the repository root (the HTML files should be at the root, not nested inside another `bhavdrop-main` folder if your host expects `index.html` at root).
-3. In Supabase SQL Editor, run `BhavDrop_Admin_Panel_Setup.sql` once if you have not already done so. Do not run reset SQL on a live database.
-4. Ensure the existing `products`, `orders`, and `auctions` tables have appropriate row-level security (RLS) policies. Only trusted admin accounts with server-managed `app_metadata.role = admin` should have write access.
-5. Test the public homepage, product detail, add-to-cart, checkout submission, order tracking, auction flow, and admin CRUD in a private browser window before promoting the update.
+1. Back up your current GitHub repository and Supabase project.
+2. Upload the contents of `bhavdrop-main/` to the repository root (so `index.html` is at the root).
+3. Run `BhavDrop_Complete_Features_Setup.sql` in Supabase SQL Editor after reviewing it and backing up data. It is an additive migration and does not reset the database.
+4. Ensure the Supabase admin account has server-managed `app_metadata.role = admin`; sign out and back in after changing it. Never expose the service-role key.
+5. In Admin → Brand & Support, set the real WhatsApp number and support email.
+6. In Admin → Products, set correct stock and visibility. Legacy products with blank stock remain untracked/available until you enter a real quantity; do not guess stock counts. Create coupons only after testing checkout.
+7. Fill in real shipping/return/privacy terms in the policy pages before accepting orders.
+8. Test on a private browser and a phone.
 
-## Important notes
-- The wishlist is saved in the current browser's local storage; it is not synced across devices or accounts.
-- Checkout currently submits an order marked `PENDING_PAYMENT_VERIFICATION`; payment processing is not enabled by this bundle. Do not mark an order paid until payment has been independently verified.
-- The maintenance screen is a public-page gate, not a network-level shutdown. Supabase RLS must protect database operations.
-- Never add a Supabase service-role key to client-side files. The public/publishable key is expected in the browser.
-- Configure a real support phone/WhatsApp channel before advertising direct customer support.
-- The admin console edits auction configuration/status; test the existing auction claim/settlement flow separately.
+## Features in this package
+- Premium editorial storefront, categories, search, sort, product detail gallery, size/color selection, cart, wishlist, guest checkout and order tracking.
+- Product visibility and stock quantity, editable products and homepage sections, site maintenance gate, auction configuration, order status management.
+- Coupons, review moderation, verified-review submission via delivered order ID and phone last four digits, approximate aggregate analytics with an event-based conversion estimate, configurable WhatsApp support and brand copy.
+- About, Contact, Policies and Privacy pages.
+
+## Critical limitations before real sales
+- This is a static frontend, not a hosted backend application. The maintenance gate hides storefront pages but does not disable Supabase APIs. RLS remains essential.
+- Coupon validation and totals in this static build are client-side convenience only. Before taking online payments, move price, stock, coupon, order creation and payment verification into a trusted Supabase Edge Function/server and a payment provider.
+- The checkout currently submits orders as `PENDING_PAYMENT_VERIFICATION`; no payment gateway is configured.
+- Auction configuration UI is not a complete secure auction settlement system. Test/secure atomic claiming, payment deadlines and race conditions separately.
+- Analytics are approximate browser event counts and may be blocked by browser/network settings. They are not audited conversion metrics.
+- Policy pages contain starter copy. Replace with your actual policies/business details before launch.
+- Test the SQL against your current schema; it expects `orders.items` JSON and `orders.phone` and `orders.status` fields as used by the existing project.

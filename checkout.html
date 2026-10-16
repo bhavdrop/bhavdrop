@@ -39,6 +39,7 @@
       </div>
     </div>
 
+    <div class="py-4 border-b border-stone-200"><label for="coupon-code" class="block text-xs font-semibold mb-2">Have a discount code?</label><div class="flex gap-2"><input id="coupon-code" placeholder="Enter coupon code" class="flex-1 min-w-0 px-3 py-2 bg-stone-50 border border-stone-300 text-xs"><button type="button" id="apply-coupon" class="px-4 py-2 bg-stone-900 text-white text-xs font-bold">Apply</button></div><p id="coupon-message" class="text-xs mt-2 text-stone-500" role="status"></p><p class="text-[10px] text-stone-400 mt-1">Discounts are pending payment verification. Secure server-side validation is required before online payments are enabled.</p><div class="flex justify-between text-xs mt-3"><span>Discount</span><span id="co-discount">₹0</span></div></div>
     <!-- Delivery Form -->
     <form onsubmit="initiatePayment(event)" class="mt-6 space-y-3">
       <div class="grid grid-cols-2 gap-3">
@@ -63,6 +64,7 @@
     let grandTotal = 0;
     let timer = null;
     let timeLeft = 180;
+    let appliedCoupon = null; let discountAmount = 0;
 
     function renderCheckout() {
       if (isVault) {
@@ -79,10 +81,11 @@
 
       const subtotal = items.reduce((sum, i) => sum + (Number(i.price) * Number(i.qty ?? i.quantity ?? 1)), 0);
       const shipping = isVault || subtotal > 1499 ? 0 : 70;
-      grandTotal = subtotal + shipping;
+      discountAmount = Math.min(discountAmount, subtotal); grandTotal = Math.max(0, subtotal + shipping - discountAmount);
 
       document.getElementById('co-shipping').innerText = shipping === 0 ? 'FREE' : '₹70';
       document.getElementById('co-total').innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
+      document.getElementById('co-discount').innerText = discountAmount ? `−₹${discountAmount.toLocaleString('en-IN')}` : '₹0';
 
       container.replaceChildren();
       for (const item of items) {
@@ -115,11 +118,14 @@
         items,
         total: grandTotal,
         status: 'PENDING_PAYMENT_VERIFICATION',
-        upi_ref: null
+        upi_ref: null,
+        coupon_code: appliedCoupon?.code || null,
+        discount_amount: discountAmount
       };
       try {
         const { error } = await supabase.from('orders').insert([payload]);
         if (error) throw error;
+        window.bdTrack?.('order_submitted');
         clearInterval(timer);
         if (isVault) sessionStorage.removeItem('bd_vault_order');
         else { localStorage.removeItem('bd_cart'); localStorage.removeItem('bd_cart_items'); }
@@ -132,10 +138,13 @@
       }
     };
 
+    document.getElementById('apply-coupon').onclick = async () => { const code=document.getElementById('coupon-code').value.trim().toUpperCase(); const msg=document.getElementById('coupon-message'); discountAmount=0;appliedCoupon=null;try{if(!code){msg.textContent='Enter a coupon code first.';renderCheckout();return;}const subtotal=items.reduce((sum,i)=>sum+(Number(i.price)*Number(i.qty??i.quantity??1)),0);const {data,error}=await supabase.from('coupons').select('*').eq('code',code).eq('is_active',true).maybeSingle();if(error)throw error;if(!data)throw new Error('This coupon is invalid or inactive.');const now=Date.now();if(data.starts_at&&new Date(data.starts_at).getTime()>now)throw new Error('This coupon is not active yet.');if(data.expires_at&&new Date(data.expires_at).getTime()<=now)throw new Error('This coupon has expired.');if(data.usage_limit&&Number(data.usage_count)>=Number(data.usage_limit))throw new Error('This coupon has reached its usage limit.');if(subtotal<Number(data.min_order||0))throw new Error('Minimum order for this coupon is ₹'+Number(data.min_order).toLocaleString('en-IN')+'.');discountAmount=data.discount_type==='percent'?subtotal*Number(data.discount_value)/100:Number(data.discount_value);if(data.max_discount)discountAmount=Math.min(discountAmount,Number(data.max_discount));discountAmount=Math.round(Math.min(subtotal,discountAmount)*100)/100;appliedCoupon=data;msg.textContent='Coupon applied. Discount: ₹'+discountAmount.toLocaleString('en-IN');renderCheckout();}catch(err){msg.textContent=err.message||'Could not validate coupon.';renderCheckout();} };
     renderCheckout();
   </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="site-control.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="analytics.js"></script><script src="support-widget.js"></script>
+<script src="mobile-nav.js"></script>
 </body>
 </html>

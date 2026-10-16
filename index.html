@@ -28,7 +28,7 @@
 
   <!-- Layer 1: Top Announcement Bar -->
   <div class="bg-black text-white text-[11px] font-semibold tracking-widest uppercase py-2 px-4 text-center flex items-center justify-center gap-3">
-    <span>Free Express Shipping on Orders Above ₹1,499</span>
+    <span data-bd-announcement>Free Express Shipping on Orders Above ₹1,499</span>
     <span class="w-1 h-1 rounded-full bg-stone-400"></span>
     <a href="collection.html" class="underline underline-offset-4 hover:text-stone-300">Shop Catalog</a>
   </div>
@@ -76,6 +76,7 @@
           </svg>
         </a>
 
+        <a href="wishlist.html" title="Wishlist" class="relative hover:text-stone-500 transition" aria-label="Wishlist">♡ <span id="wishlist-count" class="text-[10px]">0</span></a>
         <!-- Shopping Cart Bag -->
         <a href="checkout.html" class="relative p-1 hover:text-stone-500 transition flex items-center justify-center">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,12 +105,12 @@
           Atelier Collection 2026
         </div>
 
-        <h1 class="font-serif-luxury text-4xl sm:text-6xl text-stone-900 leading-[1.1] font-normal">
+        <h1 data-bd-hero-title class="font-serif-luxury text-4xl sm:text-6xl text-stone-900 leading-[1.1] font-normal">
           Refined Silhouettes. <br>
           <span class="italic font-normal text-stone-600">Uncompromising Fit.</span>
         </h1>
 
-        <p class="text-sm text-stone-600 leading-relaxed max-w-md">
+        <p data-bd-hero-subtitle class="text-sm text-stone-600 leading-relaxed max-w-md">
           Structured steel-boned corsets, fluid pure Mulberry silk evening gowns, and tailored Italian velvet statements. Purchase directly or enter the reverse Dutch auction clock.
         </p>
 
@@ -127,7 +128,7 @@
       <div class="relative h-[480px] md:h-full bg-stone-200">
         <img 
           src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80" 
-          alt="Luxury Garment Edit" 
+          alt="Luxury Garment Edit" data-bd-hero-image 
           class="w-full h-full object-cover object-center"
         >
         <div class="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm p-4 border border-stone-200 max-w-xs shadow-sm">
@@ -239,7 +240,7 @@
         <a href="admin.html" class="hover:text-black">Owner Portal</a>
       </div>
     </div>
-  </footer>
+  <div class="text-center text-xs text-stone-500 py-3 border-t border-stone-100"><a href="about.html" class="mx-2">About</a><a href="policies.html" class="mx-2">Shipping & Returns</a><a href="privacy.html" class="mx-2">Privacy</a><a href="contact.html" class="mx-2">Contact</a></div></footer>
 
   <!-- Storefront behaviour -->
   <script src="data.js"></script>
@@ -263,7 +264,7 @@
       try {
         const { data, error } = await supabase.from('products').select('*');
         if (error) throw error;
-        allProducts = Array.isArray(data) ? data : [];
+        allProducts = (Array.isArray(data) ? data : []).filter(p => p.is_active !== false && (p.stock_quantity == null || Number(p.stock_quantity) > 0));
         renderCards();
       } catch (error) {
         console.error('BhavDrop catalogue failed to load:', error);
@@ -311,7 +312,7 @@
       }).join('');
       container.querySelectorAll('[data-add]').forEach(button => button.addEventListener('click', () => {
         const product = allProducts.find(p => String(p.id) === button.dataset.add);
-        if (product && typeof window.addToCart === 'function') window.addToCart(product);
+        if (product && typeof window.addToCart === 'function') { window.addToCart(product); }
         else window.showToast?.('Please refresh the page and try again.');
       }));
       container.querySelectorAll('[data-wishlist]').forEach(button => button.addEventListener('click', () => {
@@ -334,7 +335,9 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="site-control.js"></script>
-  <script src="site-sections.js"></script>
+  <script src="site-sections.js"></script><script src="site-brand.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="analytics.js"></script><script src="support-widget.js"></script>
+<script src="mobile-nav.js"></script>
 </body>
 </html>

@@ -38,7 +38,8 @@
       </div>
     </div>
 
-    <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+    <div class="col-span-full grid sm:grid-cols-2 gap-3 mb-4"><input id="collection-search" type="search" placeholder="Search products…" class="w-full rounded-full border border-stone-300 bg-white px-4 py-3 text-sm"><select id="collection-sort" class="rounded-full border border-stone-300 bg-white px-4 py-3 text-sm"><option value="newest">Newest</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select></div>
+<div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
       <!-- Injected by Supabase -->
     </div>
   </main>
@@ -52,13 +53,13 @@
 
     async function loadCatalog() {
       const { data, error } = await supabase.from('products').select('*');
-      allItems = (!error && data && data.length) ? data : [];
+      allItems = (!error && data && data.length) ? data.filter(p => p.is_active !== false && (p.stock_quantity == null || Number(p.stock_quantity) > 0)) : [];
       renderItems();
     }
 
     function renderItems() {
       const container = document.getElementById('catalog-grid');
-      const filtered = activeFilter === 'all' ? allItems : allItems.filter(i => i.category === activeFilter);
+      let filtered = activeFilter === 'all' ? [...allItems] : allItems.filter(i => i.category === activeFilter); const q=(document.getElementById('collection-search')?.value||'').trim().toLowerCase(); filtered=filtered.filter(i=>[i.title,i.subtitle,i.description,i.category,i.badge].filter(Boolean).join(' ').toLowerCase().includes(q)); const sort=document.getElementById('collection-sort')?.value; if(sort==='price-low')filtered.sort((a,b)=>Number(a.price)-Number(b.price));else if(sort==='price-high')filtered.sort((a,b)=>Number(b.price)-Number(a.price));else filtered.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
 
       if (filtered.length === 0) {
         container.innerHTML = `<div class="col-span-full py-16 text-center text-xs text-stone-500">No items available in this category.</div>`;
@@ -100,10 +101,13 @@
       renderItems();
     };
 
+    document.getElementById('collection-search')?.addEventListener('input',renderItems); document.getElementById('collection-sort')?.addEventListener('change',renderItems);
     loadCatalog();
   </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="site-control.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="analytics.js"></script><script src="support-widget.js"></script>
+<script src="mobile-nav.js"></script>
 </body>
 </html>
